@@ -8,16 +8,16 @@ class NewBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: Color.fromARGB(210, 232, 207, 241),
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.shade500,
+              color: Colors.grey.shade600,
               blurRadius: 15,
               offset: const Offset(5, 5),
             ),
             const BoxShadow(
-              color: Colors.white,
+              color: Color.fromARGB(201, 222, 204, 228),
               blurRadius: 15,
               offset: Offset(-5, -5),
             ),

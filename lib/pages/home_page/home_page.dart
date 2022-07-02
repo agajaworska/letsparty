@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(210, 232, 210, 240),
+      backgroundColor: Color.fromARGB(229, 242, 209, 254),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -30,41 +30,27 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     SizedBox(
                       height: 130,
                       width: 130,
                       child: NewBox(
-                        child: Text('Lista gości'),
+                        child: Text(
+                          'Lista gości',
+                          style: GoogleFonts.bebasNeue(
+                            fontSize: 30,
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 130,
                       width: 130,
                       child: NewBox(
-                        child: Text('Gdzie i kiedy?'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    SizedBox(
-                      height: 130,
-                      width: 130,
-                      child: NewBox(
-                        child: Text('Menu'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 130,
-                      width: 130,
-                      child: NewBox(
-                        child: Text('Atrakcje'),
+                        child: Text('GDZIE I KIEDY',
+                            style: GoogleFonts.bebasNeue(
+                              fontSize: 30,
+                            )),
                       ),
                     ),
                   ],
@@ -74,19 +60,54 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     SizedBox(
                       height: 130,
                       width: 130,
                       child: NewBox(
-                        child: Text('Motyw imprezy'),
+                        child: Text(
+                          'Menu',
+                          style: GoogleFonts.bebasNeue(fontSize: 30),
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 130,
                       width: 130,
                       child: NewBox(
-                        child: Text('Finanse'),
+                        child: Text(
+                          'Atrakcje',
+                          style: GoogleFonts.bebasNeue(fontSize: 30),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: NewBox(
+                        child: Text(
+                          'Motyw imprezy',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.bebasNeue(fontSize: 30),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: NewBox(
+                        child: Text(
+                          'Finanse',
+                          style: GoogleFonts.bebasNeue(fontSize: 30),
+                        ),
                       ),
                     ),
                   ],
