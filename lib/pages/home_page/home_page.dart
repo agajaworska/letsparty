@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/features/new_box.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,16 +10,101 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: const Center(
-        child: SizedBox(
-          width: 100,
-          height: 100,
-          child: NewBox(
-            child: Icon(Icons.abc_rounded),
+      backgroundColor: Color.fromARGB(210, 232, 210, 240),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'L E T \'S  P A R T Y ',
+                style: GoogleFonts.bebasNeue(fontSize: 45),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: NewBox(
+                        child: Text('Lista gości'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: NewBox(
+                        child: Text('Gdzie i kiedy?'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: NewBox(
+                        child: Text('Menu'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: NewBox(
+                        child: Text('Atrakcje'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: NewBox(
+                        child: Text('Motyw imprezy'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: NewBox(
+                        child: Text('Finanse'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
+      bottomNavigationBar: (BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), label: 'Moje konto'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_filled), label: 'Strona główna'),
+          BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Wyloguj'),
+        ],
+      )),
     );
   }
 }
