@@ -1,30 +1,41 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:letsparty/features/new_box.dart';
+import 'package:letsparty/pages/attr_page/attr_page.dart';
+import 'package:letsparty/pages/budget_page/budget_page.dart';
+import 'package:letsparty/pages/date_page/date_page.dart';
+import 'package:letsparty/pages/menu_page/menu_page.dart';
+import 'package:letsparty/pages/quest_page/quest_page.dart';
+import 'package:letsparty/pages/theme_page/theme_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
     Key? key,
   }) : super(key: key);
 
+  final _selectedIndex = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(229, 242, 209, 254),
+      backgroundColor: const Color.fromARGB(255, 212, 208, 245),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 'L E T \'S  P A R T Y ',
-                style: GoogleFonts.bebasNeue(fontSize: 45),
+                style: GoogleFonts.bebasNeue(fontSize: 52),
               ),
               const SizedBox(
-                height: 25,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -34,11 +45,19 @@ class HomePage extends StatelessWidget {
                     SizedBox(
                       height: 130,
                       width: 130,
-                      child: NewBox(
-                        child: Text(
-                          'Lista gości',
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: 30,
+                      child: InkWell(
+                        onTap: (() {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => QuestPage()),
+                          );
+                        }),
+                        child: NewBox(
+                          child: Text(
+                            'Lista gości',
+                            style: GoogleFonts.bebasNeue(
+                              fontSize: 30,
+                            ),
                           ),
                         ),
                       ),
@@ -46,38 +65,17 @@ class HomePage extends StatelessWidget {
                     SizedBox(
                       height: 130,
                       width: 130,
-                      child: NewBox(
-                        child: Text('GDZIE I KIEDY',
-                            style: GoogleFonts.bebasNeue(
-                              fontSize: 30,
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 130,
-                      width: 130,
-                      child: NewBox(
-                        child: Text(
-                          'Menu',
-                          style: GoogleFonts.bebasNeue(fontSize: 30),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 130,
-                      width: 130,
-                      child: NewBox(
-                        child: Text(
-                          'Atrakcje',
-                          style: GoogleFonts.bebasNeue(fontSize: 30),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => DatePage()),
+                          );
+                        },
+                        child: NewBox(
+                          child: Text('Gdzie i kiedy',
+                              style: GoogleFonts.bebasNeue(
+                                fontSize: 30,
+                              )),
                         ),
                       ),
                     ),
@@ -92,21 +90,80 @@ class HomePage extends StatelessWidget {
                     SizedBox(
                       height: 130,
                       width: 130,
-                      child: NewBox(
-                        child: Text(
-                          'Motyw imprezy',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.bebasNeue(fontSize: 30),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => MenuPage()),
+                          );
+                        },
+                        child: NewBox(
+                          child: Text(
+                            'Menu',
+                            style: GoogleFonts.bebasNeue(fontSize: 30),
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(
                       height: 130,
                       width: 130,
-                      child: NewBox(
-                        child: Text(
-                          'Finanse',
-                          style: GoogleFonts.bebasNeue(fontSize: 30),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => AttractionPage()),
+                          );
+                        },
+                        child: NewBox(
+                          child: Text(
+                            'Atrakcje',
+                            style: GoogleFonts.bebasNeue(fontSize: 30),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ThemePage()),
+                          );
+                        },
+                        child: NewBox(
+                          child: Text(
+                            'Motyw imprezy',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.bebasNeue(fontSize: 30),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 130,
+                      width: 130,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => BudgetPage()),
+                          );
+                        },
+                        child: NewBox(
+                          child: Text(
+                            'Finanse',
+                            style: GoogleFonts.bebasNeue(fontSize: 30),
+                          ),
                         ),
                       ),
                     ),
@@ -117,15 +174,45 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: (BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: 'Moje konto'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled), label: 'Strona główna'),
-          BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Wyloguj'),
-        ],
-      )),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 212, 208, 245),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            child: GNav(
+              rippleColor: Colors.grey[300]!,
+              hoverColor: Colors.grey[100]!,
+              gap: 8,
+              activeColor: Colors.black,
+              iconSize: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
+              tabBackgroundColor: Color.fromARGB(248, 227, 221, 239),
+              color: Colors.black,
+              selectedIndex: 1,
+              tabs: const [
+                GButton(
+                  icon: Icons.person_outline,
+                  text: 'Moje konto',
+                  textStyle: TextStyle(fontSize: 16.0),
+                ),
+                GButton(
+                  icon: Icons.home_outlined,
+                  text: 'Strona główna',
+                  textStyle: TextStyle(fontSize: 16.0),
+                ),
+                GButton(
+                  icon: Icons.messenger_outline_outlined,
+                  text: 'Czat',
+                  textStyle: TextStyle(fontSize: 16.0),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
