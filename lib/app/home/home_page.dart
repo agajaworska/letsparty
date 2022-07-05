@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:letsparty/features/new_box.dart';
-import 'package:letsparty/pages/attr_page/attr_page.dart';
-import 'package:letsparty/pages/budget_page/budget_page.dart';
-import 'package:letsparty/pages/date_page/date_page.dart';
-import 'package:letsparty/pages/menu_page/menu_page.dart';
-import 'package:letsparty/pages/quest_page/quest_page.dart';
-import 'package:letsparty/pages/theme_page/theme_page.dart';
+import 'package:letsparty/app/attraction/attr_page.dart';
+import 'package:letsparty/app/budget/budget_page.dart';
+import 'package:letsparty/app/date/date_page.dart';
+import 'package:letsparty/app/menu/menu_page.dart';
+import 'package:letsparty/app/quest/quest_page.dart';
+import 'package:letsparty/app/theme/theme_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
