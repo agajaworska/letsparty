@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 } catch (error) {
                   setState(() {
-                    errorMessage = error.toString();
+                    errorMessage = '${error}';
                   });
                 }
               } else {
@@ -76,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 } catch (error) {
                   setState(() {
-                    errorMessage = error.toString();
+                    errorMessage = '${error}';
                   });
                 }
               }
