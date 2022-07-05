@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1081287156246",
+    "project_id": "letsparty2022",
+    "storage_bucket": "letsparty2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081287156246:android:1d6c1e8f806af8a9accb37",
+        "android_client_info": {
+          "package_name": "com.agatajaworska.letsparty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081287156246-kr2phmqomqafd1sph0e1rlhmd19l64ui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo5Vj09JuEUl62YpI0Fbx38LLhRhEC_Oo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081287156246-kr2phmqomqafd1sph0e1rlhmd19l64ui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

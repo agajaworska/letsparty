@@ -8,7 +8,7 @@
 PRODUCT_NAME = letsparty
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.letsparty
+PRODUCT_BUNDLE_IDENTIFIER = com.agatajaworska.letsparty
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.agatajaworska. All rights reserved.
