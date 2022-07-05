@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -16,7 +14,7 @@ class HomePage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final _selectedIndex = 1;
+  final fontColor = const Color.fromARGB(255, 68, 64, 72);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,8 @@ class HomePage extends StatelessWidget {
               ),
               Text(
                 'L E T \'S  P A R T Y ',
-                style: GoogleFonts.bebasNeue(fontSize: 52),
+                style: GoogleFonts.bebasNeue(
+                    fontSize: 52, color: Color.fromARGB(255, 50, 5, 58)),
               ),
               const SizedBox(
                 height: 20,
@@ -56,8 +55,7 @@ class HomePage extends StatelessWidget {
                           child: Text(
                             'Lista gości',
                             style: GoogleFonts.bebasNeue(
-                              fontSize: 30,
-                            ),
+                                fontSize: 30, color: fontColor),
                           ),
                         ),
                       ),
@@ -74,8 +72,7 @@ class HomePage extends StatelessWidget {
                         child: NewBox(
                           child: Text('Gdzie i kiedy',
                               style: GoogleFonts.bebasNeue(
-                                fontSize: 30,
-                              )),
+                                  fontSize: 30, color: fontColor)),
                         ),
                       ),
                     ),
@@ -99,7 +96,10 @@ class HomePage extends StatelessWidget {
                         child: NewBox(
                           child: Text(
                             'Menu',
-                            style: GoogleFonts.bebasNeue(fontSize: 30),
+                            style: GoogleFonts.bebasNeue(
+                              fontSize: 30,
+                              color: fontColor,
+                            ),
                           ),
                         ),
                       ),
@@ -117,7 +117,10 @@ class HomePage extends StatelessWidget {
                         child: NewBox(
                           child: Text(
                             'Atrakcje',
-                            style: GoogleFonts.bebasNeue(fontSize: 30),
+                            style: GoogleFonts.bebasNeue(
+                              fontSize: 30,
+                              color: fontColor,
+                            ),
                           ),
                         ),
                       ),
@@ -144,7 +147,10 @@ class HomePage extends StatelessWidget {
                           child: Text(
                             'Motyw imprezy',
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.bebasNeue(fontSize: 30),
+                            style: GoogleFonts.bebasNeue(
+                              fontSize: 30,
+                              color: fontColor,
+                            ),
                           ),
                         ),
                       ),
@@ -162,7 +168,10 @@ class HomePage extends StatelessWidget {
                         child: NewBox(
                           child: Text(
                             'Finanse',
-                            style: GoogleFonts.bebasNeue(fontSize: 30),
+                            style: GoogleFonts.bebasNeue(
+                              fontSize: 30,
+                              color: fontColor,
+                            ),
                           ),
                         ),
                       ),

@@ -8,7 +8,7 @@ class NewBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Color.fromARGB(210, 232, 207, 241),
+          color: Color.fromARGB(255, 240, 234, 255),
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
@@ -17,7 +17,7 @@ class NewBox extends StatelessWidget {
               offset: const Offset(5, 5),
             ),
             const BoxShadow(
-              color: Color.fromARGB(201, 222, 204, 228),
+              color: Color.fromARGB(255, 232, 222, 240),
               blurRadius: 15,
               offset: Offset(-5, -5),
             ),
