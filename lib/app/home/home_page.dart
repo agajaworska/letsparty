@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -12,8 +13,10 @@ import 'package:letsparty/app/theme/theme_page.dart';
 class HomePage extends StatelessWidget {
   const HomePage({
     Key? key,
+    required this.user,
   }) : super(key: key);
 
+  final User user;
   final fontColor = const Color.fromARGB(255, 68, 64, 72);
 
   @override
@@ -31,7 +34,9 @@ class HomePage extends StatelessWidget {
               Text(
                 'L E T \'S  P A R T Y ',
                 style: GoogleFonts.bebasNeue(
-                    fontSize: 52, color: Color.fromARGB(255, 50, 5, 58)),
+                  fontSize: 52,
+                  color: const Color.fromARGB(255, 50, 5, 58),
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -48,7 +53,7 @@ class HomePage extends StatelessWidget {
                         onTap: (() {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => QuestPage()),
+                                builder: (context) => const QuestPage()),
                           );
                         }),
                         child: NewBox(
@@ -66,7 +71,8 @@ class HomePage extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => DatePage()),
+                            MaterialPageRoute(
+                                builder: (context) => const DatePage()),
                           );
                         },
                         child: NewBox(
@@ -90,7 +96,8 @@ class HomePage extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => MenuPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const MenuPage()),
                           );
                         },
                         child: NewBox(
@@ -111,7 +118,7 @@ class HomePage extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => AttractionPage()),
+                                builder: (context) => const AttractionPage()),
                           );
                         },
                         child: NewBox(
@@ -140,7 +147,7 @@ class HomePage extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => ThemePage()),
+                                builder: (context) => const ThemePage()),
                           );
                         },
                         child: NewBox(
@@ -162,7 +169,7 @@ class HomePage extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => BudgetPage()),
+                                builder: (context) => const BudgetPage()),
                           );
                         },
                         child: NewBox(
@@ -198,21 +205,21 @@ class HomePage extends StatelessWidget {
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: const Duration(milliseconds: 400),
-              tabBackgroundColor: Color.fromARGB(248, 227, 221, 239),
+              tabBackgroundColor: const Color.fromARGB(248, 227, 221, 239),
               color: Colors.black,
               selectedIndex: 1,
-              tabs: const [
+              tabs: [
                 GButton(
                   icon: Icons.person_outline,
-                  text: 'Moje konto',
-                  textStyle: TextStyle(fontSize: 16.0),
+                  text: 'Konto ${user.email}',
+                  textStyle: const TextStyle(fontSize: 16.0),
                 ),
-                GButton(
+                const GButton(
                   icon: Icons.home_outlined,
                   text: 'Strona główna',
                   textStyle: TextStyle(fontSize: 16.0),
                 ),
-                GButton(
+                const GButton(
                   icon: Icons.messenger_outline_outlined,
                   text: 'Czat',
                   textStyle: TextStyle(fontSize: 16.0),
