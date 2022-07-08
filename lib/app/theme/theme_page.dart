@@ -13,7 +13,7 @@ class ThemePage extends StatelessWidget {
         title: Text(
           'M o t y w  i m p r e z y',
           style: GoogleFonts.bebasNeue(
-            fontSize: 28,
+            fontSize: 35,
             color: Colors.grey.shade900,
           ),
         ),

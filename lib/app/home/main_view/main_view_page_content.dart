@@ -9,7 +9,7 @@ import 'package:letsparty/app/quest/quest_page.dart';
 import 'package:letsparty/app/theme/theme_page.dart';
 
 class MainViewPageContent extends StatelessWidget {
-  MainViewPageContent({
+  const MainViewPageContent({
     Key? key,
   }) : super(key: key);
 
@@ -23,14 +23,24 @@ class MainViewPageContent extends StatelessWidget {
             Text(
               'L E T \'S  P A R T Y ',
               style: GoogleFonts.bebasNeue(
-                  fontSize: 52,
+                  fontSize: 60,
                   color: const Color.fromARGB(255, 50, 5, 58),
                   textStyle: const TextStyle(
                     shadows: <Shadow>[
                       Shadow(
-                        offset: Offset(5.0, -5.0),
-                        blurRadius: 3.0,
-                        color: Color.fromARGB(255, 222, 161, 253),
+                        offset: Offset(2, 2),
+                        blurRadius: 6.0,
+                        color: Color.fromARGB(255, 72, 0, 111),
+                      ),
+                      Shadow(
+                        offset: Offset(2, 2),
+                        blurRadius: 6.0,
+                        color: Color.fromARGB(255, 184, 41, 255),
+                      ),
+                      Shadow(
+                        offset: Offset(2, 2),
+                        blurRadius: 6.0,
+                        color: Color.fromARGB(255, 227, 163, 255),
                       ),
                     ],
                   )),

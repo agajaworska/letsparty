@@ -13,7 +13,7 @@ class BudgetPage extends StatelessWidget {
         title: Text(
           'F i n a n s e',
           style: GoogleFonts.bebasNeue(
-            fontSize: 28,
+            fontSize: 35,
             color: Colors.grey.shade900,
           ),
         ),

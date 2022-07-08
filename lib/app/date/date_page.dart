@@ -13,7 +13,7 @@ class DatePage extends StatelessWidget {
         title: Text(
           'G d z i e  i  k i e d y',
           style: GoogleFonts.bebasNeue(
-            fontSize: 28,
+            fontSize: 35,
             color: Colors.grey.shade900,
           ),
         ),

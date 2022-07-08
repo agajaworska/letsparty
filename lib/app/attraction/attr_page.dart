@@ -13,7 +13,7 @@ class AttractionPage extends StatelessWidget {
         title: Text(
           'A t r a k c j e',
           style: GoogleFonts.bebasNeue(
-            fontSize: 28,
+            fontSize: 35,
             color: Colors.grey.shade900,
           ),
         ),

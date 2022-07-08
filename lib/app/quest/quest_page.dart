@@ -13,7 +13,7 @@ class QuestPage extends StatelessWidget {
         title: Text(
           'L i s t a  g o ś c i',
           style: GoogleFonts.bebasNeue(
-            fontSize: 28,
+            fontSize: 35,
             color: Colors.grey.shade900,
           ),
         ),
