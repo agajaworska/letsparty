@@ -9,12 +9,9 @@ import 'package:letsparty/app/quest/quest_page.dart';
 import 'package:letsparty/app/theme/theme_page.dart';
 
 class MainViewPageContent extends StatelessWidget {
-  const MainViewPageContent({
+  MainViewPageContent({
     Key? key,
-    required this.fontColor,
   }) : super(key: key);
-
-  final Color fontColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +20,6 @@ class MainViewPageContent extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         child: Column(
           children: [
-            const SizedBox(
-              height: 10,
-            ),
             Text(
               'L E T \'S  P A R T Y ',
               style: GoogleFonts.bebasNeue(
@@ -63,7 +57,9 @@ class MainViewPageContent extends StatelessWidget {
                         child: Text(
                           'Lista gości',
                           style: GoogleFonts.bebasNeue(
-                              fontSize: 30, color: fontColor),
+                            fontSize: 30,
+                            color: Colors.grey.shade900,
+                          ),
                         ),
                       ),
                     ),
@@ -81,7 +77,9 @@ class MainViewPageContent extends StatelessWidget {
                       child: NewBox(
                         child: Text('Gdzie i kiedy',
                             style: GoogleFonts.bebasNeue(
-                                fontSize: 30, color: fontColor)),
+                              fontSize: 30,
+                              color: Colors.grey.shade900,
+                            )),
                       ),
                     ),
                   ),
@@ -108,7 +106,7 @@ class MainViewPageContent extends StatelessWidget {
                           'Menu',
                           style: GoogleFonts.bebasNeue(
                             fontSize: 30,
-                            color: fontColor,
+                            color: Colors.grey.shade900,
                           ),
                         ),
                       ),
@@ -129,7 +127,7 @@ class MainViewPageContent extends StatelessWidget {
                           'Atrakcje',
                           style: GoogleFonts.bebasNeue(
                             fontSize: 30,
-                            color: fontColor,
+                            color: Colors.grey.shade900,
                           ),
                         ),
                       ),
@@ -159,7 +157,7 @@ class MainViewPageContent extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.bebasNeue(
                             fontSize: 30,
-                            color: fontColor,
+                            color: Colors.grey.shade900,
                           ),
                         ),
                       ),
@@ -180,7 +178,7 @@ class MainViewPageContent extends StatelessWidget {
                           'Finanse',
                           style: GoogleFonts.bebasNeue(
                             fontSize: 30,
-                            color: fontColor,
+                            color: Colors.grey.shade900,
                           ),
                         ),
                       ),

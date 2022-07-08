@@ -27,10 +27,12 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: const Color.fromARGB(255, 212, 208, 245),
       body: Builder(builder: (context) {
         if (_selectedIndex == 0) {
-          return MyAccountPageContent(user: widget.user);
+          return MyAccountPageContent(
+            user: widget.user,
+          );
         }
         if (_selectedIndex == 1) {
-          return MainViewPageContent(fontColor: fontColor);
+          return MainViewPageContent();
         }
 
         return const ChatPageContent();
