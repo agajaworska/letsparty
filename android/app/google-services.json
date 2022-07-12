@@ -29,6 +29,13 @@
             {
               "client_id": "1081287156246-kr2phmqomqafd1sph0e1rlhmd19l64ui.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1081287156246-coqlh4h0tet4jf9jmm5uusmm42mqf0qb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.agatajaworska.letsparty"
+              }
             }
           ]
         }

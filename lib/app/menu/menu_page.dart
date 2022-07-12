@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MenuPage extends StatelessWidget {
-  const MenuPage({Key? key}) : super(key: key);
+  MenuPage({Key? key}) : super(key: key);
+
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,34 +24,70 @@ class MenuPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 107, 26, 213),
-        onPressed: () {},
+        onPressed: () {
+          FirebaseFirestore.instance.collection('menu').add(
+            {'title': controller.text},
+          );
+          controller.clear();
+        },
         child: const Icon(
           Icons.add_outlined,
           color: Color.fromARGB(255, 212, 208, 245),
         ),
       ),
-      body: ListView(
-        children: const [
-          MenuWidget(title: 'Pizza'),
-          MenuWidget(title: 'Kanapki'),
-          MenuWidget(title: 'Sałatka z kurczakiem'),
-          MenuWidget(title: 'Nachoski'),
-          MenuWidget(title: 'Churros'),
-          MenuWidget(title: 'Paluszki xd'),
-          MenuWidget(title: 'Owoce'),
-          MenuWidget(title: 'Drineczki pod palmą'),
-          MenuWidget(title: 'Wegański smalec'),
-          MenuWidget(title: 'Zupa krem'),
-        ],
-      ),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('menu').snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Wystąpił nieoczekiwany problem');
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator(
+                color: Colors.yellow,
+              );
+            }
+
+            final documents = snapshot.data!.docs;
+            return ListView(
+              children: [
+                for (final document in documents) ...[
+                  Dismissible(
+                    key: ValueKey(document.id),
+                    onDismissed: (_) {
+                      FirebaseFirestore.instance
+                          .collection('menu')
+                          .doc(document.id)
+                          .delete();
+                    },
+                    child: MenuWidget(document['title']),
+                  ),
+                ],
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextField(
+                    controller: controller,
+                    style: GoogleFonts.montserrat(),
+                    decoration: InputDecoration(
+                      hintText: 'Podaj propozycję dania',
+                      hintStyle: GoogleFonts.montserrat(),
+                      prefixIcon: const Icon(
+                        Icons.restaurant_menu_outlined,
+                        color: Color.fromARGB(183, 119, 77, 175),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            );
+          }),
     );
   }
 }
 
 class MenuWidget extends StatelessWidget {
-  const MenuWidget({
+  const MenuWidget(
+    this.title, {
     Key? key,
-    required this.title,
   }) : super(key: key);
 
   final String title;
