@@ -23,7 +23,7 @@ class MenuPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 107, 26, 213),
+        backgroundColor: const Color.fromARGB(255, 107, 26, 213),
         onPressed: () {
           FirebaseFirestore.instance.collection('menu').add(
             {'title': controller.text},
@@ -42,8 +42,10 @@ class MenuPage extends StatelessWidget {
               return const Text('Wystąpił nieoczekiwany problem');
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(
-                color: Colors.yellow,
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.yellow,
+                ),
               );
             }
 
