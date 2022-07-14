@@ -23,7 +23,7 @@ class MainViewPageContent extends StatelessWidget {
             Text(
               'L E T \'S  P A R T Y ',
               style: GoogleFonts.bebasNeue(
-                  fontSize: 60,
+                  fontSize: 50,
                   color: const Color.fromARGB(255, 50, 5, 58),
                   textStyle: const TextStyle(
                     shadows: <Shadow>[
