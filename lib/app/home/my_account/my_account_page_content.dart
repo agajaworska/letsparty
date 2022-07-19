@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,10 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class MyAccountPageContent extends StatelessWidget {
   MyAccountPageContent({
     Key? key,
-    required this.user,
   }) : super(key: key);
-
-  final User user;
 
   final controller = TextEditingController();
 
@@ -42,59 +38,15 @@ class MyAccountPageContent extends StatelessWidget {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircleAvatar(
+            children: const [
+              CircleAvatar(
                 backgroundImage: AssetImage('images/kot.jpeg'),
                 radius: 110,
               ),
-              const SizedBox(height: 20),
-              StreamBuilder<QuerySnapshot>(
-                  stream:
-                      FirebaseFirestore.instance.collection('name').snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('Wystąpił nieoczekiwany problem');
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    final document = snapshot.data!.docs;
-
-                    return TextField(
-                      controller: controller,
-                      onTap: () {
-                        FirebaseFirestore.instance.collection('name').add(
-                          {'title': controller.text},
-                        );
-
-                        controller.clear();
-                      },
-                      readOnly: true,
-                    );
-                  }),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class NameWidget extends StatelessWidget {
-  const NameWidget({
-    Key? key,
-    required this.document,
-  }) : super(key: key);
-
-  final QueryDocumentSnapshot<Object?> document;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      document['title'],
-      style: GoogleFonts.montserrat(fontSize: 26),
     );
   }
 }

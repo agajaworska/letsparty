@@ -8,10 +8,7 @@ import 'package:letsparty/app/home/my_account/my_account_page_content.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
-    required this.user,
   }) : super(key: key);
-
-  final User user;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,12 +24,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: const Color.fromARGB(255, 212, 208, 245),
       body: Builder(builder: (context) {
         if (_selectedIndex == 0) {
-          return MyAccountPageContent(
-            user: widget.user,
-          );
+          return MyAccountPageContent();
         }
         if (_selectedIndex == 1) {
-          return MainViewPageContent();
+          return const MainViewPageContent();
         }
 
         return const ChatPageContent();
