@@ -81,3 +81,20 @@ class MyAccountPageContent extends StatelessWidget {
     );
   }
 }
+
+class NameWidget extends StatelessWidget {
+  const NameWidget({
+    Key? key,
+    required this.document,
+  }) : super(key: key);
+
+  final QueryDocumentSnapshot<Object?> document;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      document['title'],
+      style: GoogleFonts.montserrat(fontSize: 26),
+    );
+  }
+}
