@@ -7,17 +7,19 @@ class NewBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 140,
+      height: 140,
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 240, 234, 255),
+          color: Color.fromARGB(224, 240, 234, 255),
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
+          boxShadow: const[
             BoxShadow(
-              color: Colors.grey.shade600,
+              color: Color.fromARGB(255, 205, 132, 251),
               blurRadius: 15,
-              offset: const Offset(5, 5),
+              offset: Offset(5, 5),
             ),
-            const BoxShadow(
-              color: Color.fromARGB(255, 232, 222, 240),
+            BoxShadow(
+              color: Color.fromARGB(255, 250, 224, 224),
               blurRadius: 15,
               offset: Offset(-5, -5),
             ),

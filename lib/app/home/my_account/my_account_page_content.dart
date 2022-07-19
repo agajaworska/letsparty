@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,84 +15,69 @@ class MyAccountPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-      appBar: AppBar(
-        title: Text(
-          'T w o j e   k o n t o',
-          style: GoogleFonts.bebasNeue(
-            fontSize: 28,
-            color: Colors.grey.shade900,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-            },
-            icon: Icon(
-              Icons.logout_outlined,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+        appBar: AppBar(
+          title: Text(
+            'T w o j e   k o n t o',
+            style: GoogleFonts.bebasNeue(
+              fontSize: 28,
               color: Colors.grey.shade900,
             ),
           ),
-        ],
-        backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CircleAvatar(
-              backgroundImage: AssetImage('images/kot.jpeg'),
-              radius: 110,
+          actions: [
+            IconButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              icon: Icon(
+                Icons.logout_outlined,
+                color: Colors.grey.shade900,
+              ),
             ),
-            const SizedBox(height: 20),
-            StreamBuilder<QuerySnapshot>(
-                stream:
-                    FirebaseFirestore.instance.collection('name').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return const Text('Wystąpił nieoczekiwany problem');
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  final document = snapshot.data!.docs;
-
-                  return TextField(
-                    controller: controller,
-                    onChanged: (newName) {
-                      FirebaseFirestore.instance.collection('name').add(
-                        {'title': controller.text},
-                      );
-
-                      controller.clear();
-                    },
-                    readOnly: true,
-                  );
-                }),
           ],
+          backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircleAvatar(
+                backgroundImage: AssetImage('images/kot.jpeg'),
+                radius: 110,
+              ),
+              const SizedBox(height: 20),
+              StreamBuilder<QuerySnapshot>(
+                  stream:
+                      FirebaseFirestore.instance.collection('name').snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Wystąpił nieoczekiwany problem');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    final document = snapshot.data!.docs;
+
+                    return TextField(
+                      controller: controller,
+                      onTap: () {
+                        FirebaseFirestore.instance.collection('name').add(
+                          {'title': controller.text},
+                        );
+
+                        controller.clear();
+                      },
+                      readOnly: true,
+                    );
+                  }),
+            ],
+          ),
         ),
       ),
-    );
-  }
-}
-
-class NameWidget extends StatelessWidget {
-  const NameWidget({
-    Key? key,
-    required this.document,
-  }) : super(key: key);
-
-  final QueryDocumentSnapshot<Object?> document;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      document['title'],
-      style: GoogleFonts.montserrat(fontSize: 26),
     );
   }
 }
