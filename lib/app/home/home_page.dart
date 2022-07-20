@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
 import 'package:letsparty/app/home/chat/chat_page_content.dart';
 import 'package:letsparty/app/home/main_view/main_view_page_content.dart';
 import 'package:letsparty/app/home/my_account/my_account_page_content.dart';
