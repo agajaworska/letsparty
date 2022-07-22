@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:letsparty/app/auth/login_page.dart';
+import 'package:letsparty/app/pages/login/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:letsparty/app/cubit/root_cubit.dart';
 import 'package:letsparty/app/pages/home/home_page.dart';

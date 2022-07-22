@@ -106,7 +106,8 @@ class MainViewPageContent extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => MenuPage()),
+                          MaterialPageRoute(
+                              builder: ((context) => MenuPage(key))),
                         );
                       },
                       child: NewBox(

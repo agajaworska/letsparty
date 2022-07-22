@@ -12,8 +12,6 @@ class HomePage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final fontColor = const Color.fromARGB(255, 68, 64, 72);
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -52,18 +50,39 @@ class HomePage extends StatelessWidget {
                     tabBackgroundColor:
                         const Color.fromARGB(248, 227, 221, 239),
                     color: Colors.black,
-                    tabs: const [
+                    tabs: [
                       GButton(
                         icon: Icons.person_outline,
                         text: 'Moje konto ',
                         textStyle: TextStyle(fontSize: 16.0),
+                        onPressed: (index) {
+                          if (index == 0) {
+                            context
+                                .read<HomeCubit>()
+                                .onTapPressed(GNavItem.account);
+                          }
+                        },
                       ),
                       GButton(
+                        onPressed: (index) {
+                          if (index == 1) {
+                            context
+                                .read<HomeCubit>()
+                                .onTapPressed(GNavItem.home);
+                          }
+                        },
                         icon: Icons.home_outlined,
                         text: 'Strona główna',
                         textStyle: TextStyle(fontSize: 16.0),
                       ),
                       GButton(
+                        onPressed: (index) {
+                          if (index == 2) {
+                            context
+                                .read<HomeCubit>()
+                                .onTapPressed(GNavItem.chat);
+                          }
+                        },
                         icon: Icons.message_outlined,
                         text: 'Czat',
                         textStyle: TextStyle(fontSize: 16.0),

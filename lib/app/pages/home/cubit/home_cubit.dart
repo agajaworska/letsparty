@@ -8,18 +8,18 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit()
       : super(const HomeState(
-          index: 0,
+          index: 1,
           gNavItem: GNavItem.home,
         ));
   void onTapPressed(GNavItem gNavItem) {
     switch (gNavItem) {
       case GNavItem.home:
         emit(
-          const HomeState(index: 0, gNavItem: GNavItem.home),
+          const HomeState(index: 1, gNavItem: GNavItem.home),
         );
         break;
       case GNavItem.account:
-        emit(const HomeState(index: 1, gNavItem: GNavItem.account));
+        emit(const HomeState(index: 0, gNavItem: GNavItem.account));
         break;
       case GNavItem.chat:
         emit(
