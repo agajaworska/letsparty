@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:iconsax/iconsax.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/app/enums/enums.dart';
 import 'package:letsparty/app/pages/home/chat/chat_page_content.dart';
 import 'package:letsparty/app/pages/home/cubit/home_cubit.dart';
@@ -15,9 +18,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
+        create: (context) => HomeCubit(),
+        child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
           return Scaffold(
             backgroundColor: const Color.fromARGB(255, 212, 208, 245),
             body: Builder(builder: (context) {
@@ -30,71 +32,105 @@ class HomePage extends StatelessWidget {
 
               return const ChatPageContent();
             }),
-            bottomNavigationBar: Container(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 212, 208, 245),
-              ),
-              child: SafeArea(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-                  child: GNav(
-                    rippleColor: Colors.grey[300]!,
-                    hoverColor: Colors.grey[100]!,
-                    gap: 8,
-                    activeColor: Colors.black,
-                    iconSize: 24,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 12),
-                    duration: const Duration(milliseconds: 400),
-                    tabBackgroundColor:
-                        const Color.fromARGB(248, 227, 221, 239),
-                    color: Colors.black,
-                    tabs: [
-                      GButton(
-                        icon: Icons.person_outline,
-                        text: 'Moje konto ',
-                        textStyle: TextStyle(fontSize: 16.0),
-                        onPressed: (index) {
-                          if (index == 0) {
-                            context
-                                .read<HomeCubit>()
-                                .onTapPressed(GNavItem.account);
-                          }
-                        },
-                      ),
-                      GButton(
-                        onPressed: (index) {
-                          if (index == 1) {
-                            context
-                                .read<HomeCubit>()
-                                .onTapPressed(GNavItem.home);
-                          }
-                        },
-                        icon: Icons.home_outlined,
-                        text: 'Strona główna',
-                        textStyle: TextStyle(fontSize: 16.0),
-                      ),
-                      GButton(
-                        onPressed: (index) {
-                          if (index == 2) {
-                            context
-                                .read<HomeCubit>()
-                                .onTapPressed(GNavItem.chat);
-                          }
-                        },
-                        icon: Icons.message_outlined,
-                        text: 'Czat',
-                        textStyle: TextStyle(fontSize: 16.0),
-                      ),
-                    ],
+            bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: Color.fromARGB(255, 212, 208, 245),
+              iconSize: 22,
+              selectedItemColor: Colors.grey.shade900,
+              currentIndex: state.index,
+              selectedLabelStyle: GoogleFonts.montserrat(),
+              unselectedLabelStyle: GoogleFonts.montserrat(),
+              onTap: (index) {
+                if (index == 0) {
+                  context.read<HomeCubit>().onTapPressed(GNavItem.account);
+                } else if (index == 1) {
+                  context.read<HomeCubit>().onTapPressed(GNavItem.home);
+                } else if (index == 2) {
+                  context.read<HomeCubit>().onTapPressed(GNavItem.chat);
+                }
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Ionicons.person_outline,
                   ),
+                  label: 'Moje konto',
                 ),
-              ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Ionicons.home_outline,
+                  ),
+                  label: 'Strona główna',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Ionicons.chatbox_outline,
+                  ),
+                  label: 'Czat',
+                ),
+              ],
             ),
+            //Container(
+            //   decoration: const BoxDecoration(
+            //     color: Color.fromARGB(255, 212, 208, 245),
+            //   ),
+            //   child: SafeArea(
+            //     child: Padding(
+            //       padding:
+            //           const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            //       child: GNav(
+            //         rippleColor: Colors.grey[300]!,
+            //         hoverColor: Colors.grey[100]!,
+            //         gap: 8,
+            //         activeColor: Colors.black,
+            //         iconSize: 24,
+            //         padding: const EdgeInsets.symmetric(
+            //             horizontal: 20, vertical: 12),
+            //         duration: const Duration(milliseconds: 400),
+            //         tabBackgroundColor:
+            //             const Color.fromARGB(248, 227, 221, 239),
+            //         color: Colors.black,
+            //         tabs: [
+            //           GButton(
+            //             icon: Icons.person_outline,
+            //             text: 'Moje konto ',
+            //             textStyle: TextStyle(fontSize: 16.0),
+            //             onPressed: (index) {
+            //               if (state.index == 0) {
+            //                 context
+            //                     .read<HomeCubit>()
+            //                     .onTapPressed(GNavItem.account);
+            //               }
+            //             },
+            //           ),
+            //           GButton(
+            //             onPressed: (index) {
+            //               if (state.index == 1) {
+            //                 context
+            //                     .read<HomeCubit>()
+            //                     .onTapPressed(GNavItem.home);
+            //               }
+            //             },
+            //             icon: Icons.home_outlined,
+            //             text: 'Strona główna',
+            //             textStyle: TextStyle(fontSize: 16.0),
+            //           ),
+            //           GButton(
+            //             onPressed: (index) {
+            //               if (state.index == 2) {
+            //                 context
+            //                     .read<HomeCubit>()
+            //                     .onTapPressed(GNavItem.chat);
+            //               }
+            //             },
+            //             icon: Icons.message_outlined,
+            //             text: 'Czat',
+            //             textStyle: TextStyle(fontSize: 16.0),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
           );
-        },
-      ),
-    );
+        }));
   }
 }
