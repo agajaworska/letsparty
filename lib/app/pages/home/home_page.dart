@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:letsparty/app/home/chat/chat_page_content.dart';
-import 'package:letsparty/app/home/main_view/main_view_page_content.dart';
-import 'package:letsparty/app/home/my_account/my_account_page_content.dart';
+import 'package:letsparty/app/pages/home/chat/chat_page_content.dart';
+import 'package:letsparty/app/pages/home/main_view/main_view_page_content.dart';
+import 'package:letsparty/app/pages/home/my_account/my_account_page_content.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({

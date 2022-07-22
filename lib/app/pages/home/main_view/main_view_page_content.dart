@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:letsparty/app/attraction/attr_page.dart';
-import 'package:letsparty/app/budget/budget_page.dart';
-import 'package:letsparty/app/date/date_page.dart';
-import 'package:letsparty/app/menu/menu_page.dart';
-import 'package:letsparty/app/quest/quest_page.dart';
-import 'package:letsparty/app/theme/theme_page.dart';
+import 'package:letsparty/app/pages/attraction/attr_page.dart';
+import 'package:letsparty/app/pages/budget/budget_page.dart';
+import 'package:letsparty/app/pages/date/date_page.dart';
+import 'package:letsparty/app/pages/menu/menu_page.dart';
+import 'package:letsparty/app/pages/quest/quest_page.dart';
+import 'package:letsparty/app/pages/theme/theme_page.dart';
 
 class MainViewPageContent extends StatelessWidget {
   const MainViewPageContent({
