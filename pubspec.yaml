@@ -43,6 +43,7 @@ dependencies:
   flutterfire_ui: ^0.4.2+3
   image_picker: ^0.8.5+3
   firebase_storage: ^10.3.3
+  file_picker: ^3.0.4
   
 
 dev_dependencies:

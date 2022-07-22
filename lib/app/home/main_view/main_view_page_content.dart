@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:letsparty/UI/new_box.dart';
 import 'package:letsparty/app/attraction/attr_page.dart';
 import 'package:letsparty/app/budget/budget_page.dart';
 import 'package:letsparty/app/date/date_page.dart';
@@ -187,6 +186,35 @@ class MainViewPageContent extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class NewBox extends StatelessWidget {
+  const NewBox({Key? key, required this.child}) : super(key: key);
+
+  final child;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 140,
+      height: 140,
+      decoration: BoxDecoration(
+          color: Color.fromARGB(224, 240, 234, 255),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromARGB(255, 205, 132, 251),
+              blurRadius: 15,
+              offset: Offset(5, 5),
+            ),
+            BoxShadow(
+              color: Color.fromARGB(255, 250, 224, 224),
+              blurRadius: 15,
+              offset: Offset(-5, -5),
+            ),
+          ]),
+      child: Center(child: child),
     );
   }
 }
