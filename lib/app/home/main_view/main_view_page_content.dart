@@ -22,7 +22,7 @@ class MainViewPageContent extends StatelessWidget {
             left: 15.0,
             right: 15.0,
           ),
-          child: Column(
+          child: ListView(
             children: [
               Center(
                 child: Padding(
