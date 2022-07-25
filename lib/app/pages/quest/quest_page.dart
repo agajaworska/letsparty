@@ -1,9 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/app/pages/home/my_account/cubit/account_cubit.dart';
 
-class QuestPage extends StatelessWidget {
-  const QuestPage({Key? key}) : super(key: key);
+class QuestPage extends StatefulWidget {
+  const QuestPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<QuestPage> createState() => _QuestPageState();
+}
+
+class _QuestPageState extends State<QuestPage> {
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +30,29 @@ class QuestPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
-        child: ListView(
-          children: [
-            UserBox(''),
-          ],
+      body: BlocProvider(
+        create: (context) => AccountCubit()..start(),
+        child: Center(
+          child: BlocBuilder<AccountCubit, AccountState>(
+              builder: (context, state) {
+            final documents = state.documents;
+            return Expanded(
+              child: ListView(children: [
+                for (final document in documents) ...[
+                  Dismissible(
+                      key: ValueKey(document.id),
+                      onDismissed: (_) {
+                        context
+                            .read<AccountCubit>()
+                            .remove(documentID: document.id);
+                      },
+                      child: UserBox(
+                        document['name'],
+                      )),
+                ],
+              ]),
+            );
+          }),
         ),
       ),
     );
@@ -53,9 +82,9 @@ class UserBox extends StatelessWidget {
             color: Colors.grey.shade600,
           ),
           const BoxShadow(
-            offset: const Offset(-5, -5),
+            offset: Offset(-5, -5),
             blurRadius: 6.0,
-            color: const Color.fromARGB(255, 232, 222, 240),
+            color: Color.fromARGB(255, 232, 222, 240),
           ),
         ],
       ),
