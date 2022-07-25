@@ -30,14 +30,15 @@ class _QuestPageState extends State<QuestPage> {
           ),
         ),
       ),
+      bottomSheet: const _bottomSheet(),
       body: BlocProvider(
         create: (context) => AccountCubit()..start(),
         child: Center(
           child: BlocBuilder<AccountCubit, AccountState>(
               builder: (context, state) {
             final documents = state.documents;
-            return Expanded(
-              child: ListView(children: [
+            return ListView(
+              children: [
                 for (final document in documents) ...[
                   Dismissible(
                       key: ValueKey(document.id),
@@ -50,9 +51,32 @@ class _QuestPageState extends State<QuestPage> {
                         document['name'],
                       )),
                 ],
-              ]),
+              ],
             );
           }),
+        ),
+      ),
+    );
+  }
+}
+
+class _bottomSheet extends StatelessWidget {
+  const _bottomSheet({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color.fromARGB(255, 119, 53, 205),
+      child: Center(
+        heightFactor: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            'Wpisz swoje imię i nazwisko w zakładce Moje konto, aby znaleźć się na liście gości.',
+            style: GoogleFonts.montserrat(color: Colors.white, fontSize: 16),
+          ),
         ),
       ),
     );
