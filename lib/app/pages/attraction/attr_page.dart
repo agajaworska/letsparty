@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/app/pages/attraction/cubit/attraction_cubit.dart';
 
 class AttractionPage extends StatelessWidget {
   AttractionPage({Key? key}) : super(key: key);
@@ -9,76 +10,78 @@ class AttractionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-        title: Text(
-          'A t r a k c j e',
-          style: GoogleFonts.bebasNeue(
-            fontSize: 35,
-            color: Colors.grey.shade900,
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 107, 26, 213),
-        onPressed: () {
-          FirebaseFirestore.instance.collection('attraction').add(
-            {'title': controller.text},
-          );
-          controller.clear();
-        },
-        child: const Icon(
-          Icons.add_outlined,
-          color: Color.fromARGB(255, 212, 208, 245),
-        ),
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('attraction').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Wystąpił nieoczekiwany problem');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.yellow,
+    return BlocProvider(
+      create: (context) => AttractionCubit()..start(),
+      child: BlocBuilder<AttractionCubit, AttractionState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            appBar: AppBar(
+              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              title: Text(
+                'A t r a k c j e',
+                style: GoogleFonts.bebasNeue(
+                  fontSize: 35,
+                  color: Colors.grey.shade900,
+                ),
               ),
-            );
-          }
-
-          final documents = snapshot.data!.docs;
-          return ListView(
-            children: [
-              for (final document in documents) ...[
-                Dismissible(
-                  key: ValueKey(document.id),
-                  onDismissed: (_) {
-                    FirebaseFirestore.instance
-                        .collection('attraction')
-                        .doc(document.id)
-                        .delete();
-                  },
-                  child: AttractionWidget(document['title']),
-                ),
-              ],
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextField(
-                  controller: controller,
-                  style: GoogleFonts.montserrat(),
-                  decoration: InputDecoration(
-                    hintText: 'Podaj propozycję atrakcji',
-                    hintStyle: GoogleFonts.montserrat(),
-                    prefixIcon: const Icon(
-                      Icons.star_border_outlined,
-                      color: Color.fromARGB(183, 119, 77, 175),
+            ),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: const Color.fromARGB(255, 107, 26, 213),
+              onPressed: () {
+                context.read<AttractionCubit>().add(title: controller.text);
+                controller.clear();
+              },
+              child: const Icon(
+                Icons.add_outlined,
+                color: Color.fromARGB(255, 212, 208, 245),
+              ),
+            ),
+            body: BlocBuilder<AttractionCubit, AttractionState>(
+              builder: (context, state) {
+                if (state.errorMessage.isNotEmpty) {
+                  return const Text('Wystąpił nieoczekiwany problem');
+                }
+                if (state.isLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.purple,
                     ),
-                  ),
-                ),
-              )
-            ],
+                  );
+                }
+                final documents = state.documents;
+                return ListView(
+                  children: [
+                    for (final document in documents) ...[
+                      Dismissible(
+                        key: ValueKey(document.id),
+                        onDismissed: (_) {
+                          context
+                              .read<AttractionCubit>()
+                              .remove(documentID: document.id);
+                        },
+                        child: AttractionWidget(document['title']),
+                      ),
+                    ],
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: TextField(
+                        controller: controller,
+                        style: GoogleFonts.montserrat(),
+                        decoration: InputDecoration(
+                          hintText: 'Podaj propozycję atrakcji',
+                          hintStyle: GoogleFonts.montserrat(),
+                          prefixIcon: const Icon(
+                            Icons.star_border_outlined,
+                            color: Color.fromARGB(183, 119, 77, 175),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
           );
         },
       ),

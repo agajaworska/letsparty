@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:iconsax/iconsax.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/app/enums/enums.dart';
 import 'package:letsparty/app/pages/home/chat/chat_page_content.dart';
@@ -33,7 +32,7 @@ class HomePage extends StatelessWidget {
               return const ChatPageContent();
             }),
             bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: Color.fromARGB(255, 212, 208, 245),
+              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
               iconSize: 22,
               selectedItemColor: Colors.grey.shade900,
               currentIndex: state.index,
