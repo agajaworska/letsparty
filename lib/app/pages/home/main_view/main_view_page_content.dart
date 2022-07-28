@@ -23,6 +23,7 @@ class MainViewPageContent extends StatelessWidget {
             right: 15.0,
           ),
           child: ListView(
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               Center(
                 child: Padding(
@@ -82,8 +83,7 @@ class MainViewPageContent extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const DatePage()),
+                          MaterialPageRoute(builder: (context) => DatePage()),
                         );
                       },
                       child: NewBox(
