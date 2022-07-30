@@ -57,7 +57,7 @@ class _DatePageBody extends StatelessWidget {
         builder: (context, state) {
           final itemModels = state.items;
 
-          return ListView(
+          return Column(
             children: [
               for (final itemModel in itemModels)
                 Row(
@@ -101,6 +101,45 @@ class _DatePageBody extends StatelessWidget {
                           style: GoogleFonts.montserrat(
                             fontSize: 18,
                           ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              for (final itemModel in itemModels)
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        "Data:",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 22, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(15),
+                      margin: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 240, 234, 255),
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(5, 5),
+                            blurRadius: 6.0,
+                            color: Colors.grey.shade600,
+                          ),
+                          const BoxShadow(
+                            offset: Offset(-5, -5),
+                            blurRadius: 6.0,
+                            color: Color.fromARGB(255, 232, 222, 240),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        itemModel.date.toString(),
+                        style: GoogleFonts.montserrat(
+                          fontSize: 18,
                         ),
                       ),
                     )
