@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:letsparty/app/pages/attraction/attr_page.dart';
-import 'package:letsparty/app/pages/budget/budget_page.dart';
-import 'package:letsparty/app/pages/date/date_page.dart';
-import 'package:letsparty/app/pages/menu/menu_page.dart';
-import 'package:letsparty/app/pages/quest/quest_page.dart';
-import 'package:letsparty/app/pages/theme/theme_page.dart';
+import 'package:letsparty/features/pages/attraction/attr_page.dart';
+import 'package:letsparty/features/pages/budget/budget_page.dart';
+import 'package:letsparty/features/pages/date/date_page.dart';
+import 'package:letsparty/features/pages/menu/menu_page.dart';
+import 'package:letsparty/features/pages/quest/quest_page.dart';
+import 'package:letsparty/features/pages/theme/theme_page.dart';
+import 'package:letsparty/models/item_models.dart';
 
 class MainViewPageContent extends StatelessWidget {
   const MainViewPageContent({

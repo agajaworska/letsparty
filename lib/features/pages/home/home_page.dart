@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ionicons/ionicons.dart';
-import 'package:letsparty/app/enums/enums.dart';
-import 'package:letsparty/app/pages/home/chat/chat_page_content.dart';
-import 'package:letsparty/app/pages/home/cubit/home_cubit.dart';
-import 'package:letsparty/app/pages/home/main_view/main_view_page_content.dart';
-import 'package:letsparty/app/pages/home/my_account/my_account_page_content.dart';
+import 'package:letsparty/features/enums/enums.dart';
+import 'package:letsparty/features/pages/home/chat/chat_page_content.dart';
+import 'package:letsparty/features/pages/home/cubit/home_cubit.dart';
+import 'package:letsparty/features/pages/home/main_view/main_view_page_content.dart';
+import 'package:letsparty/features/pages/home/my_account/my_account_page_content.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({

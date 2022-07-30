@@ -1,44 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:letsparty/app/pages/attraction/cubit/attraction_cubit.dart';
+import 'package:letsparty/features/pages/menu/cubit/menu_cubit.dart';
 
-class AttractionPage extends StatelessWidget {
-  AttractionPage({Key? key}) : super(key: key);
+class MenuPage extends StatelessWidget {
+  MenuPage(
+    Key? key,
+  ) : super(key: key);
 
   final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AttractionCubit()..start(),
-      child: BlocBuilder<AttractionCubit, AttractionState>(
+      create: (context) => MenuCubit()..start(),
+      child: BlocBuilder<MenuCubit, MenuState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-            appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-              title: Text(
-                'A t r a k c j e',
-                style: GoogleFonts.bebasNeue(
-                  fontSize: 35,
-                  color: Colors.grey.shade900,
+              appBar: AppBar(
+                backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                title: Text(
+                  'M e n u',
+                  style: GoogleFonts.bebasNeue(
+                    fontSize: 35,
+                    color: Colors.grey.shade900,
+                  ),
                 ),
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 107, 26, 213),
-              onPressed: () {
-                context.read<AttractionCubit>().add(title: controller.text);
-                controller.clear();
-              },
-              child: const Icon(
-                Icons.add_outlined,
-                color: Color.fromARGB(255, 212, 208, 245),
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: const Color.fromARGB(255, 107, 26, 213),
+                onPressed: () {
+                  context.read<MenuCubit>().add(title: controller.text);
+                  controller.clear();
+                },
+                child: const Icon(
+                  Icons.add_outlined,
+                  color: Color.fromARGB(255, 212, 208, 245),
+                ),
               ),
-            ),
-            body: BlocBuilder<AttractionCubit, AttractionState>(
-              builder: (context, state) {
+              body:
+                  BlocBuilder<MenuCubit, MenuState>(builder: (context, state) {
                 if (state.errorMessage.isNotEmpty) {
                   return const Text('Wystąpił nieoczekiwany problem');
                 }
@@ -49,6 +51,7 @@ class AttractionPage extends StatelessWidget {
                     ),
                   );
                 }
+
                 final documents = state.documents;
                 return ListView(
                   children: [
@@ -57,10 +60,10 @@ class AttractionPage extends StatelessWidget {
                         key: ValueKey(document.id),
                         onDismissed: (_) {
                           context
-                              .read<AttractionCubit>()
+                              .read<MenuCubit>()
                               .remove(documentID: document.id);
                         },
-                        child: AttractionWidget(document['title']),
+                        child: MenuWidget(document['title']),
                       ),
                     ],
                     Padding(
@@ -69,10 +72,10 @@ class AttractionPage extends StatelessWidget {
                         controller: controller,
                         style: GoogleFonts.montserrat(),
                         decoration: InputDecoration(
-                          hintText: 'Podaj propozycję atrakcji',
+                          hintText: 'Podaj propozycję dania',
                           hintStyle: GoogleFonts.montserrat(),
                           prefixIcon: const Icon(
-                            Icons.star_border_outlined,
+                            Icons.restaurant_menu_outlined,
                             color: Color.fromARGB(183, 119, 77, 175),
                           ),
                         ),
@@ -80,17 +83,15 @@ class AttractionPage extends StatelessWidget {
                     )
                   ],
                 );
-              },
-            ),
-          );
+              }));
         },
       ),
     );
   }
 }
 
-class AttractionWidget extends StatelessWidget {
-  const AttractionWidget(
+class MenuWidget extends StatelessWidget {
+  const MenuWidget(
     this.title, {
     Key? key,
   }) : super(key: key);

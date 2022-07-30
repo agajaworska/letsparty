@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:letsparty/app/enums/enums.dart';
+import 'package:letsparty/features/enums/enums.dart';
 import 'package:meta/meta.dart';
 
 part 'home_state.dart';
