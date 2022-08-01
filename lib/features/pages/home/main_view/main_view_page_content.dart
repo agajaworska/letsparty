@@ -30,26 +30,26 @@ class MainViewPageContent extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15.0),
                   child: Text(
-                    'L E T \'S  P A R T Y ',
+                    'L  E  T \' S   P  A  R  T  Y ',
                     style: GoogleFonts.bebasNeue(
                       fontSize: 50,
                       color: const Color.fromARGB(255, 50, 5, 58),
                       textStyle: const TextStyle(
                         shadows: <Shadow>[
                           Shadow(
-                            offset: Offset(2, 2),
+                            offset: Offset(6, 6),
                             blurRadius: 6.0,
-                            color: Color.fromARGB(255, 72, 0, 111),
+                            color: Color.fromARGB(255, 253, 250, 255),
+                          ),
+                          Shadow(
+                            offset: Offset(4, 4),
+                            blurRadius: 6.0,
+                            color: Color.fromARGB(255, 179, 117, 211),
                           ),
                           Shadow(
                             offset: Offset(2, 2),
                             blurRadius: 6.0,
-                            color: Color.fromARGB(255, 184, 41, 255),
-                          ),
-                          Shadow(
-                            offset: Offset(2, 2),
-                            blurRadius: 6.0,
-                            color: Color.fromARGB(255, 227, 163, 255),
+                            color: Color.fromARGB(255, 179, 127, 192),
                           ),
                         ],
                       ),
@@ -201,18 +201,18 @@ class NewBox extends StatelessWidget {
       width: 140,
       height: 140,
       decoration: BoxDecoration(
-          color: Color.fromARGB(224, 240, 234, 255),
+          color: Color.fromARGB(255, 212, 208, 245),
           borderRadius: BorderRadius.circular(8),
           boxShadow: const [
             BoxShadow(
-              color: Color.fromARGB(255, 205, 132, 251),
+              color: Color.fromARGB(255, 83, 80, 85),
               blurRadius: 15,
               offset: Offset(5, 5),
             ),
             BoxShadow(
-              color: Color.fromARGB(255, 250, 224, 224),
-              blurRadius: 15,
-              offset: Offset(-5, -5),
+              color: Color.fromARGB(255, 253, 250, 255),
+              blurRadius: 16,
+              offset: Offset(-7, -7),
             ),
           ]),
       child: Center(child: child),
