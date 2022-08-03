@@ -1,7 +1,7 @@
 class ItemModel {
+  final String id;
   final String adress;
   final DateTime date;
-  final String id;
 
   ItemModel({
     required this.id,

@@ -18,8 +18,6 @@ class MyAccountPageContent extends StatefulWidget {
 }
 
 class _MyAccountPageContentState extends State<MyAccountPageContent> {
-  String userName = '';
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

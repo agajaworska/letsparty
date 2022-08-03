@@ -32,24 +32,20 @@ class MainViewPageContent extends StatelessWidget {
                   child: Text(
                     'L  E  T \' S   P  A  R  T  Y ',
                     style: GoogleFonts.bebasNeue(
+                      fontWeight: FontWeight.w600,
                       fontSize: 50,
                       color: const Color.fromARGB(255, 50, 5, 58),
                       textStyle: const TextStyle(
                         shadows: <Shadow>[
                           Shadow(
-                            offset: Offset(6, 6),
-                            blurRadius: 6.0,
-                            color: Color.fromARGB(255, 253, 250, 255),
-                          ),
-                          Shadow(
-                            offset: Offset(4, 4),
-                            blurRadius: 6.0,
-                            color: Color.fromARGB(255, 179, 117, 211),
+                            offset: Offset(3, 3),
+                            blurRadius: 4.0,
+                            color: Color.fromARGB(255, 123, 24, 209),
                           ),
                           Shadow(
                             offset: Offset(2, 2),
-                            blurRadius: 6.0,
-                            color: Color.fromARGB(255, 179, 127, 192),
+                            blurRadius: 4.0,
+                            color: Color.fromARGB(255, 251, 251, 251),
                           ),
                         ],
                       ),
@@ -148,8 +144,7 @@ class MainViewPageContent extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const ThemePage()),
+                          MaterialPageRoute(builder: (context) => ThemePage()),
                         );
                       },
                       child: NewBox(
@@ -210,7 +205,7 @@ class NewBox extends StatelessWidget {
               offset: Offset(5, 5),
             ),
             BoxShadow(
-              color: Color.fromARGB(255, 253, 250, 255),
+              color: Color.fromARGB(246, 253, 250, 255),
               blurRadius: 16,
               offset: Offset(-7, -7),
             ),

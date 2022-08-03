@@ -59,95 +59,123 @@ class _DatePageBody extends StatelessWidget {
 
           return Column(
             children: [
-              for (final itemModel in itemModels)
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        "Adres:",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 22, fontWeight: FontWeight.w600),
-                      ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "Adres:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 22, fontWeight: FontWeight.w600),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(15),
-                      margin: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 240, 234, 255),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(5, 5),
-                            blurRadius: 6.0,
-                            color: Colors.grey.shade600,
-                          ),
-                          const BoxShadow(
-                            offset: Offset(-5, -5),
-                            blurRadius: 6.0,
-                            color: Color.fromARGB(255, 232, 222, 240),
-                          ),
-                        ],
-                      ),
-                      child: Dismissible(
-                        key: ValueKey(itemModel.id),
-                        onDismissed: (_) {
-                          context
-                              .read<DateCubit>()
-                              .remove(documentID: itemModel.id);
-                        },
-                        child: Text(
-                          itemModel.adress,
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              for (final itemModel in itemModels)
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        "Data:",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 22, fontWeight: FontWeight.w600),
-                      ),
+                  ),
+                  for (final itemModel in itemModels)
+                    _AdressBox(itemModel: itemModel)
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "Data:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 22, fontWeight: FontWeight.w600),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(15),
-                      margin: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 240, 234, 255),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(5, 5),
-                            blurRadius: 6.0,
-                            color: Colors.grey.shade600,
-                          ),
-                          const BoxShadow(
-                            offset: Offset(-5, -5),
-                            blurRadius: 6.0,
-                            color: Color.fromARGB(255, 232, 222, 240),
-                          ),
-                        ],
-                      ),
-                      child: Text(
-                        itemModel.date.toString(),
-                        style: GoogleFonts.montserrat(
-                          fontSize: 18,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  for (final itemModel in itemModels)
+                    _DateBox(itemModel: itemModel)
+                ],
+              ),
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _DateBox extends StatelessWidget {
+  const _DateBox({
+    Key? key,
+    required this.itemModel,
+  }) : super(key: key);
+
+  final ItemModel itemModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 240, 234, 255),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(5, 5),
+            blurRadius: 6.0,
+            color: Colors.grey.shade600,
+          ),
+          const BoxShadow(
+            offset: Offset(-5, -5),
+            blurRadius: 6.0,
+            color: Color.fromARGB(255, 232, 222, 240),
+          ),
+        ],
+      ),
+      child: Text(
+        itemModel.date.toString(),
+        style: GoogleFonts.montserrat(
+          fontSize: 18,
+        ),
+      ),
+    );
+  }
+}
+
+class _AdressBox extends StatelessWidget {
+  const _AdressBox({
+    Key? key,
+    required this.itemModel,
+  }) : super(key: key);
+
+  final ItemModel itemModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 240, 234, 255),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(5, 5),
+              blurRadius: 6.0,
+              color: Colors.grey.shade600,
+            ),
+            const BoxShadow(
+              offset: Offset(-5, -5),
+              blurRadius: 6.0,
+              color: Color.fromARGB(255, 232, 222, 240),
+            ),
+          ],
+        ),
+        child: Dismissible(
+          key: ValueKey(itemModel.id),
+          onDismissed: (_) {
+            context.read<DateCubit>().remove(documentID: itemModel.id);
+          },
+          child: Text(
+            itemModel.adress,
+            style: GoogleFonts.montserrat(
+              fontSize: 18,
+            ),
+          ),
+        ),
       ),
     );
   }
