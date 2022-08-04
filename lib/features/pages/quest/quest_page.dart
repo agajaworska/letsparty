@@ -65,7 +65,7 @@ class _bottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(255, 119, 53, 205),
+      color: Color.fromARGB(255, 158, 99, 235),
       child: Center(
         heightFactor: 1,
         child: Padding(
