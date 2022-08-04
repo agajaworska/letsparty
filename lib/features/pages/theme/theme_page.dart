@@ -41,29 +41,38 @@ class ThemePage extends StatelessWidget {
               for (final document in documents) ...[
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Container(
-                    height: 150,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 240, 234, 255),
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(5, 5),
-                          blurRadius: 6.0,
-                          color: Colors.grey.shade600,
+                  child: Dismissible(
+                    key: ValueKey(document.id),
+                    onDismissed: (_) {
+                      FirebaseFirestore.instance
+                          .collection('themePhotos')
+                          .doc(document.id)
+                          .delete();
+                    },
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 240, 234, 255),
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(5, 5),
+                            blurRadius: 6.0,
+                            color: Colors.grey.shade600,
+                          ),
+                          const BoxShadow(
+                            offset: const Offset(-5, -5),
+                            blurRadius: 6.0,
+                            color: const Color.fromARGB(255, 232, 222, 240),
+                          ),
+                        ],
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            document['image_url'],
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        const BoxShadow(
-                          offset: const Offset(-5, -5),
-                          blurRadius: 6.0,
-                          color: const Color.fromARGB(255, 232, 222, 240),
-                        ),
-                      ],
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          document['image_url'],
-                        ),
-                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
