@@ -161,8 +161,7 @@ class MainViewPageContent extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const BudgetPage()),
+                          MaterialPageRoute(builder: (context) => BudgetPage()),
                         );
                       },
                       child: NewBox(
