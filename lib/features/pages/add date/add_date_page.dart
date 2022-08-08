@@ -97,7 +97,7 @@ class _AddDatePageBody extends StatelessWidget {
         TextField(
           onChanged: onAdressChanged,
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
             hintText: 'Adres',
             label: Text(
               'Adres',
