@@ -19,10 +19,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: RootPage(),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const RootPage(),
+        theme: ThemeData(
+          bottomSheetTheme: const BottomSheetThemeData(
+            backgroundColor: Color.fromARGB(255, 158, 99, 235),
+          ),
+        ));
   }
 }
 

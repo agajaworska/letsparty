@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class ThemePage extends StatelessWidget {
   ThemePage({Key? key}) : super(key: key);
 
   final controller = TextEditingController();
+  void clearText() {
+    controller.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +22,36 @@ class ThemePage extends StatelessWidget {
           style: GoogleFonts.bebasNeue(
             fontSize: 35,
             color: Colors.grey.shade900,
+          ),
+        ),
+      ),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          heightFactor: 0.5,
+          child: TextField(
+            controller: controller,
+            style: GoogleFonts.montserrat(),
+            decoration: InputDecoration(
+              hintText: 'Dodaj link do zdjęcia',
+              hintStyle: GoogleFonts.montserrat(),
+              prefixIcon: const Icon(
+                Icons.image_outlined,
+                color: Color.fromARGB(205, 107, 26, 213),
+              ),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection('themePhotos')
+                      .add({'image_url': controller.text});
+                  clearText();
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Color.fromARGB(205, 107, 26, 213),
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -78,33 +111,6 @@ class ThemePage extends StatelessWidget {
                   ),
                 ),
               ],
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextField(
-                  controller: controller,
-                  style: GoogleFonts.montserrat(),
-                  decoration: InputDecoration(
-                    hintText: 'Dodaj link do zdjęcia',
-                    hintStyle: GoogleFonts.montserrat(),
-                    prefixIcon: const Icon(
-                      Icons.image_outlined,
-                      color: Color.fromARGB(183, 119, 77, 175),
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        FirebaseFirestore.instance
-                            .collection('themePhotos')
-                            .add({'image_url': controller.text});
-                        controller.clear;
-                      },
-                      icon: const Icon(
-                        Icons.add,
-                        color: Color.fromARGB(205, 107, 26, 213),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           );
         },
