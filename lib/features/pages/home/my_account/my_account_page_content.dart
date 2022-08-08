@@ -1,23 +1,17 @@
-import 'package:file_picker/file_picker.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
 
-class MyAccountPageContent extends StatefulWidget {
+class MyAccountPageContent extends StatelessWidget {
   MyAccountPageContent({
     Key? key,
   }) : super(key: key);
 
   final controller = TextEditingController();
+  final imageController = TextEditingController();
 
-  @override
-  State<MyAccountPageContent> createState() => _MyAccountPageContentState();
-}
-
-class _MyAccountPageContentState extends State<MyAccountPageContent> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -44,29 +38,6 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
                 )
               ],
             ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(
-                Icons.add_a_photo_outlined,
-              ),
-              backgroundColor: const Color.fromARGB(205, 107, 26, 213),
-              onPressed: () async {
-                final result = await FilePicker.platform.pickFiles(
-                    allowMultiple: false,
-                    type: FileType.custom,
-                    allowedExtensions: ['jpg', 'png', 'jpeg', 'webp']);
-
-                if (result == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Nie wybrano zdjęcia'),
-                    ),
-                  );
-                }
-                // FirebaseFirestore.instance
-                //     .collection('image')
-                //     .add({'image_url': result!.files.single.path.toString()});
-              },
-            ),
             body: BlocProvider(
               create: (context) => AccountCubit()..start(),
               child: Center(
@@ -87,9 +58,23 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
 
                     final documents = state.documents;
                     return Expanded(
-                      child: Column(
+                      child: ListView(
                         children: [
                           for (final document in documents) ...[
+                            Container(
+                              height: 250,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    document['photo'].toString(),
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
                             Dismissible(
                               key: ValueKey(document.id),
                               onDismissed: (_) {
@@ -108,7 +93,7 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
                                           child: Text(
                                         document['name'],
                                         style: GoogleFonts.montserrat(
-                                            fontSize: 24),
+                                            fontSize: 22),
                                       )),
                                     ),
                                   ),
@@ -116,11 +101,11 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
                               ),
                             ),
                           ],
-                          const SizedBox(height: 40),
+                          const SizedBox(height: 12),
                           Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: TextField(
-                              controller: widget.controller,
+                              controller: controller,
                               decoration: InputDecoration(
                                 hintText: 'Imię i nazwisko',
                                 hintStyle: GoogleFonts.montserrat(),
@@ -128,22 +113,39 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
                                   Icons.text_fields_outlined,
                                   color: Color.fromARGB(183, 119, 77, 175),
                                 ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    context
-                                        .read<AccountCubit>()
-                                        .add(name: widget.controller.text);
-                                    widget.controller.clear();
-                                  },
-                                  icon: const Icon(
-                                    Icons.add,
-                                    color: Color.fromARGB(205, 107, 26, 213),
-                                  ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: TextField(
+                              controller: imageController,
+                              decoration: InputDecoration(
+                                hintText: 'Url zdjęcia: http://...jpg',
+                                hintStyle: GoogleFonts.montserrat(),
+                                prefixIcon: const Icon(
+                                  Icons.add_a_photo_outlined,
+                                  color: Color.fromARGB(183, 119, 77, 175),
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 25),
+                          SizedBox(
+                            height: 30,
+                            width: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                context.read<AccountCubit>().add(
+                                    name: controller.text,
+                                    photo: imageController.text);
+
+                                controller.clear();
+                                imageController.clear();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ),
                         ],
                       ),
                     );

@@ -46,11 +46,12 @@ class AccountCubit extends Cubit<AccountState> {
       });
   }
 
-  Future<void> add({required String name}) async {
+  Future<void> add({required String name, required String photo}) async {
     try {
       await FirebaseFirestore.instance.collection('user').add(
         {
           'name': name,
+          'photo': photo,
         },
       );
       emit(AccountState(

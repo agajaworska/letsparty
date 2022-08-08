@@ -49,29 +49,31 @@ class BudgetPage extends StatelessWidget {
           }
           final documents = snapshot.data!.docs;
 
-          return Column(children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                'Dane do przelewu:',
-                style: GoogleFonts.montserrat(
-                  fontSize: 20,
+          return Center(
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  'Dane do przelewu:',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 20,
+                  ),
                 ),
               ),
-            ),
-            for (final document in documents) ...[
-              Dismissible(
-                key: ValueKey(document.id),
-                onDismissed: (_) {
-                  FirebaseFirestore.instance
-                      .collection('finance')
-                      .doc(document.id)
-                      .delete();
-                },
-                child: DataBox(
-                  title: document['data'],
+              for (final document in documents) ...[
+                Dismissible(
+                  key: ValueKey(document.id),
+                  onDismissed: (_) {
+                    FirebaseFirestore.instance
+                        .collection('finance')
+                        .doc(document.id)
+                        .delete();
+                  },
+                  child: DataBox(
+                    title: document['data'],
+                  ),
                 ),
-              ),
+              ],
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: TextField(
@@ -158,8 +160,8 @@ class BudgetPage extends StatelessWidget {
                       }),
                 ),
               )
-            ]
-          ]);
+            ]),
+          );
         },
       ),
     );
