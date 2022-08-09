@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:letsparty/models/item_models.dart';
 import 'package:meta/meta.dart';
 
@@ -21,6 +22,7 @@ class DateCubit extends Cubit<DateState> {
             id: doc.id,
             adress: doc['adress'],
             date: (doc['date'] as Timestamp).toDate(),
+            time: doc['time'],
           );
         }).toList();
 

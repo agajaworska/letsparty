@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/features/pages/login/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const RootPage(),
         theme: ThemeData(
+          fontFamily: 'Montsserat',
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Color.fromARGB(255, 158, 99, 235),
           ),

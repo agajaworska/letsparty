@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
 
 class AddDatePage extends StatefulWidget {
@@ -13,6 +14,8 @@ class AddDatePage extends StatefulWidget {
 class _AddDatePageState extends State<AddDatePage> {
   String? _adress;
   DateTime? _date;
+  TimeOfDay? _time;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -48,6 +51,7 @@ class _AddDatePageState extends State<AddDatePage> {
                       context.read<AddDateCubit>().add(
                             _adress!,
                             _date!,
+                            _time!.format(context).toString(),
                           );
                     },
                     icon: const Icon(Icons.check),
@@ -65,7 +69,16 @@ class _AddDatePageState extends State<AddDatePage> {
                     _date = newValue;
                   });
                 },
-                selectedDateFormatted: _date?.toIso8601String(),
+                onTimeChanged: (newValue) {
+                  setState(() {
+                    _time = newValue;
+                  });
+                },
+                selectedTimeFormatted:
+                    _time == null ? null : _time!.format(context),
+                selectedDateFormatted: _date == null
+                    ? null
+                    : DateFormat.yMMMMEEEEd().format(_date!),
               ),
             );
           },
@@ -80,12 +93,16 @@ class _AddDatePageBody extends StatelessWidget {
     Key? key,
     required this.onAdressChanged,
     required this.onDateChanged,
+    required this.onTimeChanged,
     this.selectedDateFormatted,
+    this.selectedTimeFormatted,
   }) : super(key: key);
 
   final Function(String) onAdressChanged;
   final Function(DateTime?) onDateChanged;
+  final Function(TimeOfDay?) onTimeChanged;
   final String? selectedDateFormatted;
+  final String? selectedTimeFormatted;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -135,7 +152,7 @@ class _AddDatePageBody extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(15),
             ),
             primary: const Color.fromARGB(205, 107, 26, 213),
             shadowColor: Colors.grey,
@@ -144,6 +161,31 @@ class _AddDatePageBody extends StatelessWidget {
           ),
           child: Text(
             selectedDateFormatted ?? 'Wybierz datę',
+            style: GoogleFonts.montserrat(),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            final selectedTime = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+            onTimeChanged(selectedTime);
+          },
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            primary: const Color.fromARGB(205, 107, 26, 213),
+            shadowColor: Colors.grey,
+            elevation: 6.0,
+            textStyle: GoogleFonts.montserrat(),
+          ),
+          child: Text(
+            selectedTimeFormatted ?? 'Wybierz godzinę',
             style: GoogleFonts.montserrat(),
           ),
         ),

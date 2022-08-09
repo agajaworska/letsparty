@@ -66,7 +66,8 @@ class _DatePageBody extends StatelessWidget {
                     child: Text(
                       "Adres:",
                       style: GoogleFonts.montserrat(
-                          fontSize: 22, fontWeight: FontWeight.w600),
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                   for (final itemModel in itemModels)
@@ -80,11 +81,27 @@ class _DatePageBody extends StatelessWidget {
                     child: Text(
                       "Data:",
                       style: GoogleFonts.montserrat(
-                          fontSize: 22, fontWeight: FontWeight.w600),
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                   for (final itemModel in itemModels)
                     _DateBox(itemModel: itemModel)
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "Godzina:",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  for (final itemModel in itemModels)
+                    _HourBox(itemModel: itemModel)
                 ],
               ),
             ],
@@ -105,29 +122,31 @@ class _DateBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 240, 234, 255),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(5, 5),
-            blurRadius: 6.0,
-            color: Colors.grey.shade600,
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 240, 234, 255),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(5, 5),
+              blurRadius: 6.0,
+              color: Colors.grey.shade600,
+            ),
+            const BoxShadow(
+              offset: Offset(-5, -5),
+              blurRadius: 6.0,
+              color: Color.fromARGB(255, 232, 222, 240),
+            ),
+          ],
+        ),
+        child: Text(
+          itemModel.relaseDateFormatted(),
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
           ),
-          const BoxShadow(
-            offset: Offset(-5, -5),
-            blurRadius: 6.0,
-            color: Color.fromARGB(255, 232, 222, 240),
-          ),
-        ],
-      ),
-      child: Text(
-        itemModel.date.toString(),
-        style: GoogleFonts.montserrat(
-          fontSize: 18,
         ),
       ),
     );
@@ -174,6 +193,47 @@ class _AdressBox extends StatelessWidget {
             style: GoogleFonts.montserrat(
               fontSize: 18,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _HourBox extends StatelessWidget {
+  const _HourBox({
+    Key? key,
+    required this.itemModel,
+  }) : super(key: key);
+
+  final ItemModel itemModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 240, 234, 255),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(5, 5),
+              blurRadius: 6.0,
+              color: Colors.grey.shade600,
+            ),
+            const BoxShadow(
+              offset: Offset(-5, -5),
+              blurRadius: 6.0,
+              color: Color.fromARGB(255, 232, 222, 240),
+            ),
+          ],
+        ),
+        child: Text(
+          itemModel.time.toString(),
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
           ),
         ),
       ),
