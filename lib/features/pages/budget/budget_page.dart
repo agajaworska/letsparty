@@ -75,11 +75,25 @@ class BudgetPage extends StatelessWidget {
                 ),
               ],
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(20.0),
                 child: TextField(
                   controller: controller,
                   style: GoogleFonts.montserrat(),
                   decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Color.fromARGB(183, 119, 77, 175),
+                      ),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Color.fromARGB(183, 119, 77, 175),
+                      ),
+                    ),
                     hintText: 'Wpisz dane do przelewu',
                     hintStyle: GoogleFonts.montserrat(),
                     prefixIcon: const Icon(
@@ -104,7 +118,7 @@ class BudgetPage extends StatelessWidget {
               const SizedBox(height: 8.0),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: StreamBuilder<QuerySnapshot<Object?>>(
                       stream: FirebaseFirestore.instance
                           .collection('spendings')
@@ -181,7 +195,7 @@ class DataBox extends StatelessWidget {
     return Container(
       height: 76,
       padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 240, 234, 255),
         borderRadius: BorderRadius.circular(15),

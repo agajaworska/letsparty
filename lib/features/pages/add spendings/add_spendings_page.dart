@@ -76,8 +76,23 @@ class _AddDatePageBody extends StatelessWidget {
         TextField(
           onChanged: onNameChanged,
           decoration: InputDecoration(
-            border: const OutlineInputBorder(),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(183, 119, 77, 175),
+              ),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(183, 119, 77, 175),
+              ),
+            ),
             hintText: 'Nazwa wydatku',
+            hintStyle: GoogleFonts.montserrat(),
+            labelStyle: TextStyle(color: Colors.grey.shade700),
             label: Text(
               'Nazwa wydatku',
               style: GoogleFonts.montserrat(),
@@ -88,8 +103,23 @@ class _AddDatePageBody extends StatelessWidget {
         TextField(
           onChanged: onPriceChanged,
           decoration: InputDecoration(
-            border: const OutlineInputBorder(),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(183, 119, 77, 175),
+              ),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(183, 119, 77, 175),
+              ),
+            ),
             hintText: 'Cena',
+            hintStyle: GoogleFonts.montserrat(),
+            labelStyle: TextStyle(color: Colors.grey.shade700),
             label: Text(
               'Cena',
               style: GoogleFonts.montserrat(),

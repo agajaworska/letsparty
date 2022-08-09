@@ -43,8 +43,8 @@ class HomePage extends StatelessWidget {
                   context.read<HomeCubit>().onTapPressed(GNavItem.account);
                 } else if (index == 1) {
                   context.read<HomeCubit>().onTapPressed(GNavItem.home);
-                } else if (index == 2) {
-                  context.read<HomeCubit>().onTapPressed(GNavItem.chat);
+                  // } else if (index == 2) {
+                  // context.read<HomeCubit>().onTapPressed(GNavItem.chat);
                 }
               },
               items: const [
@@ -60,12 +60,12 @@ class HomePage extends StatelessWidget {
                   ),
                   label: 'Strona główna',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Ionicons.chatbox_outline,
-                  ),
-                  label: 'Czat',
-                ),
+                // BottomNavigationBarItem(
+                // icon: Icon(
+                // Ionicons.chatbox_outline,
+                // ),
+                // label: 'Czat',
+                // ),
               ],
             ),
             //Container(

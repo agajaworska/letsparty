@@ -57,97 +57,104 @@ class MyAccountPageContent extends StatelessWidget {
                     }
 
                     final documents = state.documents;
-                    return Expanded(
-                      child: ListView(
-                        children: [
-                          for (final document in documents) ...[
-                            Container(
-                              height: 250,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    document['photo'].toString(),
-                                  ),
-                                  fit: BoxFit.cover,
+                    return Column(
+                      children: [
+                        for (final document in documents) ...[
+                          Container(
+                            height: 240,
+                            width: 240,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  document['photo'].toString(),
                                 ),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Dismissible(
-                              key: ValueKey(document.id),
-                              onDismissed: (_) {
-                                context
-                                    .read<AccountCubit>()
-                                    .remove(documentID: document.id);
-                              },
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    width: 300,
-                                    height: 45,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(7.0),
-                                      child: Center(
-                                          child: Text(
-                                        document['name'],
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 22),
-                                      )),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                          const SizedBox(height: 12),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: TextField(
-                              controller: controller,
-                              decoration: InputDecoration(
-                                hintText: 'Imię i nazwisko',
-                                hintStyle: GoogleFonts.montserrat(),
-                                prefixIcon: const Icon(
-                                  Icons.text_fields_outlined,
-                                  color: Color.fromARGB(183, 119, 77, 175),
-                                ),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          const SizedBox(height: 12),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: TextField(
-                              controller: imageController,
-                              decoration: InputDecoration(
-                                hintText: 'Url zdjęcia: http://...jpg',
-                                hintStyle: GoogleFonts.montserrat(),
-                                prefixIcon: const Icon(
-                                  Icons.add_a_photo_outlined,
-                                  color: Color.fromARGB(183, 119, 77, 175),
+                          const SizedBox(height: 10),
+                          Dismissible(
+                            key: ValueKey(document.id),
+                            onDismissed: (_) {
+                              context
+                                  .read<AccountCubit>()
+                                  .remove(documentID: document.id);
+                            },
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: 300,
+                                  height: 45,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(7.0),
+                                    child: Center(
+                                        child: Text(
+                                      document['name'],
+                                      style:
+                                          GoogleFonts.montserrat(fontSize: 22),
+                                    )),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                            width: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                context.read<AccountCubit>().add(
-                                    name: controller.text,
-                                    photo: imageController.text);
-
-                                controller.clear();
-                                imageController.clear();
-                              },
-                              child: const Text('OK'),
+                              ],
                             ),
                           ),
                         ],
-                      ),
+                        const SizedBox(height: 12),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: TextField(
+                            controller: controller,
+                            decoration: InputDecoration(
+                              hintText: 'Imię i nazwisko',
+                              hintStyle: GoogleFonts.montserrat(),
+                              prefixIcon: const Icon(
+                                Icons.text_fields_outlined,
+                                color: Color.fromARGB(183, 119, 77, 175),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: TextField(
+                            controller: imageController,
+                            decoration: InputDecoration(
+                              hintText: 'Url zdjęcia: http://...jpg',
+                              hintStyle: GoogleFonts.montserrat(),
+                              prefixIcon: const Icon(
+                                Icons.add_a_photo_outlined,
+                                color: Color.fromARGB(183, 119, 77, 175),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                          width: 70,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              primary: const Color.fromARGB(205, 107, 26, 213),
+                              shadowColor: Colors.grey,
+                              elevation: 6.0,
+                              textStyle: GoogleFonts.montserrat(),
+                            ),
+                            onPressed: () {
+                              context.read<AccountCubit>().add(
+                                  name: controller.text,
+                                  photo: imageController.text);
+
+                              controller.clear();
+                              imageController.clear();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ),
+                      ],
                     );
                   })
                 ]),
