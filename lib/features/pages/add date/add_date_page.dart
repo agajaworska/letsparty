@@ -97,15 +97,29 @@ class _AddDatePageBody extends StatelessWidget {
         TextField(
           onChanged: onAdressChanged,
           decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(183, 119, 77, 175),
+              ),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(183, 119, 77, 175),
+              ),
+            ),
             border: const OutlineInputBorder(),
             hintText: 'Adres',
+            labelStyle: TextStyle(color: Colors.grey.shade700),
             label: Text(
               'Adres',
               style: GoogleFonts.montserrat(),
             ),
           ),
         ),
-        const SizedBox(height: 20),
         const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () async {
@@ -119,6 +133,15 @@ class _AddDatePageBody extends StatelessWidget {
             );
             onDateChanged(selectedDate);
           },
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            primary: const Color.fromARGB(205, 107, 26, 213),
+            shadowColor: Colors.grey,
+            elevation: 6.0,
+            textStyle: GoogleFonts.montserrat(),
+          ),
           child: Text(
             selectedDateFormatted ?? 'Wybierz datę',
             style: GoogleFonts.montserrat(),
