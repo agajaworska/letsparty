@@ -24,30 +24,31 @@ class MainViewPageContent extends StatelessWidget {
             right: 15.0,
           ),
           child: ListView(
-            physics: const NeverScrollableScrollPhysics(),
             children: [
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15.0),
-                  child: Text(
-                    'L  E  T \' S   P  A  R  T  Y ',
-                    style: GoogleFonts.bebasNeue(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 50,
-                      color: const Color.fromARGB(255, 50, 5, 58),
-                      textStyle: const TextStyle(
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(3, 3),
-                            blurRadius: 4.0,
-                            color: Color.fromARGB(255, 123, 24, 209),
-                          ),
-                          Shadow(
-                            offset: Offset(2, 2),
-                            blurRadius: 4.0,
-                            color: Color.fromARGB(255, 251, 251, 251),
-                          ),
-                        ],
+                  child: Expanded(
+                    child: Text(
+                      'L  E  T \' S   P  A  R  T  Y ',
+                      style: GoogleFonts.bebasNeue(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 50,
+                        color: const Color.fromARGB(255, 50, 5, 58),
+                        textStyle: const TextStyle(
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(3, 3),
+                              blurRadius: 4.0,
+                              color: Color.fromARGB(255, 123, 24, 209),
+                            ),
+                            Shadow(
+                              offset: Offset(2, 2),
+                              blurRadius: 4.0,
+                              color: Color.fromARGB(255, 251, 251, 251),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -59,7 +60,7 @@ class MainViewPageContent extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InkWell(
                       onTap: (() {
@@ -97,7 +98,7 @@ class MainViewPageContent extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InkWell(
                       onTap: () {
@@ -139,7 +140,7 @@ class MainViewPageContent extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InkWell(
                       onTap: () {

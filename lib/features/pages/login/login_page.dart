@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
                       TextField(
                         controller: emailController,
                         decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                             borderSide: BorderSide(
@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
                               color: Color.fromARGB(183, 119, 77, 175),
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                             borderSide: BorderSide(
@@ -60,7 +60,7 @@ class LoginPage extends StatelessWidget {
                               color: Color.fromARGB(183, 119, 77, 175),
                             ),
                           ),
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           hintText: 'Email',
                           hintStyle: GoogleFonts.montserrat(),
                           labelStyle: TextStyle(color: Colors.grey.shade700),
@@ -75,7 +75,7 @@ class LoginPage extends StatelessWidget {
                         controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                             borderSide: BorderSide(
@@ -83,7 +83,7 @@ class LoginPage extends StatelessWidget {
                               color: Color.fromARGB(183, 119, 77, 175),
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15.0)),
                             borderSide: BorderSide(
@@ -91,7 +91,7 @@ class LoginPage extends StatelessWidget {
                               color: Color.fromARGB(183, 119, 77, 175),
                             ),
                           ),
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           hintText: 'Hasło',
                           hintStyle: GoogleFonts.montserrat(),
                           labelStyle: TextStyle(color: Colors.grey.shade700),
@@ -130,7 +130,7 @@ class LoginPage extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          primary: Color.fromARGB(252, 122, 51, 214),
+                          primary: const Color.fromARGB(252, 122, 51, 214),
                           shadowColor: Colors.grey,
                           elevation: 6.0,
                           textStyle: GoogleFonts.montserrat(),

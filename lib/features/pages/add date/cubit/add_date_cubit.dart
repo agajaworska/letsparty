@@ -23,7 +23,7 @@ class AddDateCubit extends Cubit<AddDateState> {
           'time': time.toString(),
         },
       );
-      emit(AddDateState(saved: true));
+      emit(const AddDateState(saved: true));
     } catch (error) {
       emit(AddDateState(errorMessage: error.toString()));
     }
