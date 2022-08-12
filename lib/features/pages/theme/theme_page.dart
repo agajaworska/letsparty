@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/features/pages/theme/cubit/theme_cubit.dart';
 
 class ThemePage extends StatelessWidget {
   ThemePage({Key? key}) : super(key: key);
@@ -13,108 +14,108 @@ class ThemePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-        title: Text(
-          'M o t y w  i m p r e z y',
-          style: GoogleFonts.bebasNeue(
-            fontSize: 35,
-            color: Colors.grey.shade900,
-          ),
-        ),
-      ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          heightFactor: 0.5,
-          child: TextField(
-            controller: controller,
-            style: GoogleFonts.montserrat(),
-            decoration: InputDecoration(
-              hintText: 'Dodaj link do zdjęcia',
-              hintStyle: GoogleFonts.montserrat(),
-              prefixIcon: const Icon(
-                Icons.image_outlined,
-                color: Color.fromARGB(205, 107, 26, 213),
+    return BlocProvider(
+      create: (context) => ThemeCubit()..start(),
+      child: BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
+        return Scaffold(
+          backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+          appBar: AppBar(
+            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            title: Text(
+              'M o t y w  i m p r e z y',
+              style: GoogleFonts.bebasNeue(
+                fontSize: 35,
+                color: Colors.grey.shade900,
               ),
-              suffixIcon: IconButton(
-                onPressed: () {
-                  FirebaseFirestore.instance
-                      .collection('themePhotos')
-                      .add({'image_url': controller.text});
-                  clearText();
-                },
-                icon: const Icon(
-                  Icons.add,
-                  color: Color.fromARGB(205, 107, 26, 213),
+            ),
+          ),
+          bottomSheet: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              heightFactor: 0.5,
+              child: TextField(
+                controller: controller,
+                style: GoogleFonts.montserrat(),
+                decoration: InputDecoration(
+                  hintText: 'Dodaj link do zdjęcia',
+                  hintStyle: GoogleFonts.montserrat(),
+                  prefixIcon: const Icon(
+                    Icons.image_outlined,
+                    color: Color.fromARGB(205, 107, 26, 213),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      context.read<ThemeCubit>().add(imageUrl: controller.text);
+                      clearText();
+                    },
+                    icon: const Icon(
+                      Icons.add,
+                      color: Color.fromARGB(205, 107, 26, 213),
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
-      body: StreamBuilder<QuerySnapshot<Object?>>(
-        stream:
-            FirebaseFirestore.instance.collection('themePhotos').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Wystąpił nieoczekiwany problem');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Trwa ładowanie danych');
-          }
+          body: Builder(
+            builder: (context) {
+              if (state.errorMessage.isNotEmpty) {
+                return const Text('Wystąpił nieoczekiwany problem');
+              }
+              if (state.isLoading) {
+                return const Text('Trwa ładowanie danych');
+              }
 
-          final documents = snapshot.data!.docs;
+              final documents = state.documents;
 
-          return GridView.count(
-            crossAxisCount: 2,
-            children: [
-              for (final document in documents) ...[
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Dismissible(
-                    key: ValueKey(document.id),
-                    onDismissed: (_) {
-                      FirebaseFirestore.instance
-                          .collection('themePhotos')
-                          .doc(document.id)
-                          .delete();
-                    },
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 240, 234, 255),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(5, 5),
-                            blurRadius: 6.0,
-                            color: Colors.grey.shade600,
+              return GridView.count(
+                crossAxisCount: 2,
+                children: [
+                  for (final document in documents) ...[
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Dismissible(
+                        key: ValueKey(document.id),
+                        onDismissed: (_) {
+                          context
+                              .read<ThemeCubit>()
+                              .remove(documentID: document.id);
+                        },
+                        child: Container(
+                          height: 150,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 240, 234, 255),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: const Offset(5, 5),
+                                blurRadius: 6.0,
+                                color: Colors.grey.shade600,
+                              ),
+                              const BoxShadow(
+                                offset: Offset(-5, -5),
+                                blurRadius: 6.0,
+                                color: Color.fromARGB(255, 232, 222, 240),
+                              ),
+                            ],
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                document['image_url'],
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          const BoxShadow(
-                            offset: const Offset(-5, -5),
-                            blurRadius: 6.0,
-                            color: const Color.fromARGB(255, 232, 222, 240),
-                          ),
-                        ],
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            document['image_url'],
-                          ),
-                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ],
-          );
-        },
-      ),
+                  ],
+                ],
+              );
+            },
+          ),
+        );
+      }),
     );
   }
 }

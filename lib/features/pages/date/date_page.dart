@@ -71,7 +71,11 @@ class _DatePageBody extends StatelessWidget {
                     ),
                   ),
                   for (final itemModel in itemModels)
-                    _AdressBox(itemModel: itemModel)
+                    _AdressBox(itemModel: itemModel),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.edit_outlined),
+                  )
                 ],
               ),
               Row(
@@ -86,7 +90,11 @@ class _DatePageBody extends StatelessWidget {
                     ),
                   ),
                   for (final itemModel in itemModels)
-                    _DateBox(itemModel: itemModel)
+                    _DateBox(itemModel: itemModel),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.edit_outlined),
+                  )
                 ],
               ),
               Row(
@@ -101,7 +109,11 @@ class _DatePageBody extends StatelessWidget {
                     ),
                   ),
                   for (final itemModel in itemModels)
-                    _HourBox(itemModel: itemModel)
+                    _HourBox(itemModel: itemModel),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.edit_outlined),
+                  )
                 ],
               ),
             ],
