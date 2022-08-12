@@ -136,31 +136,33 @@ class DataBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 76,
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 240, 234, 255),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(5, 5),
-            blurRadius: 6.0,
-            color: Colors.grey.shade600,
+    return Expanded(
+      child: Container(
+        height: 76,
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 240, 234, 255),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(5, 5),
+              blurRadius: 6.0,
+              color: Colors.grey.shade600,
+            ),
+            const BoxShadow(
+              offset: Offset(-5, -5),
+              blurRadius: 6.0,
+              color: Color.fromARGB(255, 232, 222, 240),
+            ),
+          ],
+        ),
+        child: Text(
+          title,
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
           ),
-          const BoxShadow(
-            offset: Offset(-5, -5),
-            blurRadius: 6.0,
-            color: Color.fromARGB(255, 232, 222, 240),
-          ),
-        ],
-      ),
-      child: Text(
-        title,
-        style: GoogleFonts.montserrat(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
         ),
       ),
     );
@@ -193,7 +195,12 @@ class ListOfSpendings extends StatelessWidget {
                   Center(
                     child: Text(
                       'Lista wydatków:',
-                      style: GoogleFonts.montserrat(fontSize: 20),
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        textStyle: const TextStyle(
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -205,18 +212,23 @@ class ListOfSpendings extends StatelessWidget {
                             .read<AddSpendingsCubit>()
                             .remove(documentID: document.id);
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            document['name'],
-                            style: GoogleFonts.montserrat(fontSize: 18),
-                          ),
-                          Text(
-                            document['outgoing'].toString() + '${' zł'}',
-                            style: GoogleFonts.montserrat(fontSize: 18),
-                          ),
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              document['name'],
+                              style: GoogleFonts.montserrat(
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              document['outgoing'].toString() + '${' zł'}',
+                              style: GoogleFonts.montserrat(fontSize: 18),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   ],

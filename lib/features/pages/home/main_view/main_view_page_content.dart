@@ -16,173 +16,157 @@ class MainViewPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            bottom: 5.0,
-            left: 15.0,
-            right: 15.0,
+        child: Center(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Text(
+              'L  E  T \' S   P  A  R  T  Y ',
+              style: GoogleFonts.bebasNeue(
+                fontWeight: FontWeight.w600,
+                fontSize: 50,
+                color: const Color.fromARGB(255, 50, 5, 58),
+                textStyle: const TextStyle(
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(3, 3),
+                      blurRadius: 4.0,
+                      color: Color.fromARGB(255, 123, 24, 209),
+                    ),
+                    Shadow(
+                      offset: Offset(2, 2),
+                      blurRadius: 4.0,
+                      color: Color.fromARGB(255, 251, 251, 251),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-          child: ListView(
+          Expanded(
+              child: GridView.count(
+            crossAxisCount: 2,
+            padding: EdgeInsets.fromLTRB(18.0, 5.0, 18.0, 18.0),
             children: [
-              Center(
+              InkWell(
+                onTap: (() {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => QuestPage()),
+                  );
+                }),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Expanded(
+                  padding: const EdgeInsets.all(15.0),
+                  child: NewBox(
                     child: Text(
-                      'L  E  T \' S   P  A  R  T  Y ',
+                      'Lista gości',
                       style: GoogleFonts.bebasNeue(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 50,
-                        color: const Color.fromARGB(255, 50, 5, 58),
-                        textStyle: const TextStyle(
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(3, 3),
-                              blurRadius: 4.0,
-                              color: Color.fromARGB(255, 123, 24, 209),
-                            ),
-                            Shadow(
-                              offset: Offset(2, 2),
-                              blurRadius: 4.0,
-                              color: Color.fromARGB(255, 251, 251, 251),
-                            ),
-                          ],
-                        ),
+                        fontSize: 30,
+                        color: Colors.grey.shade900,
                       ),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      onTap: (() {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => QuestPage()),
-                        );
-                      }),
-                      child: NewBox(
-                        child: Text(
-                          'Lista gości',
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: 30,
-                            color: Colors.grey.shade900,
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => DatePage()),
-                        );
-                      },
-                      child: NewBox(
-                        child: Text('Gdzie i kiedy',
-                            style: GoogleFonts.bebasNeue(
-                              fontSize: 30,
-                              color: Colors.grey.shade900,
-                            )),
-                      ),
-                    ),
-                  ],
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => DatePage()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: NewBox(
+                    child: Text('Gdzie i kiedy',
+                        style: GoogleFonts.bebasNeue(
+                          fontSize: 30,
+                          color: Colors.grey.shade900,
+                        )),
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: ((context) => MenuPage(key))),
-                        );
-                      },
-                      child: NewBox(
-                        child: Text(
-                          'Menu',
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: 30,
-                            color: Colors.grey.shade900,
-                          ),
-                        ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: ((context) => MenuPage(key))),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: NewBox(
+                    child: Text(
+                      'Menu',
+                      style: GoogleFonts.bebasNeue(
+                        fontSize: 30,
+                        color: Colors.grey.shade900,
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => AttractionPage()),
-                        );
-                      },
-                      child: NewBox(
-                        child: Text(
-                          'Atrakcje',
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: 30,
-                            color: Colors.grey.shade900,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => ThemePage()),
-                        );
-                      },
-                      child: NewBox(
-                        child: Text(
-                          'Motyw imprezy',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: 30,
-                            color: Colors.grey.shade900,
-                          ),
-                        ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => AttractionPage()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: NewBox(
+                    child: Text(
+                      'Atrakcje',
+                      style: GoogleFonts.bebasNeue(
+                        fontSize: 30,
+                        color: Colors.grey.shade900,
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => BudgetPage()),
-                        );
-                      },
-                      child: NewBox(
-                        child: Text(
-                          'Finanse',
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: 30,
-                            color: Colors.grey.shade900,
-                          ),
-                        ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ThemePage()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: NewBox(
+                    child: Text(
+                      'Motyw imprezy',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.bebasNeue(
+                        fontSize: 30,
+                        color: Colors.grey.shade900,
                       ),
                     ),
-                  ],
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => BudgetPage()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: NewBox(
+                    child: Text(
+                      'Finanse',
+                      style: GoogleFonts.bebasNeue(
+                        fontSize: 30,
+                        color: Colors.grey.shade900,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
-          ),
-        ),
+          ))
+        ],
       ),
-    );
+    ));
   }
 }
 
@@ -193,8 +177,6 @@ class NewBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 140,
-      height: 140,
       decoration: BoxDecoration(
           color: Color.fromARGB(255, 212, 208, 245),
           borderRadius: BorderRadius.circular(8),
@@ -207,7 +189,7 @@ class NewBox extends StatelessWidget {
             BoxShadow(
               color: Color.fromARGB(246, 253, 250, 255),
               blurRadius: 16,
-              offset: Offset(-7, -7),
+              offset: Offset(-4, -4),
             ),
           ]),
       child: Center(child: child),

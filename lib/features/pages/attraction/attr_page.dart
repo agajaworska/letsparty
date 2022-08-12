@@ -26,17 +26,6 @@ class AttractionPage extends StatelessWidget {
                 ),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 107, 26, 213),
-              onPressed: () {
-                context.read<AttractionCubit>().add(title: controller.text);
-                controller.clear();
-              },
-              child: const Icon(
-                Icons.add_outlined,
-                color: Color.fromARGB(255, 212, 208, 245),
-              ),
-            ),
             body: BlocBuilder<AttractionCubit, AttractionState>(
               builder: (context, state) {
                 if (state.errorMessage.isNotEmpty) {
@@ -69,11 +58,39 @@ class AttractionPage extends StatelessWidget {
                         controller: controller,
                         style: GoogleFonts.montserrat(),
                         decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
+                            ),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
+                            ),
+                          ),
                           hintText: 'Podaj propozycję atrakcji',
                           hintStyle: GoogleFonts.montserrat(),
                           prefixIcon: const Icon(
                             Icons.star_border_outlined,
                             color: Color.fromARGB(183, 119, 77, 175),
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              context
+                                  .read<AttractionCubit>()
+                                  .add(title: controller.text);
+                              controller.clear();
+                            },
+                            icon: const Icon(
+                              Icons.add,
+                              color: Color.fromARGB(205, 107, 26, 213),
+                            ),
                           ),
                         ),
                       ),

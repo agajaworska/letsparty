@@ -17,45 +17,50 @@ class _AddSpendingsPageState extends State<AddSpendingsPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddSpendingsCubit(),
-      child: BlocBuilder<AddSpendingsCubit, AddSpendingsState>(
-        builder: (context, state) {
-          return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-            appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-              title: Text(
-                'W y d a t k i',
-                style: GoogleFonts.bebasNeue(
-                  fontSize: 35,
-                  color: Colors.grey.shade900,
-                ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    context.read<AddSpendingsCubit>().add(
-                          _name!,
-                          _price!,
-                        );
-                  },
-                  icon: const Icon(Icons.check),
-                )
-              ],
-            ),
-            body: _AddDatePageBody(
-              onNameChanged: (newValue) {
-                setState(() {
-                  _name = newValue;
-                });
-              },
-              onPriceChanged: (newValue) {
-                setState(() {
-                  _price = newValue;
-                });
-              },
-            ),
-          );
+      child: BlocListener<AddSpendingsCubit, AddSpendingsState>(
+        listener: (context, state) {
+          Navigator.of(context).pop();
         },
+        child: BlocBuilder<AddSpendingsCubit, AddSpendingsState>(
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              appBar: AppBar(
+                backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                title: Text(
+                  'W y d a t k i',
+                  style: GoogleFonts.bebasNeue(
+                    fontSize: 35,
+                    color: Colors.grey.shade900,
+                  ),
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      context.read<AddSpendingsCubit>().add(
+                            _name!,
+                            _price!,
+                          );
+                    },
+                    icon: const Icon(Icons.check),
+                  )
+                ],
+              ),
+              body: _AddDatePageBody(
+                onNameChanged: (newValue) {
+                  setState(() {
+                    _name = newValue;
+                  });
+                },
+                onPriceChanged: (newValue) {
+                  setState(() {
+                    _price = newValue;
+                  });
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
