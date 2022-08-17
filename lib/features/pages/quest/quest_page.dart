@@ -64,16 +64,13 @@ class _bottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color.fromARGB(255, 158, 99, 235),
-      child: Center(
-        heightFactor: 1,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-            'Wpisz swoje imię i nazwisko w zakładce Moje konto, aby znaleźć się na liście gości.',
-            style: GoogleFonts.montserrat(color: Colors.white, fontSize: 16),
-          ),
+    return Center(
+      heightFactor: 1,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          'Wpisz swoje imię i nazwisko w zakładce Moje konto, aby znaleźć się na liście gości.',
+          style: GoogleFonts.montserrat(color: Colors.white, fontSize: 16),
         ),
       ),
     );
@@ -113,7 +110,6 @@ class UserBox extends StatelessWidget {
         title,
         style: GoogleFonts.montserrat(
           fontSize: 18,
-          fontWeight: FontWeight.w500,
         ),
       ),
     );

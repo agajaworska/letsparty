@@ -89,7 +89,7 @@ class AttractionPage extends StatelessWidget {
                             },
                             icon: const Icon(
                               Icons.add,
-                              color: Color.fromARGB(205, 107, 26, 213),
+                              color: Color.fromARGB(183, 119, 77, 175),
                             ),
                           ),
                         ),
@@ -139,7 +139,6 @@ class AttractionWidget extends StatelessWidget {
         title,
         style: GoogleFonts.montserrat(
           fontSize: 18,
-          fontWeight: FontWeight.w500,
         ),
       ),
     );

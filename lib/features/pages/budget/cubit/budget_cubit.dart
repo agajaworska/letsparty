@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'budget_state.dart';
@@ -74,6 +75,14 @@ class BudgetCubit extends Cubit<BudgetState> {
         BudgetState(errorMessage: error.toString()),
       );
     }
+  }
+
+  Future<void> update(
+      {required String documentID, required String data}) async {
+    await FirebaseFirestore.instance
+        .collection('finance')
+        .doc(documentID)
+        .update({data: 'data'});
   }
 
   @override

@@ -47,14 +47,16 @@ class RootCubit extends Cubit<RootState> {
         email: email,
         password: password,
       );
-    } catch (error) {
-      emit(
-        RootState(
-            errorMessage: error.toString(),
-            isLoading: false,
-            user: null,
-            isCreatingAccount: false),
-      );
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'email-already-in-use') {
+        emit(
+          const RootState(
+              errorMessage: 'The account already exist for that email! ',
+              isLoading: false,
+              user: null,
+              isCreatingAccount: false),
+        );
+      }
     }
   }
 
@@ -67,16 +69,34 @@ class RootCubit extends Cubit<RootState> {
         email: email,
         password: password,
       );
-    } catch (error) {
-      emit(
-        RootState(
-            errorMessage: error.toString(),
-            isLoading: false,
-            user: null,
-            isCreatingAccount: false),
-      );
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'user-not-found') {
+        emit(
+          const RootState(
+              errorMessage: 'No user found for that email, try again :) ',
+              isLoading: false,
+              user: null,
+              isCreatingAccount: false),
+        );
+      } else if (error.code == 'wrong-password') {
+        emit(
+          const RootState(
+              errorMessage: 'Wrong password, try again :) ',
+              isLoading: false,
+              user: null,
+              isCreatingAccount: false),
+        );
+      }
     }
   }
+
+  // Future<void> passwordReset({required String email}) async {
+  //   try {
+  //     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  //   } on FirebaseAuthException catch (e) {
+  //     print('Failed');
+  //   }
+  // }
 
   Future<void> signOut() async {
     FirebaseAuth.instance.signOut();

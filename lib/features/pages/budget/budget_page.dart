@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,27 +54,19 @@ class BudgetPage extends StatelessWidget {
             final documents = state.documents;
 
             return Center(
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    'Dane do przelewu:',
-                    style: GoogleFonts.montserrat(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
+              child: ListView(children: [
+                // Padding(
+                //   padding: const EdgeInsets.all(15.0),
+                //   child: Text(
+                //     'Dane do przelewu:',
+                //     style: GoogleFonts.montserrat(
+                //       fontSize: 20,
+                //     ),
+                //   ),
+                // ),
                 for (final document in documents) ...[
-                  Dismissible(
-                    key: ValueKey(document.id),
-                    onDismissed: (_) {
-                      context
-                          .read<BudgetCubit>()
-                          .remove(documentID: document.id);
-                    },
-                    child: DataBox(
-                      title: document['data'],
-                    ),
+                  DataBox(
+                    title: document['data'],
                   ),
                 ],
                 Padding(
@@ -102,21 +95,37 @@ class BudgetPage extends StatelessWidget {
                         Icons.monetization_on_outlined,
                         color: Color.fromARGB(205, 107, 26, 213),
                       ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          context.read<BudgetCubit>().add(controller.text);
-                          clearText();
-                        },
-                        icon: const Icon(
-                          Icons.add,
-                          color: Color.fromARGB(205, 107, 26, 213),
-                        ),
+                      suffixIcon: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              context.read<BudgetCubit>().add(controller.text);
+                              clearText();
+                            },
+                            icon: const Icon(
+                              Icons.add,
+                              color: Color.fromARGB(205, 107, 26, 213),
+                            ),
+                          ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     context.read<BudgetCubit>().update(
+                          //         documentID: FieldPath.documentId.toString(),
+                          //         data: controller.text);
+                          //         clearText();
+                          //   },
+                          //   icon: Icon(
+                          //     Icons.edit_outlined,
+                          //   ),
+                          // ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 8.0),
-                const ListOfSpendings(),
+                // const SizedBox(height: 8.0),
+                // const ListOfSpendings(),
               ]),
             );
           },
@@ -136,33 +145,30 @@ class DataBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 76,
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 240, 234, 255),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(5, 5),
-              blurRadius: 6.0,
-              color: Colors.grey.shade600,
-            ),
-            const BoxShadow(
-              offset: Offset(-5, -5),
-              blurRadius: 6.0,
-              color: Color.fromARGB(255, 232, 222, 240),
-            ),
-          ],
-        ),
-        child: Text(
-          title,
-          style: GoogleFonts.montserrat(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
+    return Container(
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 240, 234, 255),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(5, 5),
+            blurRadius: 6.0,
+            color: Colors.grey.shade600,
           ),
+          const BoxShadow(
+            offset: Offset(-5, -5),
+            blurRadius: 6.0,
+            color: Color.fromARGB(255, 232, 222, 240),
+          ),
+        ],
+      ),
+      child: Text(
+        title,
+        style: GoogleFonts.montserrat(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
@@ -197,9 +203,7 @@ class ListOfSpendings extends StatelessWidget {
                       'Lista wydatków:',
                       style: GoogleFonts.montserrat(
                         fontSize: 20,
-                        textStyle: const TextStyle(
-                          decoration: TextDecoration.underline,
-                        ),
+                        textStyle: const TextStyle(),
                       ),
                     ),
                   ),

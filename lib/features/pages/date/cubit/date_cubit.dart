@@ -53,6 +53,14 @@ class DateCubit extends Cubit<DateState> {
     }
   }
 
+  Future<void> update(
+      {required String documentID, required String adress}) async {
+    await FirebaseFirestore.instance
+        .collection('items')
+        .doc(documentID)
+        .update({'adress': adress});
+  }
+
   @override
   Future<void> close() {
     _streamSubscription?.cancel();
