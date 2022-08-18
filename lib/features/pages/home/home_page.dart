@@ -8,6 +8,7 @@ import 'package:letsparty/features/pages/home/chat/chat_page_content.dart';
 import 'package:letsparty/features/pages/home/cubit/home_cubit.dart';
 import 'package:letsparty/features/pages/home/main_view/main_view_page_content.dart';
 import 'package:letsparty/features/pages/home/my_account/my_account_page_content.dart';
+import 'package:letsparty/models/user_models.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({

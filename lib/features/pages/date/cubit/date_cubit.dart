@@ -53,12 +53,18 @@ class DateCubit extends Cubit<DateState> {
     }
   }
 
-  Future<void> update(
-      {required String documentID, required String adress}) async {
-    await FirebaseFirestore.instance
-        .collection('items')
-        .doc(documentID)
-        .update({'adress': adress});
+  CollectionReference users = FirebaseFirestore.instance.collection('items');
+
+  Future<void> updateAdress(
+      {required String documentID,
+      required String adress,
+      required DateTime date,
+      required String time}) async {
+    await users.doc(documentID).update({
+      'adress': adress,
+      'date': date,
+      'time': time.toString(),
+    });
   }
 
   @override

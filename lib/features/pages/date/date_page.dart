@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
+import 'package:letsparty/features/pages/add%20date/update_date_page.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/models/item_models.dart';
 
@@ -61,61 +62,64 @@ class _DatePageBody extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      "Adres:",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 20,
-                      ),
+                  const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Icon(
+                      Icons.home_outlined,
                     ),
                   ),
                   for (final itemModel in itemModels)
                     _AdressBox(itemModel: itemModel),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit_outlined),
-                  )
                 ],
               ),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      "Data:",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 20,
-                      ),
+                  const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Icon(
+                      Icons.calendar_month_outlined,
                     ),
                   ),
                   for (final itemModel in itemModels)
                     _DateBox(itemModel: itemModel),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit_outlined),
-                  )
                 ],
               ),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      "Godzina:",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 20,
-                      ),
+                  const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Icon(
+                      Icons.watch_later_outlined,
                     ),
                   ),
                   for (final itemModel in itemModels)
                     _HourBox(itemModel: itemModel),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit_outlined),
-                  )
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const UpdatePage(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.edit_outlined),
+                  ),
+                  for (final itemModel in itemModels)
+                    IconButton(
+                      onPressed: () {
+                        context
+                            .read<DateCubit>()
+                            .remove(documentID: itemModel.id);
+                      },
+                      icon: const Icon(Icons.delete_outlined),
+                    ),
+                ],
+              )
             ],
           );
         },
@@ -195,16 +199,10 @@ class _AdressBox extends StatelessWidget {
             ),
           ],
         ),
-        child: Dismissible(
-          key: ValueKey(itemModel.id),
-          onDismissed: (_) {
-            context.read<DateCubit>().remove(documentID: itemModel.id);
-          },
-          child: Text(
-            itemModel.adress,
-            style: GoogleFonts.montserrat(
-              fontSize: 18,
-            ),
+        child: Text(
+          itemModel.adress,
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
           ),
         ),
       ),
