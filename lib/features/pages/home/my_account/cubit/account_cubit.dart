@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:letsparty/models/user_models.dart';
 import 'package:meta/meta.dart';
 
 part 'account_state.dart';
@@ -9,7 +10,7 @@ part 'account_state.dart';
 class AccountCubit extends Cubit<AccountState> {
   AccountCubit()
       : super(const AccountState(
-          documents: [],
+          items: [],
           errorMessage: '',
           isLoading: false,
         ));
@@ -18,35 +19,37 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> start() async {
     emit(
       const AccountState(
-        documents: [],
+        items: [],
         errorMessage: '',
         isLoading: true,
       ),
     );
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('user')
-        .snapshots()
-        .listen((data) {
-      emit(
-        AccountState(
-          documents: data.docs,
-          isLoading: false,
-          errorMessage: '',
-        ),
-      );
-    })
-      ..onError((error) {
+    _streamSubscription =
+        FirebaseFirestore.instance.collection('user').snapshots().listen(
+      (items) {
+        final userModels = items.docs.map((doc) {
+          return UserModel(name: doc['name'], photo: doc['photo'], id: doc.id);
+        }).toList();
         emit(
           AccountState(
-            documents: const [],
+            items: userModels,
             isLoading: false,
-            errorMessage: error.toString(),
+            errorMessage: '',
           ),
         );
-      });
+      },
+    )..onError((error) {
+            emit(
+              AccountState(
+                items: const [],
+                isLoading: false,
+                errorMessage: error.toString(),
+              ),
+            );
+          });
   }
 
-  Future<void> add({required String name, required String photo}) async {
+  Future<void> add({required String? name, required String? photo}) async {
     try {
       await FirebaseFirestore.instance.collection('user').add(
         {
@@ -55,13 +58,13 @@ class AccountCubit extends Cubit<AccountState> {
         },
       );
       emit(AccountState(
-        documents: state.documents,
+        items: state.items,
         errorMessage: '',
         isLoading: false,
       ));
     } catch (error) {
       emit(AccountState(
-        documents: const [],
+        items: const [],
         errorMessage: error.toString(),
         isLoading: false,
       ));
@@ -77,7 +80,7 @@ class AccountCubit extends Cubit<AccountState> {
     } catch (error) {
       emit(
         AccountState(
-            errorMessage: error.toString(), documents: [], isLoading: false),
+            errorMessage: error.toString(), items: [], isLoading: false),
       );
       start();
     }
