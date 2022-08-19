@@ -53,24 +53,33 @@ class BudgetPage extends StatelessWidget {
             }
             final documents = state.documents;
 
-            return Center(
-              child: ListView(children: [
-                // Padding(
-                //   padding: const EdgeInsets.all(15.0),
-                //   child: Text(
-                //     'Dane do przelewu:',
-                //     style: GoogleFonts.montserrat(
-                //       fontSize: 20,
-                //     ),
-                //   ),
-                // ),
+            return ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+                  child: Text(
+                    'Informacje o wysokości składki oraz dane do przelewu:',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 18,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 for (final document in documents) ...[
-                  DataBox(
-                    title: document['data'],
+                  Dismissible(
+                    key: ValueKey(document.id),
+                    onDismissed: (_) {
+                      context
+                          .read<BudgetCubit>()
+                          .remove(documentID: document.id);
+                    },
+                    child: DataBox(
+                      (document['data']),
+                    ),
                   ),
                 ],
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: TextField(
                     controller: controller,
                     style: GoogleFonts.montserrat(),
@@ -89,44 +98,34 @@ class BudgetPage extends StatelessWidget {
                           color: Color.fromARGB(183, 119, 77, 175),
                         ),
                       ),
-                      hintText: 'Wpisz dane do przelewu',
+                      hintText: 'Podaj kwotę i dane przelewu',
                       hintStyle: GoogleFonts.montserrat(),
                       prefixIcon: const Icon(
                         Icons.monetization_on_outlined,
-                        color: Color.fromARGB(205, 107, 26, 213),
+                        color: Color.fromARGB(183, 119, 77, 175),
                       ),
-                      suffixIcon: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              context.read<BudgetCubit>().add(controller.text);
-                              clearText();
-                            },
-                            icon: const Icon(
-                              Icons.add,
-                              color: Color.fromARGB(205, 107, 26, 213),
-                            ),
-                          ),
-                          // IconButton(
-                          //   onPressed: () {
-                          //     context.read<BudgetCubit>().update(
-                          //         documentID: FieldPath.documentId.toString(),
-                          //         data: controller.text);
-                          //         clearText();
-                          //   },
-                          //   icon: Icon(
-                          //     Icons.edit_outlined,
-                          //   ),
-                          // ),
-                        ],
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          context
+                              .read<BudgetCubit>()
+                              .add(data: controller.text);
+                          controller.clear();
+                        },
+                        icon: const Icon(
+                          Icons.add,
+                          color: Color.fromARGB(183, 119, 77, 175),
+                        ),
                       ),
                     ),
                   ),
                 ),
-                // const SizedBox(height: 8.0),
-                // const ListOfSpendings(),
-              ]),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0),
+                  child: Divider(
+                      thickness: 1.0, color: Color.fromARGB(76, 82, 67, 92)),
+                ),
+                const ListOfSpendings(),
+              ],
             );
           },
         ),
@@ -136,39 +135,41 @@ class BudgetPage extends StatelessWidget {
 }
 
 class DataBox extends StatelessWidget {
-  const DataBox({
+  const DataBox(
+    this.title, {
     Key? key,
-    required this.title,
   }) : super(key: key);
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 240, 234, 255),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(5, 5),
-            blurRadius: 6.0,
-            color: Colors.grey.shade600,
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 240, 234, 255),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(5, 5),
+              blurRadius: 6.0,
+              color: Colors.grey.shade600,
+            ),
+            const BoxShadow(
+              offset: Offset(-5, -5),
+              blurRadius: 6.0,
+              color: Color.fromARGB(255, 232, 222, 240),
+            ),
+          ],
+        ),
+        child: Text(
+          title,
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
           ),
-          const BoxShadow(
-            offset: Offset(-5, -5),
-            blurRadius: 6.0,
-            color: Color.fromARGB(255, 232, 222, 240),
-          ),
-        ],
-      ),
-      child: Text(
-        title,
-        style: GoogleFonts.montserrat(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
         ),
       ),
     );
@@ -196,7 +197,7 @@ class ListOfSpendings extends StatelessWidget {
                 return const Text('Trwa ładowanie danych');
               }
               final documents = state.documents;
-              return ListView(
+              return Column(
                 children: [
                   Center(
                     child: Text(
@@ -228,7 +229,7 @@ class ListOfSpendings extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              document['outgoing'].toString() + '${' zł'}',
+                              '${document['outgoing']}${' zł'}',
                               style: GoogleFonts.montserrat(fontSize: 18),
                             ),
                           ],

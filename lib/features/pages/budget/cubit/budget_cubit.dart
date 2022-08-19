@@ -8,18 +8,16 @@ import 'package:meta/meta.dart';
 part 'budget_state.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
-  BudgetCubit() : super(const BudgetState());
+  BudgetCubit()
+      : super(const BudgetState(
+          documents: [],
+          errorMessage: '',
+          isLoading: false,
+        ));
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    emit(
-      const BudgetState(
-        documents: [],
-        errorMessage: '',
-        isLoading: true,
-      ),
-    );
     _streamSubscription = FirebaseFirestore.instance
         .collection('finance')
         .snapshots()
@@ -43,9 +41,7 @@ class BudgetCubit extends Cubit<BudgetState> {
       });
   }
 
-  Future<void> add(
-    String data,
-  ) async {
+  Future<void> add({required String data}) async {
     try {
       await FirebaseFirestore.instance.collection('finance').add(
         {
@@ -53,13 +49,13 @@ class BudgetCubit extends Cubit<BudgetState> {
         },
       );
       emit(
-        const BudgetState(saved: true),
+        BudgetState(
+            documents: state.documents, errorMessage: '', isLoading: false),
       );
     } catch (error) {
       emit(
         BudgetState(
-          errorMessage: error.toString(),
-        ),
+            documents: [], errorMessage: error.toString(), isLoading: false),
       );
     }
   }
@@ -72,7 +68,8 @@ class BudgetCubit extends Cubit<BudgetState> {
           .delete();
     } catch (error) {
       emit(
-        BudgetState(errorMessage: error.toString()),
+        BudgetState(
+            errorMessage: error.toString(), documents: [], isLoading: false),
       );
     }
   }
