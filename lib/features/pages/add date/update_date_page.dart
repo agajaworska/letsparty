@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
 
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/models/item_models.dart';
@@ -54,7 +57,7 @@ class _UpdatePageState extends State<UpdatePage> {
                     for (final itemModel in itemModels)
                       IconButton(
                         onPressed: () {
-                          context.read<DateCubit>().updateAdress(
+                          context.read<DateCubit>().update(
                                 documentID: itemModel.id,
                                 adress: _adress!,
                                 date: _date!,
@@ -85,6 +88,12 @@ class _UpdatePageState extends State<UpdatePage> {
                 selectedDateFormatted: _date == null
                     ? null
                     : DateFormat.yMMMMEEEEd().format(_date!),
+                // itemModel: ItemModel(
+                //   id: state.items.toString(),
+                //   adress: state.items.toString(),
+                //   date: (state.items as Timestamp).toDate(),
+                //   time: state.items.toString(),
+                // ),
               ),
             );
           },
@@ -102,6 +111,7 @@ class _UpdateDatePageBody extends StatelessWidget {
     required this.onTimeChanged,
     this.selectedDateFormatted,
     this.selectedTimeFormatted,
+    this.itemModel,
   }) : super(key: key);
 
   final Function(String) onAdressChanged;
@@ -109,11 +119,12 @@ class _UpdateDatePageBody extends StatelessWidget {
   final Function(TimeOfDay?) onTimeChanged;
   final String? selectedDateFormatted;
   final String? selectedTimeFormatted;
+  final ItemModel? itemModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DateCubit()..start(),
+      create: (context) => DateCubit(),
       child: BlocBuilder<DateCubit, DateState>(
         builder: (context, state) {
           return ListView(
@@ -122,7 +133,7 @@ class _UpdateDatePageBody extends StatelessWidget {
               vertical: 20,
             ),
             children: [
-              TextField(
+              TextFormField(
                 onChanged: onAdressChanged,
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(

@@ -32,6 +32,7 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
         .listen((data) {
       emit(
         AddSpendingsState(
+          saved: true,
           documents: data.docs,
           isLoading: false,
           errorMessage: '',

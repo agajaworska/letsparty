@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -55,7 +56,7 @@ class DateCubit extends Cubit<DateState> {
 
   CollectionReference users = FirebaseFirestore.instance.collection('items');
 
-  Future<void> updateAdress(
+  Future<void> update(
       {required String documentID,
       required String adress,
       required DateTime date,
@@ -65,6 +66,7 @@ class DateCubit extends Cubit<DateState> {
       'date': date,
       'time': time.toString(),
     });
+    emit(DateState(saved: true));
   }
 
   @override
