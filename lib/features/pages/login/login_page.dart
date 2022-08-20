@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       Text(
                         'L E T\'S',
@@ -58,7 +58,6 @@ class LoginPage extends StatelessWidget {
                               ],
                             )),
                       ),
-                      const SizedBox(height: 70),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                         child: TextField(

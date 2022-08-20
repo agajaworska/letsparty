@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +10,9 @@ import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/models/item_models.dart';
 
 class UpdatePage extends StatefulWidget {
-  const UpdatePage({Key? key}) : super(key: key);
+  const UpdatePage(
+    Key? key,
+  ) : super(key: key);
 
   @override
   State<UpdatePage> createState() => _UpdatePageState();
@@ -21,7 +21,7 @@ class UpdatePage extends StatefulWidget {
 class _UpdatePageState extends State<UpdatePage> {
   String? _adress;
   DateTime? _date;
-  TimeOfDay? _time;
+  String? _time;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _UpdatePageState extends State<UpdatePage> {
                                 documentID: itemModel.id,
                                 adress: _adress!,
                                 date: _date!,
-                                time: _time!.format(context).toString(),
+                                time: _time.toString(),
                               );
                         },
                         icon: const Icon(Icons.check),
@@ -80,11 +80,10 @@ class _UpdatePageState extends State<UpdatePage> {
                 },
                 onTimeChanged: (newValue) {
                   setState(() {
-                    _time = newValue;
+                    _time = newValue!.format(context).toString();
                   });
                 },
-                selectedTimeFormatted:
-                    _time == null ? null : _time!.format(context),
+                selectedTimeFormatted: _time == null ? null : _time!.toString(),
                 selectedDateFormatted: _date == null
                     ? null
                     : DateFormat.yMMMMEEEEd().format(_date!),
@@ -111,106 +110,108 @@ class _UpdateDatePageBody extends StatelessWidget {
     required this.onTimeChanged,
     this.selectedDateFormatted,
     this.selectedTimeFormatted,
-    this.itemModel,
   }) : super(key: key);
 
-  final Function(String) onAdressChanged;
+  final Function(String?) onAdressChanged;
   final Function(DateTime?) onDateChanged;
   final Function(TimeOfDay?) onTimeChanged;
   final String? selectedDateFormatted;
   final String? selectedTimeFormatted;
-  final ItemModel? itemModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DateCubit(),
+      create: (context) => DateCubit()..start(),
       child: BlocBuilder<DateCubit, DateState>(
         builder: (context, state) {
+          final itemModels = state.items;
           return ListView(
             padding: const EdgeInsets.symmetric(
               horizontal: 30,
               vertical: 20,
             ),
             children: [
-              TextFormField(
-                onChanged: onAdressChanged,
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Color.fromARGB(183, 119, 77, 175),
+              for (final itemModel in itemModels)
+                TextFormField(
+                  initialValue: itemModel.adress,
+                  onChanged: onAdressChanged,
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Color.fromARGB(183, 119, 77, 175),
+                      ),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Color.fromARGB(183, 119, 77, 175),
+                      ),
+                    ),
+                    border: const OutlineInputBorder(),
+                    hintText: 'Adres',
+                    labelStyle: TextStyle(color: Colors.grey.shade700),
+                    label: Text(
+                      'Adres',
+                      style: GoogleFonts.montserrat(),
                     ),
                   ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Color.fromARGB(183, 119, 77, 175),
+                ),
+              const SizedBox(height: 20),
+              for (final itemModel in itemModels)
+                ElevatedButton(
+                  onPressed: () async {
+                    final selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: itemModel.date,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(
+                        const Duration(days: 365 * 10),
+                      ),
+                    );
+                    onDateChanged(selectedDate);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
+                    primary: const Color.fromARGB(205, 107, 26, 213),
+                    shadowColor: Colors.grey,
+                    elevation: 6.0,
+                    textStyle: GoogleFonts.montserrat(),
                   ),
-                  border: const OutlineInputBorder(),
-                  hintText: 'Adres',
-                  labelStyle: TextStyle(color: Colors.grey.shade700),
-                  label: Text(
-                    'Adres',
+                  child: Text(
+                    selectedDateFormatted ??
+                        DateFormat.yMMMMEEEEd().format(itemModel.date),
                     style: GoogleFonts.montserrat(),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  final selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(
-                      const Duration(days: 365 * 10),
-                    ),
-                  );
-                  onDateChanged(selectedDate);
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  primary: const Color.fromARGB(205, 107, 26, 213),
-                  shadowColor: Colors.grey,
-                  elevation: 6.0,
-                  textStyle: GoogleFonts.montserrat(),
-                ),
-                child: Text(
-                  selectedDateFormatted ?? 'Wybierz datę',
-                  style: GoogleFonts.montserrat(),
-                ),
-              ),
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  final selectedTime = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
-                  onTimeChanged(selectedTime);
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+              for (final itemModel in itemModels)
+                ElevatedButton(
+                  onPressed: () async {
+                    final selectedTime = await showTimePicker(
+                        context: context, initialTime: TimeOfDay.now());
+                    onTimeChanged(selectedTime);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    primary: const Color.fromARGB(205, 107, 26, 213),
+                    shadowColor: Colors.grey,
+                    elevation: 6.0,
+                    textStyle: GoogleFonts.montserrat(),
                   ),
-                  primary: const Color.fromARGB(205, 107, 26, 213),
-                  shadowColor: Colors.grey,
-                  elevation: 6.0,
-                  textStyle: GoogleFonts.montserrat(),
+                  child: Text(
+                    selectedTimeFormatted ?? itemModel.time.toString(),
+                    style: GoogleFonts.montserrat(),
+                  ),
                 ),
-                child: Text(
-                  selectedTimeFormatted ?? 'Wybierz godzinę',
-                  style: GoogleFonts.montserrat(),
-                ),
-              ),
             ],
           );
         },

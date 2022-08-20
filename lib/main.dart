@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const RootPage(),
         theme: ThemeData(
+          primarySwatch: Colors.deepPurple,
           fontFamily: 'Montsserat',
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Color.fromARGB(255, 158, 99, 235),

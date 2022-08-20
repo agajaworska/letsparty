@@ -23,7 +23,7 @@ class DateCubit extends Cubit<DateState> {
             id: doc.id,
             adress: doc['adress'],
             date: (doc['date'] as Timestamp).toDate(),
-            time: doc['time'],
+            time: (doc['time']),
           );
         }).toList();
 
@@ -56,17 +56,18 @@ class DateCubit extends Cubit<DateState> {
 
   CollectionReference users = FirebaseFirestore.instance.collection('items');
 
-  Future<void> update(
-      {required String documentID,
-      required String adress,
-      required DateTime date,
-      required String time}) async {
+  Future<void> update({
+    required String documentID,
+    required String adress,
+    required DateTime date,
+    required String time,
+  }) async {
     await users.doc(documentID).update({
       'adress': adress,
       'date': date,
-      'time': time.toString(),
+      'time': time,
     });
-    emit(DateState(saved: true));
+    emit(const DateState(saved: true));
   }
 
   @override

@@ -30,7 +30,7 @@ class DatePage extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const AddDatePage(),
+              builder: (context) => AddDatePage(),
               fullscreenDialog: true,
             ),
           );
@@ -103,7 +103,7 @@ class _DatePageBody extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => const UpdatePage(),
+                          builder: (_) => UpdatePage(key),
                         ),
                       );
                     },

@@ -20,7 +20,7 @@ class AddDateCubit extends Cubit<AddDateState> {
         {
           'adress': adress,
           'date': date,
-          'time': time.toString(),
+          'time': time,
         },
       );
       emit(const AddDateState(saved: true));

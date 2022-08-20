@@ -71,7 +71,7 @@ class MainViewPageContent extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => DatePage()),
+                    MaterialPageRoute(builder: (context) => const DatePage()),
                   );
                 },
                 child: Padding(
@@ -88,7 +88,9 @@ class MainViewPageContent extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: ((context) => MenuPage(key))),
+                    MaterialPageRoute(
+                      builder: (context) => MenuPage(key),
+                    ),
                   );
                 },
                 child: Padding(
