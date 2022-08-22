@@ -6,7 +6,7 @@ import 'package:letsparty/features/pages/date/date_page.dart';
 import 'package:letsparty/features/pages/menu/menu_page.dart';
 import 'package:letsparty/features/pages/quest/quest_page.dart';
 import 'package:letsparty/features/pages/theme/theme_page.dart';
-import 'package:letsparty/models/item_models.dart';
+import 'package:letsparty/models/item_model.dart';
 
 class MainViewPageContent extends StatelessWidget {
   const MainViewPageContent({

@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
 
-import 'package:letsparty/models/user_models.dart';
+import 'package:letsparty/models/user_model.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   MyAccountPageContent({

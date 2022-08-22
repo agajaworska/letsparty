@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:letsparty/models/item_models.dart';
+import 'package:letsparty/models/item_model.dart';
 import 'package:meta/meta.dart';
 
 part 'date_state.dart';

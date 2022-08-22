@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
 
-import 'package:letsparty/models/item_models.dart';
+import 'package:letsparty/models/item_model.dart';
 
 class AddDatePage extends StatefulWidget {
   AddDatePage({
@@ -82,30 +82,33 @@ class _AddDatePageState extends State<AddDatePage> {
                 ),
                 actions: [
                   IconButton(
-                      onPressed: () {
-                        // setState(() {
-                        //   _adress = widget.adressController.text;
-                        // });
-                        // setState(() {
-                        //   _date = (widget.selectedDateFormatted.toString())
-                        //       as DateTime;
-                        // });
-                        // setState(() {
-                        //   _time = (widget.selectedTimeFormatted.toString())
-                        //       as TimeOfDay;
-                        // });
-                        // widget.selectedTimeFormatted;
-                        // _time == null ? null : _time!.format(context);
-                        // widget.selectedDateFormatted;
-                        // _date == null
-                        //     ? null
-                        //     : DateFormat.yMMMMEEEEd().format(_date!);
-                        context.read<AddDateCubit>().add(
-                              _adress!,
-                              _date!,
-                              _time!.format(context),
-                            );
-                      },
+                      onPressed:
+                          _adress == null || _date == null || _time == null
+                              ? null
+                              : () {
+                                  // setState(() {
+                                  //   _adress = widget.adressController.text;
+                                  // });
+                                  // setState(() {
+                                  //   _date = (widget.selectedDateFormatted.toString())
+                                  //       as DateTime;
+                                  // });
+                                  // setState(() {
+                                  //   _time = (widget.selectedTimeFormatted.toString())
+                                  //       as TimeOfDay;
+                                  // });
+                                  // widget.selectedTimeFormatted;
+                                  // _time == null ? null : _time!.format(context);
+                                  // widget.selectedDateFormatted;
+                                  // _date == null
+                                  //     ? null
+                                  //     : DateFormat.yMMMMEEEEd().format(_date!);
+                                  context.read<AddDateCubit>().add(
+                                        _adress!,
+                                        _date!,
+                                        _time!.format(context),
+                                      );
+                                },
                       icon: const Icon(Icons.check))
                 ],
               ),

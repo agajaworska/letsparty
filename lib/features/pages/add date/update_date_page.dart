@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
 
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
-import 'package:letsparty/models/item_models.dart';
+import 'package:letsparty/models/item_model.dart';
 
 class UpdatePage extends StatefulWidget {
   const UpdatePage(
@@ -55,17 +55,41 @@ class _UpdatePageState extends State<UpdatePage> {
                   ),
                   actions: [
                     for (final itemModel in itemModels)
-                      IconButton(
-                        onPressed: () {
-                          context.read<DateCubit>().update(
-                                documentID: itemModel.id,
-                                adress: _adress!,
-                                date: _date!,
-                                time: _time.toString(),
-                              );
-                        },
-                        icon: const Icon(Icons.check),
-                      )
+                      Builder(builder: (context) {
+                        if (_adress != null || _date != null || _time != null) {
+                          return IconButton(
+                            onPressed: _adress == null ||
+                                    _date == null ||
+                                    _time == null
+                                ? null
+                                : () {
+                                    context.read<DateCubit>().update(
+                                        documentID: itemModel.id,
+                                        adress: _adress.toString(),
+                                        date: _date!,
+                                        time: _time!);
+                                  },
+                            icon: const Icon(Icons.check),
+                          );
+                        }
+                        if (_adress == null || _date == null || _time == null) {
+                          return IconButton(
+                            onPressed: _adress == null ||
+                                    _date == null ||
+                                    _time == null
+                                ? null
+                                : () {
+                                    context.read<DateCubit>().update(
+                                        documentID: itemModel.id,
+                                        adress: itemModel.adress,
+                                        date: itemModel.date,
+                                        time: itemModel.time);
+                                  },
+                            icon: const Icon(Icons.check),
+                          );
+                        }
+                        throw const SizedBox.shrink();
+                      })
                   ]),
               body: _UpdateDatePageBody(
                 onAdressChanged: (newValue) {
