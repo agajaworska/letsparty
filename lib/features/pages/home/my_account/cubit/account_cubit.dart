@@ -10,7 +10,7 @@ part 'account_state.dart';
 class AccountCubit extends Cubit<AccountState> {
   AccountCubit()
       : super(const AccountState(
-          items: [],
+          userDocs: [],
           errorMessage: '',
           isLoading: false,
         ));
@@ -19,20 +19,20 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> start() async {
     emit(
       const AccountState(
-        items: [],
+        userDocs: [],
         errorMessage: '',
         isLoading: true,
       ),
     );
     _streamSubscription =
         FirebaseFirestore.instance.collection('user').snapshots().listen(
-      (items) {
-        final userModels = items.docs.map((doc) {
+      (userDocs) {
+        final userModels = userDocs.docs.map((doc) {
           return UserModel(name: doc['name'], photo: doc['photo'], id: doc.id);
         }).toList();
         emit(
           AccountState(
-            items: userModels,
+            userDocs: userModels,
             isLoading: false,
             errorMessage: '',
           ),
@@ -41,7 +41,7 @@ class AccountCubit extends Cubit<AccountState> {
     )..onError((error) {
             emit(
               AccountState(
-                items: const [],
+                userDocs: const [],
                 isLoading: false,
                 errorMessage: error.toString(),
               ),
@@ -58,13 +58,13 @@ class AccountCubit extends Cubit<AccountState> {
         },
       );
       emit(AccountState(
-        items: state.items,
+        userDocs: state.userDocs,
         errorMessage: '',
         isLoading: false,
       ));
     } catch (error) {
       emit(AccountState(
-        items: const [],
+        userDocs: const [],
         errorMessage: error.toString(),
         isLoading: false,
       ));
@@ -80,7 +80,7 @@ class AccountCubit extends Cubit<AccountState> {
     } catch (error) {
       emit(
         AccountState(
-            errorMessage: error.toString(), items: [], isLoading: false),
+            errorMessage: error.toString(), userDocs: [], isLoading: false),
       );
       start();
     }

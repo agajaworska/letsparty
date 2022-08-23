@@ -32,7 +32,7 @@ class DateCubit extends Cubit<DateState> {
     )..onError(
             (error) {
               emit(
-                DateState(
+                const DateState(
                   loadingErrorOccured: true,
                 ),
               );

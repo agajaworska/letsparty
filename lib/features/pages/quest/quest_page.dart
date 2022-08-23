@@ -34,7 +34,7 @@ class _QuestPageState extends State<QuestPage> {
         child: Center(
           child: BlocBuilder<AccountCubit, AccountState>(
               builder: (context, state) {
-            final userModels = state.items;
+            final userModels = state.userDocs;
             return ListView(
               children: [
                 for (final userModel in userModels) ...[

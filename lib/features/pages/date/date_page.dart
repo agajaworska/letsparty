@@ -40,7 +40,7 @@ class DatePage extends StatelessWidget {
           color: Color.fromARGB(255, 212, 208, 245),
         ),
       ),
-      body: _DatePageBody(),
+      body: const _DatePageBody(),
     );
   }
 }

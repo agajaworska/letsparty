@@ -41,18 +41,18 @@ class MenuPage extends StatelessWidget {
                   );
                 }
 
-                final documents = state.documents;
+                final menuItemModels = state.menuItems;
                 return ListView(
                   children: [
-                    for (final document in documents) ...[
+                    for (final menuItemModel in menuItemModels) ...[
                       Dismissible(
-                        key: ValueKey(document.id),
+                        key: ValueKey(menuItemModel.id),
                         onDismissed: (_) {
                           context
                               .read<MenuCubit>()
-                              .remove(documentID: document.id);
+                              .remove(documentID: menuItemModel.id);
                         },
-                        child: MenuWidget(document['title']),
+                        child: MenuWidget(menuItemModel.title),
                       ),
                     ],
                     Padding(

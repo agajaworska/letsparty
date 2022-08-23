@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:letsparty/models/menu_model.dart';
 import 'package:meta/meta.dart';
 
 part 'menu_state.dart';
@@ -10,7 +11,7 @@ part 'menu_state.dart';
 class MenuCubit extends Cubit<MenuState> {
   MenuCubit()
       : super(const MenuState(
-          documents: [],
+          menuItems: [],
           errorMessage: '',
           isLoading: false,
         ));
@@ -19,7 +20,7 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> start() async {
     emit(
       const MenuState(
-        documents: [],
+        menuItems: [],
         errorMessage: '',
         isLoading: true,
       ),
@@ -27,10 +28,15 @@ class MenuCubit extends Cubit<MenuState> {
     _streamSubscription = FirebaseFirestore.instance
         .collection('menu')
         .snapshots()
-        .listen((data) {
+        .listen((documents) {
+      final menuModels = documents.docs.map(
+        (doc) {
+          return MenuModel(id: doc.id, title: doc['title']);
+        },
+      ).toList();
       emit(
         MenuState(
-          documents: data.docs,
+          menuItems: menuModels,
           isLoading: false,
           errorMessage: '',
         ),
@@ -39,7 +45,7 @@ class MenuCubit extends Cubit<MenuState> {
       ..onError((error) {
         emit(
           MenuState(
-            documents: const [],
+            menuItems: const [],
             isLoading: false,
             errorMessage: error.toString(),
           ),
@@ -55,13 +61,13 @@ class MenuCubit extends Cubit<MenuState> {
         },
       );
       emit(MenuState(
-        documents: state.documents,
+        menuItems: state.menuItems,
         errorMessage: '',
         isLoading: false,
       ));
     } catch (error) {
       emit(MenuState(
-        documents: const [],
+        menuItems: const [],
         errorMessage: error.toString(),
         isLoading: false,
       ));
@@ -77,7 +83,7 @@ class MenuCubit extends Cubit<MenuState> {
     } catch (error) {
       emit(
         MenuState(
-            errorMessage: error.toString(), documents: [], isLoading: false),
+            errorMessage: error.toString(), menuItems: [], isLoading: false),
       );
       start();
     }

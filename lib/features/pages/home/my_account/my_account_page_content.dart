@@ -80,7 +80,7 @@ class _MyAccountPageBody extends StatelessWidget {
               );
             }
 
-            final userModels = state.items;
+            final userModels = state.userDocs;
             return Column(
               children: [
                 for (final userModel in userModels) ...[

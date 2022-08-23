@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
-
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
-import 'package:letsparty/models/item_model.dart';
 
 class UpdatePage extends StatefulWidget {
   const UpdatePage(
