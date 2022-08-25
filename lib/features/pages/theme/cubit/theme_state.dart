@@ -2,7 +2,7 @@ part of 'theme_cubit.dart';
 
 @immutable
 class ThemeState {
-  final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents;
+  final List<ThemeModel> documents;
   final bool isLoading;
   final String errorMessage;
 

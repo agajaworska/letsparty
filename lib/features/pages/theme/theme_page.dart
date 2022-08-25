@@ -66,20 +66,20 @@ class ThemePage extends StatelessWidget {
                 return const Text('Trwa ładowanie danych');
               }
 
-              final documents = state.documents;
+              final themeModels = state.documents;
 
               return GridView.count(
                 crossAxisCount: 2,
                 children: [
-                  for (final document in documents) ...[
+                  for (final themeModel in themeModels) ...[
                     Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Dismissible(
-                        key: ValueKey(document.id),
+                        key: ValueKey(themeModel.id),
                         onDismissed: (_) {
                           context
                               .read<ThemeCubit>()
-                              .remove(documentID: document.id);
+                              .remove(documentID: themeModel.id);
                         },
                         child: Container(
                           height: 150,
@@ -101,7 +101,7 @@ class ThemePage extends StatelessWidget {
                             ],
                             image: DecorationImage(
                               image: NetworkImage(
-                                document['image_url'],
+                                themeModel.imageUrl,
                               ),
                               fit: BoxFit.cover,
                             ),

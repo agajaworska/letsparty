@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:letsparty/models/theme_model.dart';
 import 'package:meta/meta.dart';
 
 part 'theme_state.dart';
@@ -26,10 +27,14 @@ class ThemeCubit extends Cubit<ThemeState> {
     _streamSubscription = FirebaseFirestore.instance
         .collection('themePhotos')
         .snapshots()
-        .listen((data) {
+        .listen((documents) {
+      final themeModels = documents.docs.map((doc) {
+        return ThemeModel(id: doc.id, imageUrl: doc['image_url']);
+      }).toList();
+
       emit(
         ThemeState(
-          documents: data.docs,
+          documents: themeModels,
           isLoading: false,
           errorMessage: '',
         ),
@@ -76,7 +81,9 @@ class ThemeCubit extends Cubit<ThemeState> {
     } catch (error) {
       emit(
         ThemeState(
-            errorMessage: error.toString(), documents: [], isLoading: false),
+            errorMessage: error.toString(),
+            documents: const [],
+            isLoading: false),
       );
       start();
     }

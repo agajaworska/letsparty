@@ -198,12 +198,12 @@ class NewBox extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(246, 245, 239, 249),
+              Color.fromARGB(246, 245, 234, 252),
               Color.fromARGB(255, 183, 178, 229),
             ],
             stops: [
-              0.1,
-              0.9
+              0.05,
+              0.90
             ]),
       ),
       child: Center(child: child),
