@@ -51,7 +51,7 @@ class BudgetPage extends StatelessWidget {
             if (state.isLoading == true) {
               return const Text('Trwa ładowanie danych');
             }
-            final documents = state.documents;
+            final budgetModels = state.documents;
 
             return ListView(
               children: [
@@ -65,16 +65,16 @@ class BudgetPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                for (final document in documents) ...[
+                for (final budgetModel in budgetModels) ...[
                   Dismissible(
-                    key: ValueKey(document.id),
+                    key: ValueKey(budgetModel.id),
                     onDismissed: (_) {
                       context
                           .read<BudgetCubit>()
-                          .remove(documentID: document.id);
+                          .remove(documentID: budgetModel.id);
                     },
                     child: DataBox(
-                      (document['data']),
+                      (budgetModel.data),
                     ),
                   ),
                 ],

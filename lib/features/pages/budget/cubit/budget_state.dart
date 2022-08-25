@@ -7,7 +7,7 @@ class BudgetState {
     this.isLoading = false,
   });
 
-  final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents;
+  final List<BudgetModel> documents;
   final String errorMessage;
   final bool isLoading;
 }

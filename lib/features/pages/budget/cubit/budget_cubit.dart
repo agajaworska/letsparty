@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:letsparty/models/budget_model.dart';
 import 'package:meta/meta.dart';
 
 part 'budget_state.dart';
@@ -21,10 +22,13 @@ class BudgetCubit extends Cubit<BudgetState> {
     _streamSubscription = FirebaseFirestore.instance
         .collection('finance')
         .snapshots()
-        .listen((data) {
+        .listen((documents) {
+      final budgetModels = documents.docs.map(((doc) {
+        return BudgetModel(id: doc.id, data: doc['data']);
+      })).toList();
       emit(
         BudgetState(
-          documents: data.docs,
+          documents: budgetModels,
           isLoading: false,
           errorMessage: '',
         ),
