@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:letsparty/models/addSpendings_model.dart';
 import 'package:meta/meta.dart';
 
 part 'add_spendings_state.dart';
@@ -29,11 +30,17 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
     _streamSubscription = FirebaseFirestore.instance
         .collection('spendings')
         .snapshots()
-        .listen((data) {
+        .listen((documents) {
+      final addSpendingsModels = documents.docs.map((doc) {
+        return AddSpendingsModel(
+          id: doc.id,
+          name: doc['name'],
+          price: doc['outgoing'],
+        );
+      }).toList();
       emit(
         AddSpendingsState(
-          saved: true,
-          documents: data.docs,
+          documents: addSpendingsModels,
           isLoading: false,
           errorMessage: '',
         ),
@@ -50,10 +57,10 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
       });
   }
 
-  Future<void> add(
-    String name,
-    String price,
-  ) async {
+  Future<void> add({
+    required String name,
+    required String price,
+  }) async {
     try {
       await FirebaseFirestore.instance.collection('spendings').add(
         {
@@ -62,7 +69,11 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
         },
       );
       emit(
-        const AddSpendingsState(saved: true),
+        AddSpendingsState(
+          documents: state.documents,
+          errorMessage: '',
+          isLoading: false,
+        ),
       );
     } catch (error) {
       emit(

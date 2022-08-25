@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -194,9 +193,13 @@ class ListOfSpendings extends StatelessWidget {
                 return const Text('Wystąpił nieoczekiwany problem');
               }
               if (state.isLoading) {
-                return const Text('Trwa ładowanie danych');
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.purple,
+                  ),
+                );
               }
-              final documents = state.documents;
+              final addSpendingsModels = state.documents;
               return Column(
                 children: [
                   Center(
@@ -209,13 +212,13 @@ class ListOfSpendings extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  for (final document in documents) ...[
+                  for (final addSpendingsModel in addSpendingsModels) ...[
                     Dismissible(
-                      key: ValueKey(document.id),
+                      key: ValueKey(addSpendingsModel.id),
                       onDismissed: (_) {
                         context
                             .read<AddSpendingsCubit>()
-                            .remove(documentID: document.id);
+                            .remove(documentID: addSpendingsModel.id);
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -223,13 +226,13 @@ class ListOfSpendings extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              document['name'],
+                              addSpendingsModel.name,
                               style: GoogleFonts.montserrat(
                                 fontSize: 18,
                               ),
                             ),
                             Text(
-                              '${document['outgoing']}${' zł'}',
+                              '${addSpendingsModel.price}${' zł'}',
                               style: GoogleFonts.montserrat(fontSize: 18),
                             ),
                           ],

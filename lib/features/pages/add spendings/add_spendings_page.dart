@@ -38,8 +38,8 @@ class _AddSpendingsPageState extends State<AddSpendingsPage> {
                   IconButton(
                     onPressed: () {
                       context.read<AddSpendingsCubit>().add(
-                            _name!,
-                            _price!,
+                            name: _name!,
+                            price: _price!,
                           );
                     },
                     icon: const Icon(Icons.check),
