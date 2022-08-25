@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
+import 'package:letsparty/repositories/repository.dart';
 
 class UpdatePage extends StatefulWidget {
   const UpdatePage(
@@ -21,7 +22,7 @@ class _UpdatePageState extends State<UpdatePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DateCubit()..start(),
+      create: (context) => DateCubit(Repository())..start(),
       child: BlocListener<DateCubit, DateState>(
         listener: (context, state) {
           if (state.saved) {
@@ -140,7 +141,7 @@ class _UpdateDatePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DateCubit()..start(),
+      create: (context) => DateCubit(Repository())..start(),
       child: BlocBuilder<DateCubit, DateState>(
         builder: (context, state) {
           final itemModels = state.items;

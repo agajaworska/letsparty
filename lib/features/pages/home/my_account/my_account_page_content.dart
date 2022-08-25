@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -66,51 +65,49 @@ class _MyAccountPageBody extends StatelessWidget {
     return BlocProvider(
       create: (context) => AccountCubit()..start(),
       child: Center(
-        child: Column(children: [
-          const SizedBox(height: 20),
-          BlocBuilder<AccountCubit, AccountState>(builder: (context, state) {
-            if (state.errorMessage.isNotEmpty) {
-              return const Text('Wystąpił nieoczekiwany problem');
-            }
-            if (state.isLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.purple,
-                ),
-              );
-            }
+        child: Expanded(
+          child: Column(children: [
+            const SizedBox(height: 20),
+            BlocBuilder<AccountCubit, AccountState>(builder: (context, state) {
+              if (state.errorMessage.isNotEmpty) {
+                return const Text('Wystąpił nieoczekiwany problem');
+              }
+              if (state.isLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.purple,
+                  ),
+                );
+              }
 
-            final userModels = state.documents;
-            return Column(
-              children: [
-                for (final userModel in userModels) ...[
-                  Container(
-                    height: 240,
-                    width: 240,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          userModel.photo,
+              final userModels = state.documents;
+              return Column(
+                children: [
+                  for (final userModel in userModels) ...[
+                    Container(
+                      height: 230,
+                      width: 230,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            userModel.photo,
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Dismissible(
-                    key: ValueKey(userModel.id),
-                    onDismissed: (_) {
-                      context
-                          .read<AccountCubit>()
-                          .remove(documentID: userModel.id);
-                    },
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 300,
-                          height: 45,
-                          child: Padding(
+                    const SizedBox(height: 10),
+                    Dismissible(
+                      key: ValueKey(userModel.id),
+                      onDismissed: (_) {
+                        context
+                            .read<AccountCubit>()
+                            .remove(documentID: userModel.id);
+                      },
+                      child: Column(
+                        children: [
+                          Padding(
                             padding: const EdgeInsets.all(7.0),
                             child: Center(
                                 child: Text(
@@ -118,70 +115,70 @@ class _MyAccountPageBody extends StatelessWidget {
                               style: GoogleFonts.montserrat(fontSize: 22),
                             )),
                           ),
+                        ],
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: TextField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        hintText: 'Imię i nazwisko',
+                        hintStyle: GoogleFonts.montserrat(),
+                        prefixIcon: const Icon(
+                          Icons.text_fields_outlined,
+                          color: Color.fromARGB(183, 119, 77, 175),
                         ),
-                      ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: TextField(
+                      controller: imageController,
+                      decoration: InputDecoration(
+                        hintText: 'Url zdjęcia: http://...jpg',
+                        hintStyle: GoogleFonts.montserrat(),
+                        prefixIcon: const Icon(
+                          Icons.add_a_photo_outlined,
+                          color: Color.fromARGB(183, 119, 77, 175),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                    width: 70,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        primary: const Color.fromARGB(205, 107, 26, 213),
+                        shadowColor: Colors.grey,
+                        elevation: 6.0,
+                        textStyle: GoogleFonts.montserrat(),
+                      ),
+                      onPressed: () {
+                        context.read<AccountCubit>().add(
+                              name: controller.text,
+                              photo: imageController.text,
+                            );
+
+                        controller.clear();
+                        imageController.clear();
+                      },
+                      child: const Text('OK'),
                     ),
                   ),
                 ],
-                const SizedBox(height: 12),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    controller: controller,
-                    decoration: InputDecoration(
-                      hintText: 'Imię i nazwisko',
-                      hintStyle: GoogleFonts.montserrat(),
-                      prefixIcon: const Icon(
-                        Icons.text_fields_outlined,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    controller: imageController,
-                    decoration: InputDecoration(
-                      hintText: 'Url zdjęcia: http://...jpg',
-                      hintStyle: GoogleFonts.montserrat(),
-                      prefixIcon: const Icon(
-                        Icons.add_a_photo_outlined,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 70,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      primary: const Color.fromARGB(205, 107, 26, 213),
-                      shadowColor: Colors.grey,
-                      elevation: 6.0,
-                      textStyle: GoogleFonts.montserrat(),
-                    ),
-                    onPressed: () {
-                      context.read<AccountCubit>().add(
-                            name: controller.text,
-                            photo: imageController.text,
-                          );
-
-                      controller.clear();
-                      imageController.clear();
-                    },
-                    child: const Text('OK'),
-                  ),
-                ),
-              ],
-            );
-          })
-        ]),
+              );
+            })
+          ]),
+        ),
       ),
     );
   }

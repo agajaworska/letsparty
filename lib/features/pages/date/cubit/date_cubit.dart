@@ -1,51 +1,38 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:letsparty/models/item_model.dart';
-import 'package:meta/meta.dart';
+import 'package:letsparty/repositories/repository.dart';
 
 part 'date_state.dart';
 
 class DateCubit extends Cubit<DateState> {
-  DateCubit() : super(const DateState());
+  DateCubit(this._repository) : super(const DateState());
+
+  final Repository _repository;
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription =
-        FirebaseFirestore.instance.collection('items').snapshots().listen(
+    _streamSubscription = _repository.getItemsStream().listen(
       (items) {
-        final itemModels = items.docs.map((doc) {
-          return ItemModel(
-            id: doc.id,
-            adress: doc['adress'],
-            date: (doc['date'] as Timestamp).toDate(),
-            time: (doc['time']),
-          );
-        }).toList();
+        final itemModels = items;
 
         emit(DateState(items: itemModels));
       },
     )..onError(
-            (error) {
-              emit(
-                const DateState(
-                  loadingErrorOccured: true,
-                ),
-              );
-            },
+        (error) {
+          emit(
+            const DateState(
+              loadingErrorOccured: true,
+            ),
           );
+        },
+      );
   }
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('items')
-          .doc(documentID)
-          .delete();
+      await _repository.removeItems(id: documentID);
     } catch (error) {
       emit(
         const DateState(removingErrorOccured: true),
@@ -54,20 +41,22 @@ class DateCubit extends Cubit<DateState> {
     }
   }
 
-  CollectionReference users = FirebaseFirestore.instance.collection('items');
-
   Future<void> update({
     required String documentID,
     required String adress,
     required DateTime date,
     required String time,
   }) async {
-    await users.doc(documentID).update({
-      'adress': adress,
-      'date': date,
-      'time': time,
-    });
-    emit(const DateState(saved: true));
+    try {
+      await _repository.updateItems(
+          id: documentID, adress: adress, date: date, time: time);
+    } catch (error) {
+      emit(
+        DateState(
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   @override
