@@ -131,7 +131,7 @@ class _UpdateDatePageBody extends StatelessWidget {
     this.selectedTimeFormatted,
   }) : super(key: key);
 
-  final Function(String?) onAdressChanged;
+  final Function(String) onAdressChanged;
   final Function(DateTime?) onDateChanged;
   final Function(TimeOfDay?) onTimeChanged;
   final String? selectedDateFormatted;
@@ -185,7 +185,7 @@ class _UpdateDatePageBody extends StatelessWidget {
                     final selectedDate = await showDatePicker(
                       context: context,
                       initialDate: itemModel.date,
-                      firstDate: DateTime.now(),
+                      firstDate: itemModel.date,
                       lastDate: DateTime.now().add(
                         const Duration(days: 365 * 10),
                       ),

@@ -2,12 +2,12 @@ part of 'account_cubit.dart';
 
 @immutable
 class AccountState {
-  final List<UserModel> userDocs;
+  final List<UserModel> documents;
   final bool isLoading;
   final String errorMessage;
 
   const AccountState({
-    required this.userDocs,
+    required this.documents,
     required this.isLoading,
     required this.errorMessage,
   });

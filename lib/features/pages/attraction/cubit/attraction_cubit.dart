@@ -10,7 +10,7 @@ part 'attraction_state.dart';
 class AttractionCubit extends Cubit<AttractionState> {
   AttractionCubit()
       : super(const AttractionState(
-          attractionItems: [],
+          documents: [],
           errorMessage: '',
           isLoading: false,
         ));
@@ -20,7 +20,7 @@ class AttractionCubit extends Cubit<AttractionState> {
   Future<void> start() async {
     emit(
       const AttractionState(
-        attractionItems: [],
+        documents: [],
         errorMessage: '',
         isLoading: true,
       ),
@@ -34,7 +34,7 @@ class AttractionCubit extends Cubit<AttractionState> {
       }).toList();
       emit(
         AttractionState(
-          attractionItems: attractionModels,
+          documents: attractionModels,
           isLoading: false,
           errorMessage: '',
         ),
@@ -43,7 +43,7 @@ class AttractionCubit extends Cubit<AttractionState> {
       ..onError((error) {
         emit(
           AttractionState(
-            attractionItems: const [],
+            documents: const [],
             isLoading: false,
             errorMessage: error.toString(),
           ),
@@ -59,13 +59,13 @@ class AttractionCubit extends Cubit<AttractionState> {
         },
       );
       emit(AttractionState(
-        attractionItems: state.attractionItems,
+        documents: state.documents,
         errorMessage: '',
         isLoading: false,
       ));
     } catch (error) {
       emit(AttractionState(
-        attractionItems: const [],
+        documents: const [],
         errorMessage: error.toString(),
         isLoading: false,
       ));
@@ -82,7 +82,7 @@ class AttractionCubit extends Cubit<AttractionState> {
       emit(
         AttractionState(
             errorMessage: error.toString(),
-            attractionItems: [],
+            documents: const [],
             isLoading: false),
       );
       start();

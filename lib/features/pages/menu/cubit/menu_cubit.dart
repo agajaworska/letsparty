@@ -11,7 +11,7 @@ part 'menu_state.dart';
 class MenuCubit extends Cubit<MenuState> {
   MenuCubit()
       : super(const MenuState(
-          menuItems: [],
+          documents: [],
           errorMessage: '',
           isLoading: false,
         ));
@@ -20,7 +20,7 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> start() async {
     emit(
       const MenuState(
-        menuItems: [],
+        documents: [],
         errorMessage: '',
         isLoading: true,
       ),
@@ -36,7 +36,7 @@ class MenuCubit extends Cubit<MenuState> {
       ).toList();
       emit(
         MenuState(
-          menuItems: menuModels,
+          documents: menuModels,
           isLoading: false,
           errorMessage: '',
         ),
@@ -45,7 +45,7 @@ class MenuCubit extends Cubit<MenuState> {
       ..onError((error) {
         emit(
           MenuState(
-            menuItems: const [],
+            documents: const [],
             isLoading: false,
             errorMessage: error.toString(),
           ),
@@ -61,13 +61,13 @@ class MenuCubit extends Cubit<MenuState> {
         },
       );
       emit(MenuState(
-        menuItems: state.menuItems,
+        documents: state.documents,
         errorMessage: '',
         isLoading: false,
       ));
     } catch (error) {
       emit(MenuState(
-        menuItems: const [],
+        documents: const [],
         errorMessage: error.toString(),
         isLoading: false,
       ));
@@ -83,7 +83,7 @@ class MenuCubit extends Cubit<MenuState> {
     } catch (error) {
       emit(
         MenuState(
-            errorMessage: error.toString(), menuItems: [], isLoading: false),
+            errorMessage: error.toString(), documents: [], isLoading: false),
       );
       start();
     }

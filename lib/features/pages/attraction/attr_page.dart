@@ -38,18 +38,18 @@ class AttractionPage extends StatelessWidget {
                     ),
                   );
                 }
-                final attractionItemModels = state.attractionItems;
+                final attractionModels = state.documents;
                 return ListView(
                   children: [
-                    for (final attractionItemModel in attractionItemModels) ...[
+                    for (final attractionModel in attractionModels) ...[
                       Dismissible(
-                        key: ValueKey(attractionItemModel.id),
+                        key: ValueKey(attractionModel.id),
                         onDismissed: (_) {
                           context
                               .read<AttractionCubit>()
-                              .remove(documentID: attractionItemModel.id);
+                              .remove(documentID: attractionModel.id);
                         },
-                        child: AttractionWidget(attractionItemModel.title),
+                        child: AttractionWidget(attractionModel.title),
                       ),
                     ],
                     Padding(

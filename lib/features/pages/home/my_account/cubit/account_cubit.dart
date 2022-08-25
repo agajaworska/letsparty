@@ -10,7 +10,7 @@ part 'account_state.dart';
 class AccountCubit extends Cubit<AccountState> {
   AccountCubit()
       : super(const AccountState(
-          userDocs: [],
+          documents: [],
           errorMessage: '',
           isLoading: false,
         ));
@@ -19,20 +19,20 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> start() async {
     emit(
       const AccountState(
-        userDocs: [],
+        documents: [],
         errorMessage: '',
         isLoading: true,
       ),
     );
     _streamSubscription =
         FirebaseFirestore.instance.collection('user').snapshots().listen(
-      (userDocs) {
-        final userModels = userDocs.docs.map((doc) {
+      (documents) {
+        final userModels = documents.docs.map((doc) {
           return UserModel(name: doc['name'], photo: doc['photo'], id: doc.id);
         }).toList();
         emit(
           AccountState(
-            userDocs: userModels,
+            documents: userModels,
             isLoading: false,
             errorMessage: '',
           ),
@@ -41,7 +41,7 @@ class AccountCubit extends Cubit<AccountState> {
     )..onError((error) {
             emit(
               AccountState(
-                userDocs: const [],
+                documents: const [],
                 isLoading: false,
                 errorMessage: error.toString(),
               ),
@@ -58,13 +58,13 @@ class AccountCubit extends Cubit<AccountState> {
         },
       );
       emit(AccountState(
-        userDocs: state.userDocs,
+        documents: state.documents,
         errorMessage: '',
         isLoading: false,
       ));
     } catch (error) {
       emit(AccountState(
-        userDocs: const [],
+        documents: const [],
         errorMessage: error.toString(),
         isLoading: false,
       ));
@@ -80,7 +80,7 @@ class AccountCubit extends Cubit<AccountState> {
     } catch (error) {
       emit(
         AccountState(
-            errorMessage: error.toString(), userDocs: [], isLoading: false),
+            errorMessage: error.toString(), documents: [], isLoading: false),
       );
       start();
     }
