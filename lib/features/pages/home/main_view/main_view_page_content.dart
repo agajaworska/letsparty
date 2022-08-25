@@ -180,20 +180,32 @@ class NewBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 212, 208, 245),
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromARGB(255, 83, 80, 85),
-              blurRadius: 15,
-              offset: Offset(5, 5),
-            ),
-            BoxShadow(
-              color: Color.fromARGB(246, 253, 250, 255),
-              blurRadius: 16,
-              offset: Offset(-4, -4),
-            ),
-          ]),
+        color: Color.fromARGB(255, 212, 208, 245),
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromARGB(255, 83, 80, 85),
+            blurRadius: 15,
+            offset: Offset(5, 5),
+          ),
+          BoxShadow(
+            color: Color.fromARGB(246, 253, 250, 255),
+            blurRadius: 16,
+            offset: Offset(-4, -4),
+          ),
+        ],
+        gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(246, 245, 239, 249),
+              Color.fromARGB(255, 183, 178, 229),
+            ],
+            stops: [
+              0.1,
+              0.9
+            ]),
+      ),
       child: Center(child: child),
     );
   }
