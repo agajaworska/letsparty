@@ -25,20 +25,22 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
                       Text(
-                        'L E T\'S',
+                        'L E T\' S',
                         style: GoogleFonts.bebasNeue(
                             fontSize: 80,
-                            color: const Color.fromARGB(255, 50, 5, 58),
+                            color: Color.fromARGB(240, 50, 5, 58),
                             textStyle: const TextStyle(
                               shadows: <Shadow>[
                                 Shadow(
-                                  offset: Offset(5.0, -5.0),
-                                  blurRadius: 3.0,
-                                  color: Color.fromARGB(255, 222, 161, 253),
+                                  offset: Offset(7.0, 5.0),
+                                  blurRadius: 8.0,
+                                  color: Color.fromARGB(255, 104, 3, 151),
+                                ),
+                                Shadow(
+                                  offset: Offset(3.0, 4.0),
+                                  blurRadius: 4.0,
+                                  color: Color.fromARGB(255, 225, 186, 244),
                                 ),
                               ],
                             )),
@@ -47,17 +49,23 @@ class LoginPage extends StatelessWidget {
                         'P A R T Y !',
                         style: GoogleFonts.bebasNeue(
                             fontSize: 80,
-                            color: const Color.fromARGB(255, 50, 5, 58),
+                            color: Color.fromARGB(240, 50, 5, 58),
                             textStyle: const TextStyle(
                               shadows: <Shadow>[
                                 Shadow(
-                                  offset: Offset(5.0, -5.0),
-                                  blurRadius: 3.0,
-                                  color: Color.fromARGB(255, 222, 161, 253),
+                                  offset: Offset(7.0, 5.0),
+                                  blurRadius: 8.0,
+                                  color: Color.fromARGB(255, 104, 3, 151),
+                                ),
+                                Shadow(
+                                  offset: Offset(3.0, 4.0),
+                                  blurRadius: 4.0,
+                                  color: Color.fromARGB(255, 225, 186, 244),
                                 ),
                               ],
                             )),
                       ),
+                      const SizedBox(height: 15),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                         child: TextField(

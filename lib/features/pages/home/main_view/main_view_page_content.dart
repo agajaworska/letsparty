@@ -6,7 +6,6 @@ import 'package:letsparty/features/pages/date/date_page.dart';
 import 'package:letsparty/features/pages/menu/menu_page.dart';
 import 'package:letsparty/features/pages/quest/quest_page.dart';
 import 'package:letsparty/features/pages/theme/theme_page.dart';
-import 'package:letsparty/models/item_model.dart';
 
 class MainViewPageContent extends StatelessWidget {
   const MainViewPageContent({
@@ -20,7 +19,7 @@ class MainViewPageContent extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+            padding: const EdgeInsets.only(top: 18.0),
             child: Text(
               'L  E  T \' S   P  A  R  T  Y ',
               style: GoogleFonts.bebasNeue(
@@ -30,7 +29,7 @@ class MainViewPageContent extends StatelessWidget {
                 textStyle: const TextStyle(
                   shadows: <Shadow>[
                     Shadow(
-                      offset: Offset(3, 3),
+                      offset: Offset(4, 3),
                       blurRadius: 4.0,
                       color: Color.fromARGB(255, 123, 24, 209),
                     ),

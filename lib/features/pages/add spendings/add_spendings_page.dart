@@ -113,6 +113,7 @@ class _AddDatePageBody extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         TextField(
+          keyboardType: const TextInputType.numberWithOptions(),
           onChanged: onPriceChanged,
           decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
