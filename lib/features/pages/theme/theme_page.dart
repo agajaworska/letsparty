@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/features/pages/theme/cubit/theme_cubit.dart';
+import 'package:letsparty/repositories/repository.dart';
 
 class ThemePage extends StatelessWidget {
   ThemePage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class ThemePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeCubit()..start(),
+      create: (context) => ThemeCubit(Repository())..start(),
       child: BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
         return Scaffold(
           backgroundColor: const Color.fromARGB(255, 212, 208, 245),

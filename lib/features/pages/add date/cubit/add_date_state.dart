@@ -9,5 +9,5 @@ class AddDateState {
 
   final bool saved;
   final String errorMessage;
-  final List<QueryDocumentSnapshot<Map<String, dynamic>>> documents;
+  final List<ItemModel> documents;
 }

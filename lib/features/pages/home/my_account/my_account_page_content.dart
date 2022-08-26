@@ -5,6 +5,7 @@ import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
 
 import 'package:letsparty/models/user_model.dart';
+import 'package:letsparty/repositories/repository.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   MyAccountPageContent({
@@ -63,7 +64,7 @@ class _MyAccountPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AccountCubit()..start(),
+      create: (context) => AccountCubit(Repository())..start(),
       child: Center(
         child: Expanded(
           child: Column(children: [

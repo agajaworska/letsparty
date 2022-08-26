@@ -90,14 +90,6 @@ class RootCubit extends Cubit<RootState> {
     }
   }
 
-  // Future<void> passwordReset({required String email}) async {
-  //   try {
-  //     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-  //   } on FirebaseAuthException catch (e) {
-  //     print('Failed');
-  //   }
-  // }
-
   Future<void> signOut() async {
     FirebaseAuth.instance.signOut();
   }

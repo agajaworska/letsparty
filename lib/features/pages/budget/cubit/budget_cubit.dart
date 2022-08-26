@@ -1,31 +1,25 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:letsparty/models/budget_model.dart';
+import 'package:letsparty/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'budget_state.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
-  BudgetCubit()
+  BudgetCubit(this._repository)
       : super(const BudgetState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
 
+  final Repository _repository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('finance')
-        .snapshots()
-        .listen((documents) {
-      final budgetModels = documents.docs.map(((doc) {
-        return BudgetModel(id: doc.id, data: doc['data']);
-      })).toList();
+    _streamSubscription = _repository.getBudgetStream().listen((documents) {
+      final budgetModels = documents;
       emit(
         BudgetState(
           documents: budgetModels,
@@ -47,11 +41,7 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   Future<void> add({required String data}) async {
     try {
-      await FirebaseFirestore.instance.collection('finance').add(
-        {
-          'data': data,
-        },
-      );
+      await _repository.addBudgetDocuments(data: data);
       emit(
         BudgetState(
             documents: state.documents, errorMessage: '', isLoading: false),
@@ -66,10 +56,7 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('finance')
-          .doc(documentID)
-          .delete();
+      await _repository.removeBudgetDocuments(id: documentID);
     } catch (error) {
       emit(
         BudgetState(
@@ -80,10 +67,7 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   Future<void> update(
       {required String documentID, required String data}) async {
-    await FirebaseFirestore.instance
-        .collection('finance')
-        .doc(documentID)
-        .update({data: 'data'});
+    await _repository.updateBudgetDocuments(id: documentID, data: data);
   }
 
   @override

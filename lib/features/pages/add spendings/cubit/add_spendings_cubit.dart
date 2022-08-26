@@ -1,14 +1,13 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:letsparty/models/addSpendings_model.dart';
+import 'package:letsparty/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'add_spendings_state.dart';
 
 class AddSpendingsCubit extends Cubit<AddSpendingsState> {
-  AddSpendingsCubit()
+  AddSpendingsCubit(this._repository)
       : super(
           const AddSpendingsState(
             documents: [],
@@ -17,6 +16,7 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
           ),
         );
 
+  final Repository _repository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
@@ -27,17 +27,9 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
         isLoading: true,
       ),
     );
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('spendings')
-        .snapshots()
-        .listen((documents) {
-      final addSpendingsModels = documents.docs.map((doc) {
-        return AddSpendingsModel(
-          id: doc.id,
-          name: doc['name'],
-          price: doc['outgoing'],
-        );
-      }).toList();
+    _streamSubscription =
+        _repository.getAddSpendingsStream().listen((documents) {
+      final addSpendingsModels = documents;
       emit(
         AddSpendingsState(
           documents: addSpendingsModels,
@@ -46,15 +38,15 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
         ),
       );
     })
-      ..onError((error) {
-        emit(
-          AddSpendingsState(
-            documents: const [],
-            isLoading: false,
-            errorMessage: error.toString(),
-          ),
-        );
-      });
+          ..onError((error) {
+            emit(
+              AddSpendingsState(
+                documents: const [],
+                isLoading: false,
+                errorMessage: error.toString(),
+              ),
+            );
+          });
   }
 
   Future<void> add({
@@ -62,12 +54,8 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
     required String price,
   }) async {
     try {
-      await FirebaseFirestore.instance.collection('spendings').add(
-        {
-          'name': name,
-          'outgoing': price,
-        },
-      );
+      await _repository.addSpendings(name: name, price: price);
+
       emit(
         AddSpendingsState(
           documents: state.documents,
@@ -86,10 +74,7 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('spendings')
-          .doc(documentID)
-          .delete();
+      await _repository.removeSpendings(id: documentID);
     } catch (error) {
       emit(
         AddSpendingsState(errorMessage: error.toString()),

@@ -1,19 +1,19 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:letsparty/models/user_model.dart';
+import 'package:letsparty/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'account_state.dart';
 
 class AccountCubit extends Cubit<AccountState> {
-  AccountCubit()
+  AccountCubit(this._repository)
       : super(const AccountState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
+  Repository _repository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
@@ -24,12 +24,9 @@ class AccountCubit extends Cubit<AccountState> {
         isLoading: true,
       ),
     );
-    _streamSubscription =
-        FirebaseFirestore.instance.collection('user').snapshots().listen(
+    _streamSubscription = _repository.getUserStream().listen(
       (documents) {
-        final userModels = documents.docs.map((doc) {
-          return UserModel(name: doc['name'], photo: doc['photo'], id: doc.id);
-        }).toList();
+        final userModels = documents;
         emit(
           AccountState(
             documents: userModels,
@@ -39,24 +36,19 @@ class AccountCubit extends Cubit<AccountState> {
         );
       },
     )..onError((error) {
-            emit(
-              AccountState(
-                documents: const [],
-                isLoading: false,
-                errorMessage: error.toString(),
-              ),
-            );
-          });
+        emit(
+          AccountState(
+            documents: const [],
+            isLoading: false,
+            errorMessage: error.toString(),
+          ),
+        );
+      });
   }
 
-  Future<void> add({required String? name, required String? photo}) async {
+  Future<void> add({required String name, required String photo}) async {
     try {
-      await FirebaseFirestore.instance.collection('user').add(
-        {
-          'name': name,
-          'photo': photo,
-        },
-      );
+      await _repository.addUserItems(name: name, photo: photo);
       emit(AccountState(
         documents: state.documents,
         errorMessage: '',
@@ -73,14 +65,13 @@ class AccountCubit extends Cubit<AccountState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('user')
-          .doc(documentID)
-          .delete();
+      await _repository.removeUserItems(id: documentID);
     } catch (error) {
       emit(
         AccountState(
-            errorMessage: error.toString(), documents: [], isLoading: false),
+            errorMessage: error.toString(),
+            documents: const [],
+            isLoading: false),
       );
       start();
     }

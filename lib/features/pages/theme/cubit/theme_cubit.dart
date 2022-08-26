@@ -1,19 +1,21 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:letsparty/models/theme_model.dart';
+import 'package:letsparty/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit()
+  ThemeCubit(this._repository)
       : super(const ThemeState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
+
+  final Repository _repository;
+
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
@@ -24,14 +26,8 @@ class ThemeCubit extends Cubit<ThemeState> {
         isLoading: true,
       ),
     );
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('themePhotos')
-        .snapshots()
-        .listen((documents) {
-      final themeModels = documents.docs.map((doc) {
-        return ThemeModel(id: doc.id, imageUrl: doc['image_url']);
-      }).toList();
-
+    _streamSubscription = _repository.getThemeStream().listen((documents) {
+      final themeModels = documents;
       emit(
         ThemeState(
           documents: themeModels,
@@ -53,11 +49,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   Future<void> add({required String imageUrl}) async {
     try {
-      await FirebaseFirestore.instance.collection('themePhotos').add(
-        {
-          'image_url': imageUrl,
-        },
-      );
+      await _repository.addThemePhoto(imageUrl: imageUrl);
       emit(ThemeState(
         documents: state.documents,
         errorMessage: '',
@@ -74,10 +66,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('themePhotos')
-          .doc(documentID)
-          .delete();
+      await _repository.removeThemePhoto(id: documentID);
     } catch (error) {
       emit(
         ThemeState(

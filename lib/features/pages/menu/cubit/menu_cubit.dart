@@ -1,20 +1,24 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:letsparty/models/menu_model.dart';
+import 'package:letsparty/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'menu_state.dart';
 
 class MenuCubit extends Cubit<MenuState> {
-  MenuCubit()
+  MenuCubit(this._repository)
       : super(const MenuState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
+
+  final Repository _repository;
+
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
@@ -25,15 +29,8 @@ class MenuCubit extends Cubit<MenuState> {
         isLoading: true,
       ),
     );
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('menu')
-        .snapshots()
-        .listen((documents) {
-      final menuModels = documents.docs.map(
-        (doc) {
-          return MenuModel(id: doc.id, title: doc['title']);
-        },
-      ).toList();
+    _streamSubscription = _repository.getMenuStream().listen((documents) {
+      final menuModels = documents;
       emit(
         MenuState(
           documents: menuModels,
@@ -55,11 +52,7 @@ class MenuCubit extends Cubit<MenuState> {
 
   Future<void> add({required String title}) async {
     try {
-      await FirebaseFirestore.instance.collection('menu').add(
-        {
-          'title': title,
-        },
-      );
+      await _repository.addMenuDocuments(title: title);
       emit(MenuState(
         documents: state.documents,
         errorMessage: '',
@@ -76,14 +69,13 @@ class MenuCubit extends Cubit<MenuState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('menu')
-          .doc(documentID)
-          .delete();
+      await _repository.removeMenu(id: documentID);
     } catch (error) {
       emit(
         MenuState(
-            errorMessage: error.toString(), documents: [], isLoading: false),
+            errorMessage: error.toString(),
+            documents: const [],
+            isLoading: false),
       );
       start();
     }

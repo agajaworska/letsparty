@@ -3,18 +3,20 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:letsparty/models/attraction_model.dart';
+import 'package:letsparty/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'attraction_state.dart';
 
 class AttractionCubit extends Cubit<AttractionState> {
-  AttractionCubit()
+  AttractionCubit(this._repository)
       : super(const AttractionState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
 
+  final Repository _repository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
@@ -25,13 +27,8 @@ class AttractionCubit extends Cubit<AttractionState> {
         isLoading: true,
       ),
     );
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('attraction')
-        .snapshots()
-        .listen((documents) {
-      final attractionModels = documents.docs.map((doc) {
-        return AttractionModel(id: doc.id, title: doc['title']);
-      }).toList();
+    _streamSubscription = _repository.getAttractionStream().listen((documents) {
+      final attractionModels = documents;
       emit(
         AttractionState(
           documents: attractionModels,
@@ -53,11 +50,7 @@ class AttractionCubit extends Cubit<AttractionState> {
 
   Future<void> add({required String title}) async {
     try {
-      await FirebaseFirestore.instance.collection('attraction').add(
-        {
-          'title': title,
-        },
-      );
+      await _repository.addAttraction(title: title);
       emit(AttractionState(
         documents: state.documents,
         errorMessage: '',
@@ -74,10 +67,7 @@ class AttractionCubit extends Cubit<AttractionState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('attraction')
-          .doc(documentID)
-          .delete();
+      await _repository.removeAttraction(id: documentID);
     } catch (error) {
       emit(
         AttractionState(

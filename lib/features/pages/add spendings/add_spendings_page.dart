@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/features/pages/add%20spendings/cubit/add_spendings_cubit.dart';
+import 'package:letsparty/repositories/repository.dart';
 
 class AddSpendingsPage extends StatefulWidget {
   const AddSpendingsPage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _AddSpendingsPageState extends State<AddSpendingsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddSpendingsCubit(),
+      create: (context) => AddSpendingsCubit(Repository()),
       child: BlocListener<AddSpendingsCubit, AddSpendingsState>(
         listener: (context, state) {
           Navigator.of(context).pop();

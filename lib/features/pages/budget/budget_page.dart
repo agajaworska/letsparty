@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/features/pages/add%20spendings/add_spendings_page.dart';
 import 'package:letsparty/features/pages/add%20spendings/cubit/add_spendings_cubit.dart';
 import 'package:letsparty/features/pages/budget/cubit/budget_cubit.dart';
+import 'package:letsparty/repositories/repository.dart';
 
 class BudgetPage extends StatelessWidget {
   BudgetPage({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class BudgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BudgetCubit()..start(),
+      create: (context) => BudgetCubit(Repository())..start(),
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 212, 208, 245),
         appBar: AppBar(
@@ -181,7 +182,7 @@ class ListOfSpendings extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: BlocProvider(
-          create: (context) => AddSpendingsCubit()..start(),
+          create: (context) => AddSpendingsCubit(Repository())..start(),
           child: BlocBuilder<AddSpendingsCubit, AddSpendingsState>(
             builder: (context, state) {
               if (state.errorMessage.isNotEmpty) {

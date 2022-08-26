@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
+import 'package:letsparty/repositories/repository.dart';
 
 class AddDatePage extends StatefulWidget {
   AddDatePage({
@@ -51,7 +52,7 @@ class _AddDatePageState extends State<AddDatePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddDateCubit(),
+      create: (context) => AddDateCubit(Repository()),
       child: BlocListener<AddDateCubit, AddDateState>(
         listener: (context, state) {
           if (state.saved) {

@@ -50,6 +50,7 @@ class DateCubit extends Cubit<DateState> {
     try {
       await _repository.updateItems(
           id: documentID, adress: adress, date: date, time: time);
+      emit(const DateState(saved: true));
     } catch (error) {
       emit(
         DateState(
