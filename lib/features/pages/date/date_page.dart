@@ -66,6 +66,18 @@ class _DatePageBody extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Icon(
+                      Icons.location_city_outlined,
+                    ),
+                  ),
+                  for (final itemModel in itemModels)
+                    _CityBox(itemModel: itemModel),
+                ],
+              ),
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Icon(
                       Icons.home_outlined,
                     ),
                   ),
@@ -124,6 +136,47 @@ class _DatePageBody extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _CityBox extends StatelessWidget {
+  const _CityBox({
+    Key? key,
+    required this.itemModel,
+  }) : super(key: key);
+
+  final ItemModel itemModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 240, 234, 255),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(5, 5),
+              blurRadius: 6.0,
+              color: Colors.grey.shade600,
+            ),
+            const BoxShadow(
+              offset: Offset(-5, -5),
+              blurRadius: 6.0,
+              color: Color.fromARGB(255, 232, 222, 240),
+            ),
+          ],
+        ),
+        child: Text(
+          itemModel.city,
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
+          ),
+        ),
       ),
     );
   }

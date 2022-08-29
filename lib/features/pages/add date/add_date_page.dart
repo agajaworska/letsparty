@@ -11,7 +11,7 @@ class AddDatePage extends StatefulWidget {
     this.selectedDateFormatted,
     this.selectedTimeFormatted,
   }) : super(key: key);
-
+  final cityController = TextEditingController();
   final adressController = TextEditingController();
   final String? selectedDateFormatted;
   final String? selectedTimeFormatted;
@@ -21,6 +21,7 @@ class AddDatePage extends StatefulWidget {
 }
 
 class _AddDatePageState extends State<AddDatePage> {
+  String? _city;
   String? _adress;
   DateTime? _date;
   TimeOfDay? _time;
@@ -80,33 +81,36 @@ class _AddDatePageState extends State<AddDatePage> {
                 ),
                 actions: [
                   IconButton(
-                      onPressed:
-                          _adress == null || _date == null || _time == null
-                              ? null
-                              : () {
-                                  // setState(() {
-                                  //   _adress = widget.adressController.text;
-                                  // });
-                                  // setState(() {
-                                  //   _date = (widget.selectedDateFormatted.toString())
-                                  //       as DateTime;
-                                  // });
-                                  // setState(() {
-                                  //   _time = (widget.selectedTimeFormatted.toString())
-                                  //       as TimeOfDay;
-                                  // });
-                                  // widget.selectedTimeFormatted;
-                                  // _time == null ? null : _time!.format(context);
-                                  // widget.selectedDateFormatted;
-                                  // _date == null
-                                  //     ? null
-                                  //     : DateFormat.yMMMMEEEEd().format(_date!);
-                                  context.read<AddDateCubit>().add(
-                                        _adress!,
-                                        _date!,
-                                        _time!.format(context),
-                                      );
-                                },
+                      onPressed: _city == null ||
+                              _adress == null ||
+                              _date == null ||
+                              _time == null
+                          ? null
+                          : () {
+                              // setState(() {
+                              //   _adress = widget.adressController.text;
+                              // });
+                              // setState(() {
+                              //   _date = (widget.selectedDateFormatted.toString())
+                              //       as DateTime;
+                              // });
+                              // setState(() {
+                              //   _time = (widget.selectedTimeFormatted.toString())
+                              //       as TimeOfDay;
+                              // });
+                              // widget.selectedTimeFormatted;
+                              // _time == null ? null : _time!.format(context);
+                              // widget.selectedDateFormatted;
+                              // _date == null
+                              //     ? null
+                              //     : DateFormat.yMMMMEEEEd().format(_date!);
+                              context.read<AddDateCubit>().add(
+                                    _city!,
+                                    _adress!,
+                                    _date!,
+                                    _time!.format(context),
+                                  );
+                            },
                       icon: const Icon(Icons.check))
                 ],
               ),
@@ -180,6 +184,11 @@ class _AddDatePageState extends State<AddDatePage> {
                   // ));
 
                   _AddDatePageBody(
+                onCityChanged: (newValue) {
+                  setState(() {
+                    _city = newValue;
+                  });
+                },
                 onAdressChanged: (newValue) {
                   setState(() {
                     _adress = newValue;
@@ -212,6 +221,7 @@ class _AddDatePageState extends State<AddDatePage> {
 class _AddDatePageBody extends StatelessWidget {
   const _AddDatePageBody({
     Key? key,
+    required this.onCityChanged,
     required this.onAdressChanged,
     required this.onDateChanged,
     required this.onTimeChanged,
@@ -219,6 +229,7 @@ class _AddDatePageBody extends StatelessWidget {
     this.selectedTimeFormatted,
   }) : super(key: key);
 
+  final Function(String) onCityChanged;
   final Function(String) onAdressChanged;
   final Function(DateTime?) onDateChanged;
   final Function(TimeOfDay?) onTimeChanged;
@@ -233,6 +244,33 @@ class _AddDatePageBody extends StatelessWidget {
         vertical: 20,
       ),
       children: [
+        TextField(
+          onChanged: onCityChanged,
+          decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(183, 119, 77, 175),
+              ),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(183, 119, 77, 175),
+              ),
+            ),
+            border: const OutlineInputBorder(),
+            hintText: 'City',
+            labelStyle: TextStyle(color: Colors.grey.shade700),
+            label: Text(
+              'City',
+              style: GoogleFonts.montserrat(),
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
         TextField(
           onChanged: onAdressChanged,
           decoration: InputDecoration(

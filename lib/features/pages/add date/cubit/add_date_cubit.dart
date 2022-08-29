@@ -14,12 +14,14 @@ class AddDateCubit extends Cubit<AddDateState> {
   final Repository _repository;
 
   Future<void> add(
+    String city,
     String adress,
     DateTime date,
     String time,
   ) async {
     try {
-      await _repository.addDateItems(adress: adress, date: date, time: time);
+      await _repository.addDateItems(
+          city: city, adress: adress, date: date, time: time);
       emit(const AddDateState(saved: true));
     } catch (error) {
       emit(AddDateState(errorMessage: error.toString()));

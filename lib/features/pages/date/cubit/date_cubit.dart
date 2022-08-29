@@ -43,13 +43,19 @@ class DateCubit extends Cubit<DateState> {
 
   Future<void> update({
     required String documentID,
+    required String city,
     required String adress,
     required DateTime date,
     required String time,
   }) async {
     try {
       await _repository.updateItems(
-          id: documentID, adress: adress, date: date, time: time);
+        id: documentID,
+        city: city,
+        adress: adress,
+        date: date,
+        time: time,
+      );
       emit(const DateState(saved: true));
     } catch (error) {
       emit(

@@ -15,6 +15,7 @@ class UpdatePage extends StatefulWidget {
 }
 
 class _UpdatePageState extends State<UpdatePage> {
+  String? _city;
   String? _adress;
   DateTime? _date;
   String? _time;
@@ -52,15 +53,20 @@ class _UpdatePageState extends State<UpdatePage> {
                   actions: [
                     for (final itemModel in itemModels)
                       Builder(builder: (context) {
-                        if (_adress != null || _date != null || _time != null) {
+                        if (_city == null ||
+                            _adress != null ||
+                            _date != null ||
+                            _time != null) {
                           return IconButton(
-                            onPressed: _adress == null ||
+                            onPressed: _city == null ||
+                                    _adress == null ||
                                     _date == null ||
                                     _time == null
                                 ? null
                                 : () {
                                     context.read<DateCubit>().update(
                                         documentID: itemModel.id,
+                                        city: _city.toString(),
                                         adress: _adress.toString(),
                                         date: _date!,
                                         time: _time!);
@@ -68,7 +74,10 @@ class _UpdatePageState extends State<UpdatePage> {
                             icon: const Icon(Icons.check),
                           );
                         }
-                        if (_adress == null || _date == null || _time == null) {
+                        if (_city == null ||
+                            _adress == null ||
+                            _date == null ||
+                            _time == null) {
                           return IconButton(
                             onPressed: _adress == null ||
                                     _date == null ||
@@ -77,6 +86,7 @@ class _UpdatePageState extends State<UpdatePage> {
                                 : () {
                                     context.read<DateCubit>().update(
                                         documentID: itemModel.id,
+                                        city: itemModel.city,
                                         adress: itemModel.adress,
                                         date: itemModel.date,
                                         time: itemModel.time);
@@ -88,6 +98,11 @@ class _UpdatePageState extends State<UpdatePage> {
                       })
                   ]),
               body: _UpdateDatePageBody(
+                onCityChanged: (newValue) {
+                  setState(() {
+                    _city = newValue;
+                  });
+                },
                 onAdressChanged: (newValue) {
                   setState(() {
                     _adress = newValue;
@@ -125,6 +140,7 @@ class _UpdatePageState extends State<UpdatePage> {
 class _UpdateDatePageBody extends StatelessWidget {
   const _UpdateDatePageBody({
     Key? key,
+    required this.onCityChanged,
     required this.onAdressChanged,
     required this.onDateChanged,
     required this.onTimeChanged,
@@ -132,6 +148,7 @@ class _UpdateDatePageBody extends StatelessWidget {
     this.selectedTimeFormatted,
   }) : super(key: key);
 
+  final Function(String) onCityChanged;
   final Function(String) onAdressChanged;
   final Function(DateTime?) onDateChanged;
   final Function(TimeOfDay?) onTimeChanged;
@@ -151,6 +168,35 @@ class _UpdateDatePageBody extends StatelessWidget {
               vertical: 20,
             ),
             children: [
+              for (final itemModel in itemModels)
+                TextFormField(
+                  initialValue: itemModel.city,
+                  onChanged: onCityChanged,
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Color.fromARGB(183, 119, 77, 175),
+                      ),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Color.fromARGB(183, 119, 77, 175),
+                      ),
+                    ),
+                    border: const OutlineInputBorder(),
+                    hintText: 'Miasto',
+                    labelStyle: TextStyle(color: Colors.grey.shade700),
+                    label: Text(
+                      'Miasto',
+                      style: GoogleFonts.montserrat(),
+                    ),
+                  ),
+                ),
+              const SizedBox(height: 20),
               for (final itemModel in itemModels)
                 TextFormField(
                   initialValue: itemModel.adress,

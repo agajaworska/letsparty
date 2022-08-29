@@ -15,6 +15,7 @@ class Repository {
           (doc) {
             return ItemModel(
               id: doc.id,
+              city: doc['city'],
               adress: doc['adress'],
               date: (doc['date'] as Timestamp).toDate(),
               time: doc['time'],
@@ -31,11 +32,13 @@ class Repository {
 
   Future<void> updateItems({
     required String id,
+    required String city,
     required String adress,
     required DateTime date,
     required String time,
   }) async {
     await FirebaseFirestore.instance.collection('items').doc(id).update({
+      'city': city,
       'adress': adress,
       'date': date,
       'time': time,
@@ -43,9 +46,13 @@ class Repository {
   }
 
   Future<void> addDateItems(
-      {required String adress, required DateTime date, required String time}) {
+      {required String city,
+      required String adress,
+      required DateTime date,
+      required String time}) {
     return FirebaseFirestore.instance.collection('items').add(
       {
+        'city': city,
         'adress': adress,
         'date': date,
         'time': time,
