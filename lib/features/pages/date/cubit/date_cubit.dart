@@ -6,7 +6,9 @@ import 'package:letsparty/repositories/repository.dart';
 part 'date_state.dart';
 
 class DateCubit extends Cubit<DateState> {
-  DateCubit(this._repository) : super(const DateState());
+  DateCubit(
+    this._repository,
+  ) : super(const DateState());
 
   final Repository _repository;
 

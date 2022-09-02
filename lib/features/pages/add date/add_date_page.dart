@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
+import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/repositories/weather_repository.dart';
 
 class AddDatePage extends StatefulWidget {
-  AddDatePage({
+  const AddDatePage({
     Key? key,
     this.selectedDateFormatted,
     this.selectedTimeFormatted,
   }) : super(key: key);
-  final cityController = TextEditingController();
-  final adressController = TextEditingController();
+
   final String? selectedDateFormatted;
   final String? selectedTimeFormatted;
 
@@ -25,30 +27,6 @@ class _AddDatePageState extends State<AddDatePage> {
   String? _adress;
   DateTime? _date;
   TimeOfDay? _time;
-
-  // void _showDatePicker() {
-  //   showDatePicker(
-  //     context: context,
-  //     initialDate: DateTime.now(),
-  //     firstDate: DateTime.now(),
-  //     lastDate: DateTime(2036),
-  //   ).then((value) {
-  //     setState(() {
-  //       _date = value;
-  //     });
-  //   });
-  // }
-
-  // void _showTimePicker() {
-  //   showTimePicker(
-  //     context: context,
-  //     initialTime: TimeOfDay.now(),
-  //   ).then((value) {
-  //     setState(() {
-  //       _time = value;
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,147 +46,73 @@ class _AddDatePageState extends State<AddDatePage> {
         },
         child: BlocBuilder<AddDateCubit, AddDateState>(
           builder: (context, state) {
-            return Scaffold(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-              appBar: AppBar(
-                backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-                title: Text(
-                  'D o d a j  i n f o ',
-                  style: GoogleFonts.bebasNeue(
-                    fontSize: 35,
-                    color: Colors.grey.shade900,
-                  ),
-                ),
-                actions: [
-                  IconButton(
-                      onPressed: _city == null ||
-                              _adress == null ||
-                              _date == null ||
-                              _time == null
+            return BlocProvider(
+              create: (context) =>
+                  WeatherCubit(WeatherRepository(WeatherRemoteDataSource())),
+              child: BlocBuilder<WeatherCubit, WeatherState>(
+                builder: (context, state) {
+                  return Scaffold(
+                    backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                    appBar: AppBar(
+                      backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                      title: Text(
+                        'D o d a j  i n f o ',
+                        style: GoogleFonts.bebasNeue(
+                          fontSize: 35,
+                          color: Colors.grey.shade900,
+                        ),
+                      ),
+                      actions: [
+                        IconButton(
+                          onPressed: _city == null ||
+                                  _adress == null ||
+                                  _date == null ||
+                                  _time == null
+                              ? null
+                              : () {
+                                  context
+                                      .read<WeatherCubit>()
+                                      .getWeatherModel(city: _city!);
+                                  context.read<AddDateCubit>().add(
+                                        _city!,
+                                        _adress!,
+                                        _date!,
+                                        _time!.format(context),
+                                      );
+                                },
+                          icon: const Icon(Icons.check),
+                        )
+                      ],
+                    ),
+                    body: _AddDatePageBody(
+                      onCityChanged: (newValue) {
+                        setState(() {
+                          _city = newValue;
+                        });
+                      },
+                      onAdressChanged: (newValue) {
+                        setState(() {
+                          _adress = newValue;
+                        });
+                      },
+                      onDateChanged: (newValue) {
+                        setState(() {
+                          _date = newValue;
+                        });
+                      },
+                      onTimeChanged: (newValue) {
+                        setState(() {
+                          _time = newValue;
+                        });
+                      },
+                      selectedTimeFormatted:
+                          _time == null ? null : _time!.format(context),
+                      selectedDateFormatted: _date == null
                           ? null
-                          : () {
-                              // setState(() {
-                              //   _adress = widget.adressController.text;
-                              // });
-                              // setState(() {
-                              //   _date = (widget.selectedDateFormatted.toString())
-                              //       as DateTime;
-                              // });
-                              // setState(() {
-                              //   _time = (widget.selectedTimeFormatted.toString())
-                              //       as TimeOfDay;
-                              // });
-                              // widget.selectedTimeFormatted;
-                              // _time == null ? null : _time!.format(context);
-                              // widget.selectedDateFormatted;
-                              // _date == null
-                              //     ? null
-                              //     : DateFormat.yMMMMEEEEd().format(_date!);
-                              context.read<AddDateCubit>().add(
-                                    _city!,
-                                    _adress!,
-                                    _date!,
-                                    _time!.format(context),
-                                  );
-                            },
-                      icon: const Icon(Icons.check))
-                ],
-              ),
-              body:
-                  // body: ListView(
-                  //   children: [
-                  //     Padding(
-                  //       padding: const EdgeInsets.all(12.0),
-                  //       child: TextFormField(
-                  //         controller: widget.adressController,
-                  //         decoration: InputDecoration(
-                  //           enabledBorder: const OutlineInputBorder(
-                  //             borderRadius:
-                  //                 BorderRadius.all(Radius.circular(15.0)),
-                  //             borderSide: BorderSide(
-                  //               width: 2,
-                  //               color: Color.fromARGB(183, 119, 77, 175),
-                  //             ),
-                  //           ),
-                  //           focusedBorder: const OutlineInputBorder(
-                  //             borderRadius:
-                  //                 BorderRadius.all(Radius.circular(15.0)),
-                  //             borderSide: BorderSide(
-                  //               width: 2,
-                  //               color: Color.fromARGB(183, 119, 77, 175),
-                  //             ),
-                  //           ),
-                  //           border: const OutlineInputBorder(),
-                  //           hintText: 'Adres',
-                  //           labelStyle: TextStyle(color: Colors.grey.shade700),
-                  //           label: Text(
-                  //             'Adres',
-                  //             style: GoogleFonts.montserrat(),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     const SizedBox(height: 20),
-                  //     ElevatedButton(
-                  //       onPressed: (() {
-                  //         _showDatePicker();
-                  //       }),
-                  //       style: ElevatedButton.styleFrom(
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(15),
-                  //         ),
-                  //         primary: const Color.fromARGB(205, 107, 26, 213),
-                  //         shadowColor: Colors.grey,
-                  //         elevation: 6.0,
-                  //         textStyle: GoogleFonts.montserrat(),
-                  //       ),
-                  //       child: Text(_date.toString()),
-                  //     ),
-                  //     const SizedBox(height: 20),
-                  //     ElevatedButton(
-                  //       onPressed: (() {
-                  //         _showTimePicker();
-                  //       }),
-                  //       style: ElevatedButton.styleFrom(
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(15),
-                  //         ),
-                  //         primary: const Color.fromARGB(205, 107, 26, 213),
-                  //         shadowColor: Colors.grey,
-                  //         elevation: 6.0,
-                  //         textStyle: GoogleFonts.montserrat(),
-                  //       ),
-                  //       child: Text(_time.toString()),
-                  //     ),
-                  //   ],
-                  // ));
-
-                  _AddDatePageBody(
-                onCityChanged: (newValue) {
-                  setState(() {
-                    _city = newValue;
-                  });
+                          : DateFormat.yMMMMEEEEd().format(_date!),
+                    ),
+                  );
                 },
-                onAdressChanged: (newValue) {
-                  setState(() {
-                    _adress = newValue;
-                  });
-                },
-                onDateChanged: (newValue) {
-                  setState(() {
-                    _date = newValue;
-                  });
-                },
-                onTimeChanged: (newValue) {
-                  setState(() {
-                    _time = newValue;
-                  });
-                },
-                selectedTimeFormatted:
-                    _time == null ? null : _time!.format(context),
-                selectedDateFormatted: _date == null
-                    ? null
-                    : DateFormat.yMMMMEEEEd().format(_date!),
               ),
             );
           },
@@ -219,11 +123,11 @@ class _AddDatePageState extends State<AddDatePage> {
 }
 
 class _AddDatePageBody extends StatelessWidget {
-  const _AddDatePageBody({
+  _AddDatePageBody({
     Key? key,
-    required this.onCityChanged,
     required this.onAdressChanged,
     required this.onDateChanged,
+    required this.onCityChanged,
     required this.onTimeChanged,
     this.selectedDateFormatted,
     this.selectedTimeFormatted,

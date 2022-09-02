@@ -15,158 +15,156 @@ class MainViewPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Center(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 18.0),
-            child: Text(
-              'L  E  T \' S   P  A  R  T  Y ',
-              style: GoogleFonts.bebasNeue(
-                fontWeight: FontWeight.w600,
-                fontSize: 50,
-                color: const Color.fromARGB(255, 50, 5, 58),
-                textStyle: const TextStyle(
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: Offset(4, 3),
-                      blurRadius: 4.0,
-                      color: Color.fromARGB(255, 123, 24, 209),
-                    ),
-                    Shadow(
-                      offset: Offset(2, 2),
-                      blurRadius: 4.0,
-                      color: Color.fromARGB(255, 251, 251, 251),
-                    ),
-                  ],
-                ),
+        child: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 18.0),
+          child: Text(
+            'L  E  T \' S   P  A  R  T  Y ',
+            style: GoogleFonts.bebasNeue(
+              fontWeight: FontWeight.w600,
+              fontSize: 50,
+              color: const Color.fromARGB(255, 50, 5, 58),
+              textStyle: const TextStyle(
+                shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(4, 3),
+                    blurRadius: 4.0,
+                    color: Color.fromARGB(255, 123, 24, 209),
+                  ),
+                  Shadow(
+                    offset: Offset(2, 2),
+                    blurRadius: 4.0,
+                    color: Color.fromARGB(255, 251, 251, 251),
+                  ),
+                ],
               ),
             ),
           ),
-          Expanded(
-              child: GridView.count(
-            crossAxisCount: 2,
-            padding: EdgeInsets.fromLTRB(18.0, 5.0, 18.0, 18.0),
-            children: [
-              InkWell(
-                onTap: (() {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => QuestPage()),
-                  );
-                }),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: NewBox(
-                    child: Text(
-                      'Lista gości',
+        ),
+        Expanded(
+            child: GridView.count(
+          crossAxisCount: 2,
+          padding: const EdgeInsets.fromLTRB(18.0, 5.0, 18.0, 18.0),
+          children: [
+            InkWell(
+              onTap: (() {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const QuestPage()),
+                );
+              }),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: NewBox(
+                  child: Text(
+                    'Lista gości',
+                    style: GoogleFonts.bebasNeue(
+                      fontSize: 30,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const DatePage()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: NewBox(
+                  child: Text('Gdzie i kiedy',
                       style: GoogleFonts.bebasNeue(
                         fontSize: 30,
                         color: Colors.grey.shade900,
-                      ),
+                      )),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MenuPage(key),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: NewBox(
+                  child: Text(
+                    'Menu',
+                    style: GoogleFonts.bebasNeue(
+                      fontSize: 30,
+                      color: Colors.grey.shade900,
                     ),
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const DatePage()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: NewBox(
-                    child: Text('Gdzie i kiedy',
-                        style: GoogleFonts.bebasNeue(
-                          fontSize: 30,
-                          color: Colors.grey.shade900,
-                        )),
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => MenuPage(key),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: NewBox(
-                    child: Text(
-                      'Menu',
-                      style: GoogleFonts.bebasNeue(
-                        fontSize: 30,
-                        color: Colors.grey.shade900,
-                      ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AttractionPage()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: NewBox(
+                  child: Text(
+                    'Atrakcje',
+                    style: GoogleFonts.bebasNeue(
+                      fontSize: 30,
+                      color: Colors.grey.shade900,
                     ),
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AttractionPage()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: NewBox(
-                    child: Text(
-                      'Atrakcje',
-                      style: GoogleFonts.bebasNeue(
-                        fontSize: 30,
-                        color: Colors.grey.shade900,
-                      ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ThemePage()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: NewBox(
+                  child: Text(
+                    'Motyw imprezy',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.bebasNeue(
+                      fontSize: 30,
+                      color: Colors.grey.shade900,
                     ),
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ThemePage()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: NewBox(
-                    child: Text(
-                      'Motyw imprezy',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.bebasNeue(
-                        fontSize: 30,
-                        color: Colors.grey.shade900,
-                      ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => BudgetPage()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: NewBox(
+                  child: Text(
+                    'Finanse',
+                    style: GoogleFonts.bebasNeue(
+                      fontSize: 30,
+                      color: Colors.grey.shade900,
                     ),
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => BudgetPage()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: NewBox(
-                    child: Text(
-                      'Finanse',
-                      style: GoogleFonts.bebasNeue(
-                        fontSize: 30,
-                        color: Colors.grey.shade900,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ))
-        ],
-      ),
+            ),
+          ],
+        ))
+      ],
     ));
   }
 }
