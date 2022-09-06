@@ -177,7 +177,7 @@ class NewBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 212, 208, 245),
+        color: const Color.fromARGB(255, 212, 208, 245),
         borderRadius: BorderRadius.circular(8),
         boxShadow: const [
           BoxShadow(

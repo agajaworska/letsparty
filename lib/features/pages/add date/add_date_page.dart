@@ -9,7 +9,7 @@ import 'package:letsparty/repositories/repository.dart';
 import 'package:letsparty/repositories/weather_repository.dart';
 
 class AddDatePage extends StatefulWidget {
-  const AddDatePage({
+  AddDatePage({
     Key? key,
     this.selectedDateFormatted,
     this.selectedTimeFormatted,
@@ -32,92 +32,78 @@ class _AddDatePageState extends State<AddDatePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddDateCubit(Repository()),
-      child: BlocListener<AddDateCubit, AddDateState>(
-        listener: (context, state) {
-          if (state.saved) {
-            Navigator.of(context).pop();
-          }
-          if (state.errorMessage.isNotEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.errorMessage),
-              backgroundColor: Colors.red,
-            ));
-          }
-        },
-        child: BlocBuilder<AddDateCubit, AddDateState>(
-          builder: (context, state) {
-            return BlocProvider(
-              create: (context) =>
-                  WeatherCubit(WeatherRepository(WeatherRemoteDataSource())),
-              child: BlocBuilder<WeatherCubit, WeatherState>(
-                builder: (context, state) {
-                  return Scaffold(
-                    backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-                    appBar: AppBar(
-                      backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-                      title: Text(
-                        'D o d a j  i n f o ',
-                        style: GoogleFonts.bebasNeue(
-                          fontSize: 35,
-                          color: Colors.grey.shade900,
-                        ),
-                      ),
-                      actions: [
-                        IconButton(
-                          onPressed: _city == null ||
-                                  _adress == null ||
-                                  _date == null ||
-                                  _time == null
-                              ? null
-                              : () {
-                                  context
-                                      .read<WeatherCubit>()
-                                      .getWeatherModel(city: _city!);
-                                  context.read<AddDateCubit>().add(
-                                        _city!,
-                                        _adress!,
-                                        _date!,
-                                        _time!.format(context),
-                                      );
-                                },
-                          icon: const Icon(Icons.check),
-                        )
-                      ],
-                    ),
-                    body: _AddDatePageBody(
-                      onCityChanged: (newValue) {
-                        setState(() {
-                          _city = newValue;
-                        });
-                      },
-                      onAdressChanged: (newValue) {
-                        setState(() {
-                          _adress = newValue;
-                        });
-                      },
-                      onDateChanged: (newValue) {
-                        setState(() {
-                          _date = newValue;
-                        });
-                      },
-                      onTimeChanged: (newValue) {
-                        setState(() {
-                          _time = newValue;
-                        });
-                      },
-                      selectedTimeFormatted:
-                          _time == null ? null : _time!.format(context),
-                      selectedDateFormatted: _date == null
-                          ? null
-                          : DateFormat.yMMMMEEEEd().format(_date!),
-                    ),
-                  );
-                },
+      child:
+          BlocListener<AddDateCubit, AddDateState>(listener: (context, state) {
+        if (state.saved) {
+          Navigator.of(context).pop();
+        }
+        if (state.errorMessage.isNotEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.errorMessage),
+            backgroundColor: Colors.red,
+          ));
+        }
+      }, child: BlocBuilder<AddDateCubit, AddDateState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            appBar: AppBar(
+              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              title: Text(
+                'D o d a j  i n f o ',
+                style: GoogleFonts.bebasNeue(
+                  fontSize: 35,
+                  color: Colors.grey.shade900,
+                ),
               ),
-            );
-          },
-        ),
-      ),
+              actions: [
+                IconButton(
+                  onPressed: _city == null ||
+                          _adress == null ||
+                          _date == null ||
+                          _time == null
+                      ? null
+                      : () {
+                          context.read<AddDateCubit>().add(
+                                _city!,
+                                _adress!,
+                                _date!,
+                                _time!.format(context),
+                              );
+                        },
+                  icon: const Icon(Icons.check),
+                )
+              ],
+            ),
+            body: _AddDatePageBody(
+              onCityChanged: (newValue) {
+                setState(() {
+                  _city = newValue;
+                });
+              },
+              onAdressChanged: (newValue) {
+                setState(() {
+                  _adress = newValue;
+                });
+              },
+              onDateChanged: (newValue) {
+                setState(() {
+                  _date = newValue;
+                });
+              },
+              onTimeChanged: (newValue) {
+                setState(() {
+                  _time = newValue;
+                });
+              },
+              selectedTimeFormatted:
+                  _time == null ? null : _time!.format(context),
+              selectedDateFormatted:
+                  _date == null ? null : DateFormat.yMMMMEEEEd().format(_date!),
+            ),
+          );
+        },
+      )),
     );
   }
 }
