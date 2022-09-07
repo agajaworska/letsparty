@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +7,7 @@ import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
 import 'package:letsparty/features/pages/add%20date/update_date_page.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
-import 'package:letsparty/main.dart';
+
 import 'package:letsparty/models/item_model.dart';
 import 'package:letsparty/models/weather_model.dart';
 import 'package:letsparty/repositories/repository.dart';
@@ -51,21 +48,6 @@ class DatePage extends StatelessWidget {
                   fontSize: 35,
                   color: Colors.grey.shade900,
                 ),
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 107, 26, 213),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AddDatePage(),
-                    fullscreenDialog: true,
-                  ),
-                );
-              },
-              child: const Icon(
-                Icons.add_outlined,
-                color: Color.fromARGB(255, 212, 208, 245),
               ),
             ),
             body: Center(
@@ -164,6 +146,19 @@ class _DatePageBody extends StatelessWidget {
               ],
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AddDatePage(),
+                      fullscreenDialog: true,
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.add_outlined,
+                ),
+              ),
               IconButton(
                 onPressed: () {
                   Navigator.of(context).push(
@@ -425,7 +420,7 @@ class _SearchWidget extends StatelessWidget {
                   onPressed: () {
                     context
                         .read<WeatherCubit>()
-                        .getWeatherModel(city: _controller.text);
+                        .getWeatherModel(_controller.text);
                   },
                   icon: const Icon(
                     Icons.search_outlined,

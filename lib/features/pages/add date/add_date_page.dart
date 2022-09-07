@@ -23,10 +23,10 @@ class AddDatePage extends StatefulWidget {
 }
 
 class _AddDatePageState extends State<AddDatePage> {
-  String? _city;
   String? _adress;
   DateTime? _date;
   TimeOfDay? _time;
+  String? city;
 
   @override
   Widget build(BuildContext context) {
@@ -45,61 +45,73 @@ class _AddDatePageState extends State<AddDatePage> {
         }
       }, child: BlocBuilder<AddDateCubit, AddDateState>(
         builder: (context, state) {
-          return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-            appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-              title: Text(
-                'D o d a j  i n f o ',
-                style: GoogleFonts.bebasNeue(
-                  fontSize: 35,
-                  color: Colors.grey.shade900,
-                ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: _city == null ||
-                          _adress == null ||
-                          _date == null ||
-                          _time == null
-                      ? null
-                      : () {
-                          context.read<AddDateCubit>().add(
-                                _city!,
-                                _adress!,
-                                _date!,
-                                _time!.format(context),
-                              );
-                        },
-                  icon: const Icon(Icons.check),
-                )
-              ],
-            ),
-            body: _AddDatePageBody(
-              onCityChanged: (newValue) {
-                setState(() {
-                  _city = newValue;
-                });
+          return BlocProvider(
+            create: (context) =>
+                WeatherCubit(WeatherRepository(WeatherRemoteDataSource())),
+            child: BlocBuilder<WeatherCubit, WeatherState>(
+              builder: (context, state) {
+                return Scaffold(
+                  backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                  appBar: AppBar(
+                    backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                    title: Text(
+                      'D o d a j  i n f o ',
+                      style: GoogleFonts.bebasNeue(
+                        fontSize: 35,
+                        color: Colors.grey.shade900,
+                      ),
+                    ),
+                    actions: [
+                      IconButton(
+                        onPressed: city == null ||
+                                _adress == null ||
+                                _date == null ||
+                                _time == null
+                            ? null
+                            : () {
+                                context
+                                    .read<WeatherCubit>()
+                                    .getWeatherModel(city!);
+                                context.read<AddDateCubit>().add(
+                                      city!,
+                                      _adress!,
+                                      _date!,
+                                      _time!.format(context),
+                                    );
+                              },
+                        icon: const Icon(Icons.check),
+                      )
+                    ],
+                  ),
+                  body: _AddDatePageBody(
+                    onCityChanged: (newValue) {
+                      setState(() {
+                        city = newValue;
+                      });
+                    },
+                    onAdressChanged: (newValue) {
+                      setState(() {
+                        _adress = newValue;
+                      });
+                    },
+                    onDateChanged: (newValue) {
+                      setState(() {
+                        _date = newValue;
+                      });
+                    },
+                    onTimeChanged: (newValue) {
+                      setState(() {
+                        _time = newValue;
+                      });
+                    },
+                    selectedTimeFormatted:
+                        _time == null ? null : _time!.format(context),
+                    selectedDateFormatted: _date == null
+                        ? null
+                        : DateFormat.yMMMMEEEEd().format(_date!),
+                  ),
+                );
               },
-              onAdressChanged: (newValue) {
-                setState(() {
-                  _adress = newValue;
-                });
-              },
-              onDateChanged: (newValue) {
-                setState(() {
-                  _date = newValue;
-                });
-              },
-              onTimeChanged: (newValue) {
-                setState(() {
-                  _time = newValue;
-                });
-              },
-              selectedTimeFormatted:
-                  _time == null ? null : _time!.format(context),
-              selectedDateFormatted:
-                  _date == null ? null : DateFormat.yMMMMEEEEd().format(_date!),
             ),
           );
         },
@@ -111,21 +123,20 @@ class _AddDatePageState extends State<AddDatePage> {
 class _AddDatePageBody extends StatelessWidget {
   _AddDatePageBody({
     Key? key,
+    required this.onCityChanged,
     required this.onAdressChanged,
     required this.onDateChanged,
-    required this.onCityChanged,
     required this.onTimeChanged,
     this.selectedDateFormatted,
     this.selectedTimeFormatted,
   }) : super(key: key);
-
   final Function(String) onCityChanged;
   final Function(String) onAdressChanged;
   final Function(DateTime?) onDateChanged;
   final Function(TimeOfDay?) onTimeChanged;
   final String? selectedDateFormatted;
   final String? selectedTimeFormatted;
-
+  final cityController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return ListView(
