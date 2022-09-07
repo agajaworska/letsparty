@@ -178,7 +178,7 @@ class NewBox extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 212, 208, 245),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(25),
         boxShadow: const [
           BoxShadow(
             color: Color.fromARGB(255, 83, 80, 85),
@@ -195,12 +195,12 @@ class NewBox extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(246, 245, 234, 252),
-              Color.fromARGB(255, 183, 178, 229),
+              Color.fromARGB(93, 183, 178, 229),
+              Color.fromARGB(255, 195, 191, 231),
             ],
             stops: [
-              0.05,
-              0.90
+              0.1,
+              0.9
             ]),
       ),
       child: Center(child: child),

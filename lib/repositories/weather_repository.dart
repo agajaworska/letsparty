@@ -18,7 +18,7 @@ class WeatherRepository {
     if (json == null) {
       return null;
     }
-    print(json);
+
     return WeatherModel.fromJson(json);
   }
 }

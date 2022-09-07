@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:letsparty/models/addSpendings_model.dart';
 import 'package:letsparty/models/attraction_model.dart';
 import 'package:letsparty/models/budget_model.dart';
@@ -107,6 +108,17 @@ class Repository {
         .collection('themePhotos')
         .doc(id)
         .delete();
+  }
+
+  Future<ThemeModel> getPhoto({required String id}) async {
+    final doc = await FirebaseFirestore.instance
+        .collection('themePhotos')
+        .doc(id)
+        .get();
+    return ThemeModel(
+      id: doc.id,
+      imageUrl: doc['image_url'],
+    );
   }
 
   Future<void> addThemePhoto({required String imageUrl}) {

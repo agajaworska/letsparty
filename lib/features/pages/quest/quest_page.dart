@@ -47,7 +47,7 @@ class _QuestPageState extends State<QuestPage> {
                             .remove(documentID: userModel.id);
                       },
                       child: UserBox(
-                        userModel.name,
+                        name: userModel.name,
                       )),
                 ],
               ],
@@ -80,12 +80,12 @@ class _bottomSheet extends StatelessWidget {
 }
 
 class UserBox extends StatelessWidget {
-  const UserBox(
-    this.title, {
+  const UserBox({
+    required this.name,
     Key? key,
   }) : super(key: key);
 
-  final String title;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class UserBox extends StatelessWidget {
         ],
       ),
       child: Text(
-        title,
+        name,
         style: GoogleFonts.montserrat(
           fontSize: 18,
         ),
