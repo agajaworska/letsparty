@@ -29,9 +29,6 @@ class _UpdatePageState extends State<UpdatePage> {
       )..start(),
       child: BlocListener<DateCubit, DateState>(
         listener: (context, state) {
-          if (state.saved) {
-            Navigator.of(context).pop();
-          }
           if (state.errorMessage.isNotEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(state.errorMessage),
@@ -56,7 +53,7 @@ class _UpdatePageState extends State<UpdatePage> {
                   actions: [
                     for (final itemModel in itemModels)
                       Builder(builder: (context) {
-                        if (_city == null ||
+                        if (_city != null ||
                             _adress != null ||
                             _date != null ||
                             _time != null) {
@@ -67,6 +64,7 @@ class _UpdatePageState extends State<UpdatePage> {
                                     _time == null
                                 ? null
                                 : () {
+                                    Navigator.pop(context, _city!);
                                     context.read<DateCubit>().update(
                                         documentID: itemModel.id,
                                         city: _city.toString(),
@@ -88,6 +86,7 @@ class _UpdatePageState extends State<UpdatePage> {
                                     _time == null
                                 ? null
                                 : () {
+                                    Navigator.pop(context, _city!);
                                     context.read<DateCubit>().update(
                                         documentID: itemModel.id,
                                         city: itemModel.city,

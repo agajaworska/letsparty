@@ -140,31 +140,29 @@ class DataBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 240, 234, 255),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(5, 5),
-              blurRadius: 6.0,
-              color: Colors.grey.shade600,
-            ),
-            const BoxShadow(
-              offset: Offset(-5, -5),
-              blurRadius: 6.0,
-              color: Color.fromARGB(255, 232, 222, 240),
-            ),
-          ],
-        ),
-        child: Text(
-          title,
-          style: GoogleFonts.montserrat(
-            fontSize: 18,
+    return Container(
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 240, 234, 255),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(5, 5),
+            blurRadius: 6.0,
+            color: Colors.grey.shade600,
           ),
+          const BoxShadow(
+            offset: Offset(-5, -5),
+            blurRadius: 6.0,
+            color: Color.fromARGB(255, 232, 222, 240),
+          ),
+        ],
+      ),
+      child: Text(
+        title,
+        style: GoogleFonts.montserrat(
+          fontSize: 18,
         ),
       ),
     );
@@ -178,68 +176,66 @@ class ListOfSpendings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: BlocProvider(
-          create: (context) => AddSpendingsCubit(Repository())..start(),
-          child: BlocBuilder<AddSpendingsCubit, AddSpendingsState>(
-            builder: (context, state) {
-              if (state.errorMessage.isNotEmpty) {
-                return const Text('Wystąpił nieoczekiwany problem');
-              }
-              if (state.isLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.purple,
-                  ),
-                );
-              }
-              final addSpendingsModels = state.documents;
-              return Column(
-                children: [
-                  Center(
-                    child: Text(
-                      'Lista wydatków:',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 20,
-                        textStyle: const TextStyle(),
-                      ),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: BlocProvider(
+        create: (context) => AddSpendingsCubit(Repository())..start(),
+        child: BlocBuilder<AddSpendingsCubit, AddSpendingsState>(
+          builder: (context, state) {
+            if (state.errorMessage.isNotEmpty) {
+              return const Text('Wystąpił nieoczekiwany problem');
+            }
+            if (state.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.purple,
+                ),
+              );
+            }
+            final addSpendingsModels = state.documents;
+            return Column(
+              children: [
+                Center(
+                  child: Text(
+                    'Lista wydatków:',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 20,
+                      textStyle: const TextStyle(),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  for (final addSpendingsModel in addSpendingsModels) ...[
-                    Dismissible(
-                      key: ValueKey(addSpendingsModel.id),
-                      onDismissed: (_) {
-                        context
-                            .read<AddSpendingsCubit>()
-                            .remove(documentID: addSpendingsModel.id);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              addSpendingsModel.name,
-                              style: GoogleFonts.montserrat(
-                                fontSize: 18,
-                              ),
+                ),
+                const SizedBox(height: 20),
+                for (final addSpendingsModel in addSpendingsModels) ...[
+                  Dismissible(
+                    key: ValueKey(addSpendingsModel.id),
+                    onDismissed: (_) {
+                      context
+                          .read<AddSpendingsCubit>()
+                          .remove(documentID: addSpendingsModel.id);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            addSpendingsModel.name,
+                            style: GoogleFonts.montserrat(
+                              fontSize: 18,
                             ),
-                            Text(
-                              '${addSpendingsModel.price}${' zł'}',
-                              style: GoogleFonts.montserrat(fontSize: 18),
-                            ),
-                          ],
-                        ),
+                          ),
+                          Text(
+                            '${addSpendingsModel.price}${' zł'}',
+                            style: GoogleFonts.montserrat(fontSize: 18),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
+                    ),
+                  )
                 ],
-              );
-            },
-          ),
+              ],
+            );
+          },
         ),
       ),
     );

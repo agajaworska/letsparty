@@ -1,13 +1,13 @@
 import 'package:intl/intl.dart';
 
-class ItemModel {
+class DateModel {
   final String id;
   final String city;
   final String adress;
   final DateTime date;
   final String time;
 
-  ItemModel({
+  DateModel({
     required this.id,
     required this.city,
     required this.adress,
@@ -16,6 +16,6 @@ class ItemModel {
   });
 
   String relaseDateFormatted() {
-    return DateFormat.yMMMMEEEEd().format(date);
+    return DateFormat.yMMMMd().format(date);
   }
 }

@@ -21,197 +21,195 @@ class LoginPage extends StatelessWidget {
           return Scaffold(
             backgroundColor: const Color.fromARGB(255, 212, 208, 245),
             body: Center(
-              child: Expanded(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'L E T\' S',
-                        style: GoogleFonts.bebasNeue(
-                            fontSize: 80,
-                            color: Color.fromARGB(240, 50, 5, 58),
-                            textStyle: const TextStyle(
-                              shadows: <Shadow>[
-                                Shadow(
-                                  offset: Offset(7.0, 5.0),
-                                  blurRadius: 8.0,
-                                  color: Color.fromARGB(255, 104, 3, 151),
-                                ),
-                                Shadow(
-                                  offset: Offset(3.0, 4.0),
-                                  blurRadius: 4.0,
-                                  color: Color.fromARGB(255, 225, 186, 244),
-                                ),
-                              ],
-                            )),
-                      ),
-                      Text(
-                        'P A R T Y !',
-                        style: GoogleFonts.bebasNeue(
-                            fontSize: 80,
-                            color: Color.fromARGB(240, 50, 5, 58),
-                            textStyle: const TextStyle(
-                              shadows: <Shadow>[
-                                Shadow(
-                                  offset: Offset(7.0, 5.0),
-                                  blurRadius: 8.0,
-                                  color: Color.fromARGB(255, 104, 3, 151),
-                                ),
-                                Shadow(
-                                  offset: Offset(3.0, 4.0),
-                                  blurRadius: 4.0,
-                                  color: Color.fromARGB(255, 225, 186, 244),
-                                ),
-                              ],
-                            )),
-                      ),
-                      const SizedBox(height: 15),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                        child: TextField(
-                          controller: emailController,
-                          decoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(183, 119, 77, 175),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'L E T\' S',
+                      style: GoogleFonts.bebasNeue(
+                          fontSize: 80,
+                          color: Color.fromARGB(240, 50, 5, 58),
+                          textStyle: const TextStyle(
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(7.0, 5.0),
+                                blurRadius: 8.0,
+                                color: Color.fromARGB(255, 104, 3, 151),
                               ),
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(183, 119, 77, 175),
+                              Shadow(
+                                offset: Offset(3.0, 4.0),
+                                blurRadius: 4.0,
+                                color: Color.fromARGB(255, 225, 186, 244),
                               ),
+                            ],
+                          )),
+                    ),
+                    Text(
+                      'P A R T Y !',
+                      style: GoogleFonts.bebasNeue(
+                          fontSize: 80,
+                          color: Color.fromARGB(240, 50, 5, 58),
+                          textStyle: const TextStyle(
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(7.0, 5.0),
+                                blurRadius: 8.0,
+                                color: Color.fromARGB(255, 104, 3, 151),
+                              ),
+                              Shadow(
+                                offset: Offset(3.0, 4.0),
+                                blurRadius: 4.0,
+                                color: Color.fromARGB(255, 225, 186, 244),
+                              ),
+                            ],
+                          )),
+                    ),
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
                             ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Email',
-                            hintStyle: GoogleFonts.montserrat(),
-                            labelStyle: TextStyle(color: Colors.grey.shade700),
-                            label: Text(
-                              'Email',
-                              style: GoogleFonts.montserrat(),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
                             ),
+                          ),
+                          border: const OutlineInputBorder(),
+                          hintText: 'Email',
+                          hintStyle: GoogleFonts.montserrat(),
+                          labelStyle: TextStyle(color: Colors.grey.shade700),
+                          label: Text(
+                            'Email',
+                            style: GoogleFonts.montserrat(),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
-                        child: TextField(
-                          controller: passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(183, 119, 77, 175),
-                              ),
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
+                      child: TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
                             ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(183, 119, 77, 175),
-                              ),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
                             ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Hasło',
-                            hintStyle: GoogleFonts.montserrat(),
-                            labelStyle: TextStyle(color: Colors.grey.shade700),
-                            label: Text(
-                              'Hasło',
-                              style: GoogleFonts.montserrat(),
-                            ),
+                          ),
+                          border: const OutlineInputBorder(),
+                          hintText: 'Hasło',
+                          hintStyle: GoogleFonts.montserrat(),
+                          labelStyle: TextStyle(color: Colors.grey.shade700),
+                          label: Text(
+                            'Hasło',
+                            style: GoogleFonts.montserrat(),
                           ),
                         ),
                       ),
-                      Text(state.errorMessage),
-                      const SizedBox(height: 15),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (state.isCreatingAccount) {
-                            try {
-                              context.read<RootCubit>().register(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  );
-                            } catch (error) {
-                              state.errorMessage.toString();
-                            }
-                          } else {
-                            try {
-                              context.read<RootCubit>().signIn(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  );
-                            } catch (error) {
-                              state.errorMessage.toString();
-                            }
+                    ),
+                    Text(state.errorMessage),
+                    const SizedBox(height: 15),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (state.isCreatingAccount) {
+                          try {
+                            context.read<RootCubit>().register(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                          } catch (error) {
+                            state.errorMessage.toString();
                           }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          primary: const Color.fromARGB(252, 122, 51, 214),
-                          shadowColor: Colors.grey,
-                          elevation: 6.0,
-                          textStyle: GoogleFonts.montserrat(),
+                        } else {
+                          try {
+                            context.read<RootCubit>().signIn(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                          } catch (error) {
+                            state.errorMessage.toString();
+                          }
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
-                        child: Text(
-                          state.isCreatingAccount
-                              ? 'Zarejestruj się'
-                              : 'Zaloguj się',
-                        ),
+                        primary: const Color.fromARGB(252, 122, 51, 214),
+                        shadowColor: Colors.grey,
+                        elevation: 6.0,
+                        textStyle: GoogleFonts.montserrat(),
                       ),
-                      const SizedBox(height: 15),
-                      if (state.isCreatingAccount == false) ...[
-                        TextButton(
-                          onPressed: () {
-                            context
-                                .read<RootCubit>()
-                                .createAccountButtonPressed();
-                          },
-                          child: Text('Utwórz konto',
-                              style: GoogleFonts.montserrat(
-                                color: const Color.fromARGB(252, 122, 51, 214),
-                              )),
-                        ),
-                      ],
-                      if (state.isCreatingAccount) ...[
-                        TextButton(
-                          onPressed: () {
-                            context.read<RootCubit>().signInButtonPressed();
-                          },
-                          child: Text('Masz już konto?',
-                              style: GoogleFonts.montserrat(
-                                color: const Color.fromARGB(252, 122, 51, 214),
-                              )),
-                        ),
-                      ],
+                      child: Text(
+                        state.isCreatingAccount
+                            ? 'Zarejestruj się'
+                            : 'Zaloguj się',
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    if (state.isCreatingAccount == false) ...[
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => PasswordAlertDialog(),
-                              fullscreenDialog: true,
-                            ),
-                          );
+                          context
+                              .read<RootCubit>()
+                              .createAccountButtonPressed();
                         },
-                        child: Text('Zapomniałeś hasła?',
+                        child: Text('Utwórz konto',
                             style: GoogleFonts.montserrat(
                               color: const Color.fromARGB(252, 122, 51, 214),
                             )),
                       ),
-                    ]),
-              ),
+                    ],
+                    if (state.isCreatingAccount) ...[
+                      TextButton(
+                        onPressed: () {
+                          context.read<RootCubit>().signInButtonPressed();
+                        },
+                        child: Text('Masz już konto?',
+                            style: GoogleFonts.montserrat(
+                              color: const Color.fromARGB(252, 122, 51, 214),
+                            )),
+                      ),
+                    ],
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => PasswordAlertDialog(),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                      },
+                      child: Text('Zapomniałeś hasła?',
+                          style: GoogleFonts.montserrat(
+                            color: const Color.fromARGB(252, 122, 51, 214),
+                          )),
+                    ),
+                  ]),
             ),
           );
         },

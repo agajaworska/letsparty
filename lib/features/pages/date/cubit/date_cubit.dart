@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
-import 'package:letsparty/models/item_model.dart';
+
+import 'package:letsparty/models/date_model.dart';
 import 'package:letsparty/repositories/repository.dart';
 
 part 'date_state.dart';
@@ -18,9 +18,9 @@ class DateCubit extends Cubit<DateState> {
   Future<void> start() async {
     _streamSubscription = _repository.getItemsStream().listen(
       (items) {
-        final itemModels = items;
+        final dateModels = items;
 
-        emit(DateState(items: itemModels));
+        emit(DateState(items: dateModels));
       },
     )..onError(
         (error) {

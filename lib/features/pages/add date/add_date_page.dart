@@ -9,7 +9,7 @@ import 'package:letsparty/repositories/repository.dart';
 import 'package:letsparty/repositories/weather_repository.dart';
 
 class AddDatePage extends StatefulWidget {
-  AddDatePage({
+  const AddDatePage({
     Key? key,
     this.selectedDateFormatted,
     this.selectedTimeFormatted,
@@ -26,7 +26,7 @@ class _AddDatePageState extends State<AddDatePage> {
   String? _adress;
   DateTime? _date;
   TimeOfDay? _time;
-  String? city;
+  String? _city;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +34,6 @@ class _AddDatePageState extends State<AddDatePage> {
       create: (context) => AddDateCubit(Repository()),
       child:
           BlocListener<AddDateCubit, AddDateState>(listener: (context, state) {
-        if (state.saved) {
-          Navigator.of(context).pop();
-        }
         if (state.errorMessage.isNotEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.errorMessage),
@@ -63,30 +60,29 @@ class _AddDatePageState extends State<AddDatePage> {
                     ),
                     actions: [
                       IconButton(
-                        onPressed: city == null ||
+                        onPressed: _city == null ||
                                 _adress == null ||
                                 _date == null ||
                                 _time == null
                             ? null
                             : () {
-                                context
-                                    .read<WeatherCubit>()
-                                    .getWeatherModel(city!);
+                                Navigator.pop(context, _city!);
+
                                 context.read<AddDateCubit>().add(
-                                      city!,
+                                      _city!,
                                       _adress!,
                                       _date!,
                                       _time!.format(context),
                                     );
                               },
                         icon: const Icon(Icons.check),
-                      )
+                      ),
                     ],
                   ),
                   body: _AddDatePageBody(
                     onCityChanged: (newValue) {
                       setState(() {
-                        city = newValue;
+                        _city = newValue;
                       });
                     },
                     onAdressChanged: (newValue) {

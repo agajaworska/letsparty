@@ -1,20 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+
 import 'package:letsparty/models/addSpendings_model.dart';
 import 'package:letsparty/models/attraction_model.dart';
 import 'package:letsparty/models/budget_model.dart';
-import 'package:letsparty/models/item_model.dart';
+import 'package:letsparty/models/date_model.dart';
 import 'package:letsparty/models/menu_model.dart';
 import 'package:letsparty/models/theme_model.dart';
 import 'package:letsparty/models/user_model.dart';
 
 class Repository {
-  Stream<List<ItemModel>> getItemsStream() {
+  Stream<List<DateModel>> getItemsStream() {
     return FirebaseFirestore.instance.collection('items').snapshots().map(
       (querySnapshot) {
         return querySnapshot.docs.map(
           (doc) {
-            return ItemModel(
+            return DateModel(
               id: doc.id,
               city: doc['city'],
               adress: doc['adress'],

@@ -9,7 +9,7 @@ class DateState {
     this.errorMessage = '',
   });
 
-  final List<ItemModel> items;
+  final List<DateModel> items;
   final bool loadingErrorOccured;
   final bool removingErrorOccured;
   final bool saved;

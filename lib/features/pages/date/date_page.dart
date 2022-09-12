@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,15 +10,25 @@ import 'package:letsparty/features/pages/add%20date/update_date_page.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
 
-import 'package:letsparty/models/item_model.dart';
+import 'package:letsparty/models/date_model.dart';
 import 'package:letsparty/models/weather_model.dart';
 import 'package:letsparty/repositories/repository.dart';
 import 'package:letsparty/repositories/weather_repository.dart';
 
-class DatePage extends StatelessWidget {
+class DatePage extends StatefulWidget {
   const DatePage({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<DatePage> createState() => _DatePageState();
+}
+
+class _DatePageState extends State<DatePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,17 +71,23 @@ class DatePage extends StatelessWidget {
                   children: [
                     const _DatePageBody(),
                     Center(
-                      child: Text(
-                        'Obecna pogoda:',
-                        style: GoogleFonts.montserrat(fontSize: 18),
-                      ),
+                      child: weatherModel == null
+                          ? Text(
+                              'Obecna pogoda dla miasta:',
+                              style: GoogleFonts.montserrat(fontSize: 18),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              'Obecna pogoda dla miasta ${weatherModel.city}:',
+                              style: GoogleFonts.montserrat(fontSize: 18),
+                              textAlign: TextAlign.center,
+                            ),
                     ),
                     const SizedBox(height: 10),
                     if (weatherModel != null)
                       _DisplayWeatherWidget(
                         weatherModel: weatherModel,
                       ),
-                    _SearchWidget(),
                   ],
                 );
               }),
@@ -94,7 +112,7 @@ class _DatePageBody extends StatelessWidget {
       )..start(),
       child: BlocBuilder<DateCubit, DateState>(
         builder: (context, state) {
-          final itemModels = state.items;
+          final dateModels = state.items;
 
           return Column(children: [
             Row(
@@ -105,8 +123,8 @@ class _DatePageBody extends StatelessWidget {
                     Icons.location_city_outlined,
                   ),
                 ),
-                for (final itemModel in itemModels)
-                  _CityBox(itemModel: itemModel),
+                for (final dateModel in dateModels)
+                  _CityBox(dateModel: dateModel),
               ],
             ),
             Row(
@@ -117,8 +135,8 @@ class _DatePageBody extends StatelessWidget {
                     Icons.home_outlined,
                   ),
                 ),
-                for (final itemModel in itemModels)
-                  _AdressBox(itemModel: itemModel),
+                for (final dateModel in dateModels)
+                  _AdressBox(dateModel: dateModel),
               ],
             ),
             Row(
@@ -129,8 +147,8 @@ class _DatePageBody extends StatelessWidget {
                     Icons.calendar_month_outlined,
                   ),
                 ),
-                for (final itemModel in itemModels)
-                  _DateBox(itemModel: itemModel),
+                for (final dateModel in dateModels)
+                  _DateBox(dateModel: dateModel),
               ],
             ),
             Row(
@@ -141,18 +159,21 @@ class _DatePageBody extends StatelessWidget {
                     Icons.watch_later_outlined,
                   ),
                 ),
-                for (final itemModel in itemModels)
-                  _HourBox(itemModel: itemModel),
+                for (final dateModel in dateModels)
+                  _HourBox(dateModel: dateModel),
               ],
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
+                onPressed: () async {
+                  final city = await Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => AddDatePage(),
+                      builder: (context) => const AddDatePage(),
                       fullscreenDialog: true,
                     ),
+                  );
+                  return BlocProvider.of<WeatherCubit>(context).getWeatherModel(
+                    city: city.toString(),
                   );
                 },
                 icon: const Icon(
@@ -160,19 +181,23 @@ class _DatePageBody extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
+                onPressed: () async {
+                  final city = await Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => UpdatePage(key),
+                      builder: (context) => UpdatePage(key),
+                      fullscreenDialog: true,
                     ),
+                  );
+                  return BlocProvider.of<WeatherCubit>(context).getWeatherModel(
+                    city: city.toString(),
                   );
                 },
                 icon: const Icon(Icons.edit_outlined),
               ),
-              for (final itemModel in itemModels)
+              for (final dateModel in dateModels)
                 IconButton(
                   onPressed: () {
-                    context.read<DateCubit>().remove(documentID: itemModel.id);
+                    context.read<DateCubit>().remove(documentID: dateModel.id);
                   },
                   icon: const Icon(Icons.delete_outlined),
                 ),
@@ -192,10 +217,10 @@ class _DatePageBody extends StatelessWidget {
 class _CityBox extends StatelessWidget {
   const _CityBox({
     Key? key,
-    required this.itemModel,
+    required this.dateModel,
   }) : super(key: key);
 
-  final ItemModel itemModel;
+  final DateModel dateModel;
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +245,7 @@ class _CityBox extends StatelessWidget {
           ],
         ),
         child: Text(
-          itemModel.city,
+          dateModel.city,
           style: GoogleFonts.montserrat(
             fontSize: 18,
           ),
@@ -233,10 +258,10 @@ class _CityBox extends StatelessWidget {
 class _AdressBox extends StatelessWidget {
   const _AdressBox({
     Key? key,
-    required this.itemModel,
+    required this.dateModel,
   }) : super(key: key);
 
-  final ItemModel itemModel;
+  final DateModel dateModel;
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +286,7 @@ class _AdressBox extends StatelessWidget {
           ],
         ),
         child: Text(
-          itemModel.adress,
+          dateModel.adress,
           style: GoogleFonts.montserrat(
             fontSize: 18,
           ),
@@ -274,10 +299,10 @@ class _AdressBox extends StatelessWidget {
 class _DateBox extends StatelessWidget {
   const _DateBox({
     Key? key,
-    required this.itemModel,
+    required this.dateModel,
   }) : super(key: key);
 
-  final ItemModel itemModel;
+  final DateModel dateModel;
 
   @override
   Widget build(BuildContext context) {
@@ -302,7 +327,7 @@ class _DateBox extends StatelessWidget {
           ],
         ),
         child: Text(
-          itemModel.relaseDateFormatted(),
+          dateModel.relaseDateFormatted(),
           style: GoogleFonts.montserrat(
             fontSize: 18,
           ),
@@ -315,10 +340,10 @@ class _DateBox extends StatelessWidget {
 class _HourBox extends StatelessWidget {
   const _HourBox({
     Key? key,
-    required this.itemModel,
+    required this.dateModel,
   }) : super(key: key);
 
-  final ItemModel itemModel;
+  final DateModel dateModel;
 
   @override
   Widget build(BuildContext context) {
@@ -343,7 +368,7 @@ class _HourBox extends StatelessWidget {
           ],
         ),
         child: Text(
-          itemModel.time.toString(),
+          dateModel.time.toString(),
           style: GoogleFonts.montserrat(
             fontSize: 18,
           ),
@@ -364,74 +389,78 @@ class _DisplayWeatherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text(weatherModel.condition,
-          style: GoogleFonts.montserrat(
-              fontSize: 18, fontWeight: FontWeight.w600)),
+      Text(
+        weatherModel.condition,
+        style:
+            GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w600),
+      ),
       const SizedBox(height: 8),
       Center(
-        child: Text('${weatherModel.temperature} st. C',
-            style: GoogleFonts.montserrat(
-                fontSize: 18, fontWeight: FontWeight.w600)),
+        child: Text(
+          '${weatherModel.temperature} st. C',
+          style:
+              GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w600),
+        ),
       ),
       const SizedBox(height: 10),
     ]);
   }
 }
 
-class _SearchWidget extends StatelessWidget {
-  _SearchWidget({
-    Key? key,
-  }) : super(key: key);
+// class _SearchWidget extends StatelessWidget {
+//   _SearchWidget({
+//     Key? key,
+//   }) : super(key: key);
 
-  final _controller = TextEditingController();
+//   final _controller = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              style: GoogleFonts.montserrat(),
-              decoration: InputDecoration(
-                enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: Color.fromARGB(183, 119, 77, 175),
-                  ),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: Color.fromARGB(183, 119, 77, 175),
-                  ),
-                ),
-                hintText: 'Miasto, np. Warsaw',
-                hintStyle: GoogleFonts.montserrat(),
-                prefixIcon: const Icon(
-                  Icons.wb_sunny_outlined,
-                  color: Color.fromARGB(183, 119, 77, 175),
-                ),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    context
-                        .read<WeatherCubit>()
-                        .getWeatherModel(_controller.text);
-                  },
-                  icon: const Icon(
-                    Icons.search_outlined,
-                    color: Color.fromARGB(183, 119, 77, 175),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 20.0),
+//       child: Row(
+//         children: [
+//           Expanded(
+//             child: TextField(
+//               controller: _controller,
+//               style: GoogleFonts.montserrat(),
+//               decoration: InputDecoration(
+//                 enabledBorder: const OutlineInputBorder(
+//                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
+//                   borderSide: BorderSide(
+//                     width: 2,
+//                     color: Color.fromARGB(183, 119, 77, 175),
+//                   ),
+//                 ),
+//                 focusedBorder: const OutlineInputBorder(
+//                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
+//                   borderSide: BorderSide(
+//                     width: 2,
+//                     color: Color.fromARGB(183, 119, 77, 175),
+//                   ),
+//                 ),
+//                 hintText: 'Miasto, np. Warsaw',
+//                 hintStyle: GoogleFonts.montserrat(),
+//                 prefixIcon: const Icon(
+//                   Icons.wb_sunny_outlined,
+//                   color: Color.fromARGB(183, 119, 77, 175),
+//                 ),
+//                 suffixIcon: IconButton(
+//                   onPressed: () {
+//                     context
+//                         .read<WeatherCubit>()
+//                         .getWeatherModel(_controller.text);
+//                   },
+//                   icon: const Icon(
+//                     Icons.search_outlined,
+//                     color: Color.fromARGB(183, 119, 77, 175),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

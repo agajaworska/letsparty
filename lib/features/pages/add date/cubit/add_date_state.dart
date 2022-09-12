@@ -9,5 +9,5 @@ class AddDateState {
 
   final bool saved;
   final String errorMessage;
-  final List<ItemModel> documents;
+  final List<DateModel> documents;
 }
