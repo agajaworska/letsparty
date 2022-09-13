@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,13 +33,24 @@ class HomePage extends StatelessWidget {
 
               return const ChatPageContent();
             }),
-            bottomNavigationBar: BottomNavigationBar(
+            bottomNavigationBar: CurvedNavigationBar(
+              color: Color.fromARGB(255, 194, 188, 227),
+              buttonBackgroundColor: const Color.fromARGB(255, 212, 208, 245),
               backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-              iconSize: 22,
-              selectedItemColor: Colors.grey.shade900,
-              currentIndex: state.index,
-              selectedLabelStyle: GoogleFonts.montserrat(),
-              unselectedLabelStyle: GoogleFonts.montserrat(),
+              height: 46,
+              animationCurve: Curves.easeOutCubic,
+              animationDuration: const Duration(milliseconds: 900),
+              index: state.index,
+              items: const [
+                Icon(
+                  Icons.person_outline,
+                  size: 28,
+                ),
+                Icon(
+                  Icons.home_outlined,
+                  size: 28,
+                )
+              ],
               onTap: (index) {
                 if (index == 0) {
                   context.read<HomeCubit>().onTapPressed(GNavItem.account);
@@ -48,27 +60,45 @@ class HomePage extends StatelessWidget {
                   // context.read<HomeCubit>().onTapPressed(GNavItem.chat);
                 }
               },
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Ionicons.person_outline,
-                  ),
-                  label: 'Moje konto',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Ionicons.home_outline,
-                  ),
-                  label: 'Strona główna',
-                ),
-                // BottomNavigationBarItem(
-                // icon: Icon(
-                // Ionicons.chatbox_outline,
-                // ),
-                // label: 'Czat',
-                // ),
-              ],
             ),
+
+            // bottomNavigationBar: BottomNavigationBar(
+            //   backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            //   iconSize: 22,
+            //   selectedItemColor: Colors.grey.shade900,
+            //   currentIndex: state.index,
+            //   selectedLabelStyle: GoogleFonts.montserrat(),
+            //   unselectedLabelStyle: GoogleFonts.montserrat(),
+            //   onTap: (index) {
+            //     if (index == 0) {
+            //       context.read<HomeCubit>().onTapPressed(GNavItem.account);
+            //     } else if (index == 1) {
+            //       context.read<HomeCubit>().onTapPressed(GNavItem.home);
+            //       // } else if (index == 2) {
+            //       // context.read<HomeCubit>().onTapPressed(GNavItem.chat);
+            //     }
+            //   },
+            //   items: const [
+            //     BottomNavigationBarItem(
+            //       icon: Icon(
+            //         Ionicons.person_outline,
+            //       ),
+            //       label: 'Moje konto',
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Icon(
+            //         Ionicons.home_outline,
+            //       ),
+            //       label: 'Strona główna',
+            //     ),
+            //     // BottomNavigationBarItem(
+            //     // icon: Icon(
+            //     // Ionicons.chatbox_outline,
+            //     // ),
+            //     // label: 'Czat',
+            //     // ),
+            //   ],
+            // ),
             //Container(
             //   decoration: const BoxDecoration(
             //     color: Color.fromARGB(255, 212, 208, 245),
