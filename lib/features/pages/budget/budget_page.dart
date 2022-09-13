@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/features/pages/add%20spendings/add_spendings_page.dart';
 import 'package:letsparty/features/pages/add%20spendings/cubit/add_spendings_cubit.dart';
 import 'package:letsparty/features/pages/budget/cubit/budget_cubit.dart';
@@ -18,7 +19,7 @@ class BudgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BudgetCubit(Repository())..start(),
+      create: (context) => BudgetCubit(Repository(RemoteDataSource()))..start(),
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 212, 208, 245),
         appBar: AppBar(
@@ -179,7 +180,8 @@ class ListOfSpendings extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: BlocProvider(
-        create: (context) => AddSpendingsCubit(Repository())..start(),
+        create: (context) =>
+            AddSpendingsCubit(Repository(RemoteDataSource()))..start(),
         child: BlocBuilder<AddSpendingsCubit, AddSpendingsState>(
           builder: (context, state) {
             if (state.errorMessage.isNotEmpty) {

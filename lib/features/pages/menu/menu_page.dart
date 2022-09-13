@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/features/pages/menu/cubit/menu_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
 
@@ -14,7 +15,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MenuCubit(Repository())..start(),
+      create: (context) => MenuCubit(Repository(RemoteDataSource()))..start(),
       child: BlocBuilder<MenuCubit, MenuState>(
         builder: (context, state) {
           return Scaffold(

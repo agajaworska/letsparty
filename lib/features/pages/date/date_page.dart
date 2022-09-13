@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
 import 'package:letsparty/features/enums/enums.dart';
 import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
@@ -108,7 +107,7 @@ class _DatePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DateCubit(
-        Repository(),
+        Repository(RemoteDataSource()),
       )..start(),
       child: BlocBuilder<DateCubit, DateState>(
         builder: (context, state) {
@@ -172,9 +171,12 @@ class _DatePageBody extends StatelessWidget {
                       fullscreenDialog: true,
                     ),
                   );
-                  return BlocProvider.of<WeatherCubit>(context).getWeatherModel(
-                    city: city.toString(),
-                  );
+                  if (city == null) return;
+                  if (city != null)
+                    return BlocProvider.of<WeatherCubit>(context)
+                        .getWeatherModel(
+                      city: city.toString(),
+                    );
                 },
                 icon: const Icon(
                   Icons.add_outlined,
@@ -188,9 +190,12 @@ class _DatePageBody extends StatelessWidget {
                       fullscreenDialog: true,
                     ),
                   );
-                  return BlocProvider.of<WeatherCubit>(context).getWeatherModel(
-                    city: city.toString(),
-                  );
+                  if (city == null) return;
+                  if (city != null)
+                    return BlocProvider.of<WeatherCubit>(context)
+                        .getWeatherModel(
+                      city: city.toString(),
+                    );
                 },
                 icon: const Icon(Icons.edit_outlined),
               ),
@@ -406,61 +411,3 @@ class _DisplayWeatherWidget extends StatelessWidget {
     ]);
   }
 }
-
-// class _SearchWidget extends StatelessWidget {
-//   _SearchWidget({
-//     Key? key,
-//   }) : super(key: key);
-
-//   final _controller = TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-//       child: Row(
-//         children: [
-//           Expanded(
-//             child: TextField(
-//               controller: _controller,
-//               style: GoogleFonts.montserrat(),
-//               decoration: InputDecoration(
-//                 enabledBorder: const OutlineInputBorder(
-//                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
-//                   borderSide: BorderSide(
-//                     width: 2,
-//                     color: Color.fromARGB(183, 119, 77, 175),
-//                   ),
-//                 ),
-//                 focusedBorder: const OutlineInputBorder(
-//                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
-//                   borderSide: BorderSide(
-//                     width: 2,
-//                     color: Color.fromARGB(183, 119, 77, 175),
-//                   ),
-//                 ),
-//                 hintText: 'Miasto, np. Warsaw',
-//                 hintStyle: GoogleFonts.montserrat(),
-//                 prefixIcon: const Icon(
-//                   Icons.wb_sunny_outlined,
-//                   color: Color.fromARGB(183, 119, 77, 175),
-//                 ),
-//                 suffixIcon: IconButton(
-//                   onPressed: () {
-//                     context
-//                         .read<WeatherCubit>()
-//                         .getWeatherModel(_controller.text);
-//                   },
-//                   icon: const Icon(
-//                     Icons.search_outlined,
-//                     color: Color.fromARGB(183, 119, 77, 175),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

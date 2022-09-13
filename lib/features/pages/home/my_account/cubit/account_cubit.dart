@@ -13,7 +13,7 @@ class AccountCubit extends Cubit<AccountState> {
           errorMessage: '',
           isLoading: false,
         ));
-  Repository _repository;
+  final Repository _repository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {

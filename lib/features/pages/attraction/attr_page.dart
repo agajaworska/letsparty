@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/features/pages/attraction/cubit/attraction_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
 
@@ -12,7 +13,8 @@ class AttractionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AttractionCubit(Repository())..start(),
+      create: (context) =>
+          AttractionCubit(Repository(RemoteDataSource()))..start(),
       child: BlocBuilder<AttractionCubit, AttractionState>(
         builder: (context, state) {
           return Scaffold(

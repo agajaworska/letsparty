@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
 import 'package:letsparty/models/user_model.dart';
@@ -63,7 +64,8 @@ class _MyAccountPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AccountCubit(Repository())..start(),
+      create: (context) =>
+          AccountCubit(Repository(RemoteDataSource()))..start(),
       child: Center(
         child: ListView(children: [
           const SizedBox(height: 20),

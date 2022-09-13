@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
-import 'package:letsparty/repositories/weather_repository.dart';
 
 class UpdatePage extends StatefulWidget {
   const UpdatePage(
@@ -25,7 +25,7 @@ class _UpdatePageState extends State<UpdatePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DateCubit(
-        Repository(),
+        Repository(RemoteDataSource()),
       )..start(),
       child: BlocListener<DateCubit, DateState>(
         listener: (context, state) {
@@ -162,7 +162,7 @@ class _UpdateDatePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DateCubit(
-        Repository(),
+        Repository(RemoteDataSource()),
       )..start(),
       child: BlocBuilder<DateCubit, DateState>(
         builder: (context, state) {

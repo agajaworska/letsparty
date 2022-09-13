@@ -11,8 +11,8 @@ class DetailsThemeCubit extends Cubit<DetailsThemeState> {
 
   final Repository _repository;
 
-  Future<void> getPhotoWithId(String id) async {
-    final themeModel = await _repository.getPhoto(id: id);
+  Future<void> getPhotoWithId(String id, String imageUrl) async {
+    final themeModel = await _repository.getPhoto(id: id, imageUrl: imageUrl);
     emit(DetailsThemeState(themeModel: themeModel));
   }
 }

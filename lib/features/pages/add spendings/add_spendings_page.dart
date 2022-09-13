@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/features/pages/add%20spendings/cubit/add_spendings_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
 
@@ -17,7 +18,7 @@ class _AddSpendingsPageState extends State<AddSpendingsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddSpendingsCubit(Repository()),
+      create: (context) => AddSpendingsCubit(Repository(RemoteDataSource())),
       child: BlocListener<AddSpendingsCubit, AddSpendingsState>(
         listener: (context, state) {
           Navigator.of(context).pop();

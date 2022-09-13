@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
@@ -31,7 +32,7 @@ class _AddDatePageState extends State<AddDatePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddDateCubit(Repository()),
+      create: (context) => AddDateCubit(Repository(RemoteDataSource())),
       child:
           BlocListener<AddDateCubit, AddDateState>(listener: (context, state) {
         if (state.errorMessage.isNotEmpty) {

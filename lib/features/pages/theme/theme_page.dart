@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/features/pages/detailsTheme/cubit/details_theme_cubit.dart';
 import 'package:letsparty/features/pages/theme/cubit/theme_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
@@ -16,7 +17,7 @@ class ThemePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeCubit(Repository())..start(),
+      create: (context) => ThemeCubit(Repository(RemoteDataSource()))..start(),
       child: BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
         return Scaffold(
           backgroundColor: const Color.fromARGB(255, 212, 208, 245),
@@ -85,8 +86,10 @@ class ThemePage extends StatelessWidget {
                         child: InkWell(
                           onTap: (() {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) =>
-                                    DetailsThemePage(id: themeModel.id)));
+                                builder: (_) => DetailsThemePage(
+                                      id: themeModel.id,
+                                      imageUrl: themeModel.imageUrl,
+                                    )));
                           }),
                           child: Container(
                             height: 150,
@@ -129,14 +132,17 @@ class ThemePage extends StatelessWidget {
 }
 
 class DetailsThemePage extends StatelessWidget {
-  const DetailsThemePage({required this.id, Key? key}) : super(key: key);
+  const DetailsThemePage({required this.id, required this.imageUrl, Key? key})
+      : super(key: key);
 
   final String id;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DetailsThemeCubit(Repository())..getPhotoWithId(id),
+      create: (context) => DetailsThemeCubit(Repository(RemoteDataSource()))
+        ..getPhotoWithId(id, imageUrl),
       child: BlocBuilder<DetailsThemeCubit, DetailsThemeState>(
         builder: (context, state) {
           final themeModel = state.themeModel;

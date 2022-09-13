@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 
 import 'package:letsparty/models/addSpendings_model.dart';
 import 'package:letsparty/models/attraction_model.dart';
@@ -9,8 +9,14 @@ import 'package:letsparty/models/theme_model.dart';
 import 'package:letsparty/models/user_model.dart';
 
 class Repository {
+  Repository(
+    this.remoteDataSource,
+  );
+
+  final RemoteDataSource remoteDataSource;
+
   Stream<List<DateModel>> getItemsStream() {
-    return FirebaseFirestore.instance.collection('items').snapshots().map(
+    return remoteDataSource.getItemsStream().map(
       (querySnapshot) {
         return querySnapshot.docs.map(
           (doc) {
@@ -18,7 +24,7 @@ class Repository {
               id: doc.id,
               city: doc['city'],
               adress: doc['adress'],
-              date: (doc['date'] as Timestamp).toDate(),
+              date: (doc['date']).toDate(),
               time: doc['time'],
             );
           },
@@ -28,7 +34,7 @@ class Repository {
   }
 
   Future<void> removeItems({required String id}) {
-    return FirebaseFirestore.instance.collection('items').doc(id).delete();
+    return remoteDataSource.removeItems(id: id);
   }
 
   Future<void> updateItems({
@@ -38,12 +44,8 @@ class Repository {
     required DateTime date,
     required String time,
   }) async {
-    await FirebaseFirestore.instance.collection('items').doc(id).update({
-      'city': city,
-      'adress': adress,
-      'date': date,
-      'time': time,
-    });
+    await remoteDataSource.updateItems(
+        id: id, city: city, adress: adress, date: date, time: time);
   }
 
   Future<void> addDateItems(
@@ -51,18 +53,12 @@ class Repository {
       required String adress,
       required DateTime date,
       required String time}) {
-    return FirebaseFirestore.instance.collection('items').add(
-      {
-        'city': city,
-        'adress': adress,
-        'date': date,
-        'time': time,
-      },
-    );
+    return remoteDataSource.addDateItems(
+        city: city, adress: adress, date: date, time: time);
   }
 
   Stream<List<MenuModel>> getMenuStream() {
-    return FirebaseFirestore.instance.collection('menu').snapshots().map(
+    return remoteDataSource.getMenuStream().map(
       (querySnapshot) {
         return querySnapshot.docs.map(
           (doc) {
@@ -76,20 +72,16 @@ class Repository {
     );
   }
 
-  Future<void> removeMenu({required String id}) {
-    return FirebaseFirestore.instance.collection('menu').doc(id).delete();
+  Future<void> addMenuDocuments({required String title}) {
+    return remoteDataSource.addMenuDocuments(title: title);
   }
 
-  Future<void> addMenuDocuments({required String title}) {
-    return FirebaseFirestore.instance.collection('menu').add(
-      {
-        'title': title,
-      },
-    );
+  Future<void> removeMenu({required String id}) {
+    return remoteDataSource.removeMenu(id: id);
   }
 
   Stream<List<ThemeModel>> getThemeStream() {
-    return FirebaseFirestore.instance.collection('themePhotos').snapshots().map(
+    return remoteDataSource.getThemeStream().map(
       (querySnapshot) {
         return querySnapshot.docs.map(
           (doc) {
@@ -103,34 +95,20 @@ class Repository {
     );
   }
 
-  Future<void> removeThemePhoto({required String id}) {
-    return FirebaseFirestore.instance
-        .collection('themePhotos')
-        .doc(id)
-        .delete();
-  }
-
-  Future<ThemeModel> getPhoto({required String id}) async {
-    final doc = await FirebaseFirestore.instance
-        .collection('themePhotos')
-        .doc(id)
-        .get();
-    return ThemeModel(
-      id: doc.id,
-      imageUrl: doc['image_url'],
-    );
-  }
-
   Future<void> addThemePhoto({required String imageUrl}) {
-    return FirebaseFirestore.instance.collection('themePhotos').add(
-      {
-        'image_url': imageUrl,
-      },
-    );
+    return remoteDataSource.addThemePhoto(imageUrl: imageUrl);
+  }
+
+  Future<ThemeModel> getPhoto({required String id, required String imageUrl}) {
+    return remoteDataSource.getPhoto(id: id, imageUrl: imageUrl);
+  }
+
+  Future<void> removeThemePhoto({required String id}) {
+    return remoteDataSource.removeThemePhoto(id: id);
   }
 
   Stream<List<UserModel>> getUserStream() {
-    return FirebaseFirestore.instance.collection('user').snapshots().map(
+    return remoteDataSource.getUserStream().map(
       (querySnapshot) {
         return querySnapshot.docs.map(
           (doc) {
@@ -145,21 +123,16 @@ class Repository {
     );
   }
 
-  Future<void> removeUserItems({required String id}) {
-    return FirebaseFirestore.instance.collection('user').doc(id).delete();
+  Future<void> addUserItems({required String name, required String photo}) {
+    return remoteDataSource.addUserItems(name: name, photo: photo);
   }
 
-  Future<void> addUserItems({required String name, required String photo}) {
-    return FirebaseFirestore.instance.collection('user').add(
-      {
-        'name': name,
-        'photo': photo,
-      },
-    );
+  Future<void> removeUserItems({required String id}) {
+    return remoteDataSource.removeUserItems(id: id);
   }
 
   Stream<List<BudgetModel>> getBudgetStream() {
-    return FirebaseFirestore.instance.collection('finance').snapshots().map(
+    return remoteDataSource.getBudgetStream().map(
       (querySnapshot) {
         return querySnapshot.docs.map(
           (doc) {
@@ -173,28 +146,21 @@ class Repository {
     );
   }
 
-  Future<void> removeBudgetDocuments({required String id}) {
-    return FirebaseFirestore.instance.collection('finance').doc(id).delete();
-  }
-
   Future<void> addBudgetDocuments({required String data}) {
-    return FirebaseFirestore.instance.collection('finance').add(
-      {
-        'data': data,
-      },
-    );
+    return remoteDataSource.addBudgetDocuments(data: data);
   }
 
   Future<void> updateBudgetDocuments(
       {required String id, required String data}) {
-    return FirebaseFirestore.instance
-        .collection('finance')
-        .doc(id)
-        .update({data: 'data'});
+    return remoteDataSource.updateBudgetDocuments(id: id, data: data);
+  }
+
+  Future<void> removeBudgetDocuments({required String id}) {
+    return remoteDataSource.removeBudgetDocuments(id: id);
   }
 
   Stream<List<AddSpendingsModel>> getAddSpendingsStream() {
-    return FirebaseFirestore.instance.collection('spendings').snapshots().map(
+    return remoteDataSource.getAddSpendingsStream().map(
       (querySnapshot) {
         return querySnapshot.docs.map(
           (doc) {
@@ -209,21 +175,16 @@ class Repository {
     );
   }
 
-  Future<void> removeSpendings({required String id}) {
-    return FirebaseFirestore.instance.collection('spendings').doc(id).delete();
+  Future<void> addSpendings({required String name, required String price}) {
+    return remoteDataSource.addSpendings(name: name, price: price);
   }
 
-  Future<void> addSpendings({required String name, required String price}) {
-    return FirebaseFirestore.instance.collection('spendings').add(
-      {
-        'name': name,
-        'outgoing': price,
-      },
-    );
+  Future<void> removeSpendings({required String id}) {
+    return remoteDataSource.removeSpendings(id: id);
   }
 
   Stream<List<AttractionModel>> getAttractionStream() {
-    return FirebaseFirestore.instance.collection('attraction').snapshots().map(
+    return remoteDataSource.getAttractionStream().map(
       (querySnapshot) {
         return querySnapshot.docs.map(
           (doc) {
@@ -237,15 +198,11 @@ class Repository {
     );
   }
 
-  Future<void> removeAttraction({required String id}) {
-    return FirebaseFirestore.instance.collection('attraction').doc(id).delete();
+  Future<void> addAttraction({required String title}) {
+    return remoteDataSource.addAttraction(title: title);
   }
 
-  Future<void> addAttraction({required String title}) {
-    return FirebaseFirestore.instance.collection('attraction').add(
-      {
-        'title': title,
-      },
-    );
+  Future<void> removeAttraction({required String id}) {
+    return remoteDataSource.removeAttraction(id: id);
   }
 }

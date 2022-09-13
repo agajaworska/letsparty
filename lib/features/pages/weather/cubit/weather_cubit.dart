@@ -19,14 +19,12 @@ class WeatherCubit extends Cubit<WeatherState> {
         city: city,
       );
       emit(WeatherState(
-        saved: true,
         model: weatherModel,
         status: Status.success,
       ));
     } catch (error) {
       emit(
         WeatherState(
-          saved: false,
           status: Status.error,
           errorMessage: error.toString(),
         ),
