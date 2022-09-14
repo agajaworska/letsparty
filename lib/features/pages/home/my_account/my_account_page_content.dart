@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
@@ -51,17 +52,40 @@ class MyAccountPageContent extends StatelessWidget {
   }
 }
 
-class _MyAccountPageBody extends StatelessWidget {
+class _MyAccountPageBody extends StatefulWidget {
   _MyAccountPageBody({
     Key? key,
     required this.userModel,
   }) : super(key: key);
 
   final UserModel? userModel;
-  final controller = TextEditingController();
-  final imageController = TextEditingController();
 
   @override
+  State<_MyAccountPageBody> createState() => _MyAccountPageBodyState();
+}
+
+class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
+  late TextEditingController controller;
+
+  late TextEditingController imageController;
+  bool isButtonActive = true;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
+    imageController = TextEditingController();
+    controller.addListener(
+      () {
+        final isButtonActive = controller.text.isNotEmpty;
+
+        setState(() {
+          this.isButtonActive = isButtonActive;
+        });
+      },
+    );
+  }
+
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
@@ -99,27 +123,19 @@ class _MyAccountPageBody extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Dismissible(
-                    key: ValueKey(userModel.id),
-                    onDismissed: (_) {
-                      context
-                          .read<AccountCubit>()
-                          .remove(documentID: userModel.id);
-                    },
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(7.0),
-                          child: Center(
-                              child: Text(
-                            userModel.name,
-                            style: GoogleFonts.montserrat(
-                              fontSize: 22,
-                            ),
-                          )),
-                        ),
-                      ],
-                    ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(7.0),
+                        child: Center(
+                            child: Text(
+                          userModel.name,
+                          style: GoogleFonts.montserrat(
+                            fontSize: 22,
+                          ),
+                        )),
+                      ),
+                    ],
                   ),
                 ],
                 const SizedBox(height: 12),
@@ -179,30 +195,69 @@ class _MyAccountPageBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 42,
-                  width: 70,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      primary: const Color.fromARGB(205, 107, 26, 213),
-                      shadowColor: Colors.grey,
-                      elevation: 6.0,
-                      textStyle: GoogleFonts.montserrat(),
-                    ),
-                    onPressed: () {
-                      context.read<AccountCubit>().add(
-                            name: controller.text,
-                            photo: imageController.text,
-                          );
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 42,
+                      width: 80,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            primary: const Color.fromARGB(205, 107, 26, 213),
+                            shadowColor: Colors.grey,
+                            elevation: 6.0,
+                            textStyle: GoogleFonts.montserrat(),
+                          ),
+                          onPressed: isButtonActive
+                              ? () {
+                                  setState(() {
+                                    isButtonActive = false;
+                                  });
+                                  context.read<AccountCubit>().add(
+                                        name: controller.text,
+                                        photo: imageController.text,
+                                      );
 
-                      controller.clear();
-                      imageController.clear();
-                    },
-                    child: const Text('OK'),
-                  ),
+                                  controller.clear();
+                                  imageController.clear();
+                                }
+                              : null,
+                          child: const Text('OK'),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 42,
+                      width: 80,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            primary: const Color.fromARGB(205, 107, 26, 213),
+                            shadowColor: Colors.grey,
+                            elevation: 6.0,
+                            textStyle: GoogleFonts.montserrat(),
+                          ),
+                          onPressed: () {
+                            for (final userModel in userModels) {
+                              context
+                                  .read<AccountCubit>()
+                                  .remove(documentID: userModel.id);
+                            }
+                          },
+                          child: const Icon(Ionicons.trash_outline),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             );
