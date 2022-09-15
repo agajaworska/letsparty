@@ -64,8 +64,8 @@ class RemoteDataSource {
 
   Future<void> addMenuDocuments({
     required String title,
-  }) {
-    return FirebaseFirestore.instance.collection('menu').add(
+  }) async {
+    await FirebaseFirestore.instance.collection('menu').add(
       {
         'title': title,
       },
@@ -88,8 +88,8 @@ class RemoteDataSource {
 
   Future<void> addThemePhoto({
     required String imageUrl,
-  }) {
-    return FirebaseFirestore.instance.collection('themePhotos').add(
+  }) async {
+    await FirebaseFirestore.instance.collection('themePhotos').add(
       {
         'image_url': imageUrl,
       },
@@ -99,7 +99,10 @@ class RemoteDataSource {
   Future<ThemeModel> getPhoto(
       {required String id, required String imageUrl}) async {
     await FirebaseFirestore.instance.collection('themePhotos').doc(id).get();
-    return ThemeModel(id: id, imageUrl: imageUrl);
+    return ThemeModel(
+      id: id,
+      imageUrl: imageUrl,
+    );
   }
 
   Future<void> removeThemePhoto({required String id}) {
@@ -121,8 +124,8 @@ class RemoteDataSource {
   Future<void> addUserItems({
     required String name,
     required String photo,
-  }) {
-    return FirebaseFirestore.instance.collection('user').add(
+  }) async {
+    await FirebaseFirestore.instance.collection('user').add(
       {
         'name': name,
         'photo': photo,
@@ -146,8 +149,8 @@ class RemoteDataSource {
 
   Future<void> addBudgetDocuments({
     required String data,
-  }) {
-    return FirebaseFirestore.instance.collection('user').add(
+  }) async {
+    await FirebaseFirestore.instance.collection('user').add(
       {
         'data': data,
       },
@@ -186,8 +189,8 @@ class RemoteDataSource {
   Future<void> addSpendings({
     required String name,
     required String price,
-  }) {
-    return FirebaseFirestore.instance.collection('spendings').add(
+  }) async {
+    await FirebaseFirestore.instance.collection('spendings').add(
       {
         'name': name,
         'outgoing': price,
@@ -209,8 +212,8 @@ class RemoteDataSource {
     }
   }
 
-  Future<void> addAttraction({required String title}) {
-    return FirebaseFirestore.instance.collection('attraction').add(
+  Future<void> addAttraction({required String title}) async {
+    await FirebaseFirestore.instance.collection('attraction').add(
       {
         'title': title,
       },
