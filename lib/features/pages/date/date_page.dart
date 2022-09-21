@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +34,7 @@ class _DatePageState extends State<DatePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WeatherCubit(
-        WeatherRepository(WeatherRemoteDataSource()),
+        WeatherRepository(WeatherRemoteRetrofitDataSource(Dio())),
       ),
       child: BlocConsumer<WeatherCubit, WeatherState>(
         listener: (context, state) {
