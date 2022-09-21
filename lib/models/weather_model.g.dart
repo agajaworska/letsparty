@@ -6,46 +6,46 @@ part of 'weather_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-WeatherModel _$WeatherModelFromJson(Map<String, dynamic> json) => WeatherModel(
-      location:
-          LocationModel.fromJson(json['location'] as Map<String, dynamic>),
-      current: CurrentModel.fromJson(json['current'] as Map<String, dynamic>),
+_$_WeatherModel _$$_WeatherModelFromJson(Map<String, dynamic> json) =>
+    _$_WeatherModel(
+      LocationModel.fromJson(json['location'] as Map<String, dynamic>),
+      CurrentModel.fromJson(json['current'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$WeatherModelToJson(WeatherModel instance) =>
+Map<String, dynamic> _$$_WeatherModelToJson(_$_WeatherModel instance) =>
     <String, dynamic>{
       'location': instance.location,
       'current': instance.current,
     };
 
-LocationModel _$LocationModelFromJson(Map<String, dynamic> json) =>
-    LocationModel(
-      name: json['name'] as String,
+_$_LocationModel _$$_LocationModelFromJson(Map<String, dynamic> json) =>
+    _$_LocationModel(
+      json['name'] as String,
     );
 
-Map<String, dynamic> _$LocationModelToJson(LocationModel instance) =>
+Map<String, dynamic> _$$_LocationModelToJson(_$_LocationModel instance) =>
     <String, dynamic>{
       'name': instance.name,
     };
 
-CurrentModel _$CurrentModelFromJson(Map<String, dynamic> json) => CurrentModel(
-      temperature: (json['temp_c'] as num).toDouble(),
-      condition:
-          ConditionModel.fromJson(json['condition'] as Map<String, dynamic>),
+_$_CurrentModel _$$_CurrentModelFromJson(Map<String, dynamic> json) =>
+    _$_CurrentModel(
+      (json['temp_c'] as num).toDouble(),
+      ConditionModel.fromJson(json['condition'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$CurrentModelToJson(CurrentModel instance) =>
+Map<String, dynamic> _$$_CurrentModelToJson(_$_CurrentModel instance) =>
     <String, dynamic>{
       'temp_c': instance.temperature,
       'condition': instance.condition,
     };
 
-ConditionModel _$ConditionModelFromJson(Map<String, dynamic> json) =>
-    ConditionModel(
-      text: json['text'] as String,
+_$_ConditionModel _$$_ConditionModelFromJson(Map<String, dynamic> json) =>
+    _$_ConditionModel(
+      json['text'] as String,
     );
 
-Map<String, dynamic> _$ConditionModelToJson(ConditionModel instance) =>
+Map<String, dynamic> _$$_ConditionModelToJson(_$_ConditionModel instance) =>
     <String, dynamic>{
       'text': instance.text,
     };

@@ -82,7 +82,7 @@ class _DatePageState extends State<DatePage> {
                               textAlign: TextAlign.center,
                             ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     if (weatherModel != null)
                       _DisplayWeatherWidget(
                         weatherModel: weatherModel,
@@ -190,7 +190,7 @@ class _DatePageBody extends StatelessWidget {
                       fullscreenDialog: true,
                     ),
                   );
-                  if (city == null) return;
+                  if (city == null) return null;
                   if (city != null)
                     return BlocProvider.of<WeatherCubit>(context)
                         .getWeatherModel(
