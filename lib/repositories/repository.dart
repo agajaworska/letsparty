@@ -1,4 +1,4 @@
-import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 
 import 'package:letsparty/models/addSpendings_model.dart';
 import 'package:letsparty/models/attraction_model.dart';
@@ -99,8 +99,13 @@ class Repository {
     return remoteDataSource.addThemePhoto(imageUrl: imageUrl);
   }
 
-  Future<ThemeModel> getPhoto({required String id, required String imageUrl}) {
-    return remoteDataSource.getPhoto(id: id, imageUrl: imageUrl);
+  Future<ThemeModel> getPhoto(
+      {required String id, required String imageUrl}) async {
+    final doc = await remoteDataSource.getPhoto(id: id, imageUrl: imageUrl);
+    return ThemeModel(
+      id: doc.id,
+      imageUrl: doc.imageUrl,
+    );
   }
 
   Future<void> removeThemePhoto({required String id}) {

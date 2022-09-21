@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
 import 'package:letsparty/features/enums/enums.dart';
 import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
@@ -77,7 +77,7 @@ class _DatePageState extends State<DatePage> {
                               textAlign: TextAlign.center,
                             )
                           : Text(
-                              'Obecna pogoda dla miasta ${weatherModel.city}:',
+                              'Obecna pogoda dla miasta ${weatherModel.location.name}:',
                               style: GoogleFonts.montserrat(fontSize: 18),
                               textAlign: TextAlign.center,
                             ),
@@ -395,14 +395,14 @@ class _DisplayWeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Text(
-        weatherModel.condition,
+        weatherModel.current.condition.text,
         style:
             GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w600),
       ),
       const SizedBox(height: 8),
       Center(
         child: Text(
-          '${weatherModel.temperature} st. C',
+          '${weatherModel.current.temperature} st. C',
           style:
               GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w600),
         ),

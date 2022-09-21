@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:letsparty/data/remote_data_sources/firebase_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/features/pages/detailsTheme/cubit/details_theme_cubit.dart';
 import 'package:letsparty/features/pages/theme/cubit/theme_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
