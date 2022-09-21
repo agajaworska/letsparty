@@ -1,19 +1,16 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/app/core/enums/enums.dart';
+import 'package:letsparty/app/core/injection_container.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
-import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
-import 'package:letsparty/features/enums/enums.dart';
 import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
 import 'package:letsparty/features/pages/add%20date/update_date_page.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
-
 import 'package:letsparty/models/date_model.dart';
 import 'package:letsparty/models/weather_model.dart';
 import 'package:letsparty/repositories/repository.dart';
-import 'package:letsparty/repositories/weather_repository.dart';
 
 class DatePage extends StatefulWidget {
   const DatePage({
@@ -32,10 +29,8 @@ class _DatePageState extends State<DatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WeatherCubit(
-        WeatherRepository(WeatherRemoteRetrofitDataSource(Dio())),
-      ),
+    return BlocProvider<WeatherCubit>(
+      create: (context) => getIt(),
       child: BlocConsumer<WeatherCubit, WeatherState>(
         listener: (context, state) {
           if (state.status == Status.error) {

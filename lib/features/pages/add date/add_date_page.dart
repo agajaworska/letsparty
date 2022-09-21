@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:letsparty/app/core/injection_container.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
@@ -33,88 +34,86 @@ class _AddDatePageState extends State<AddDatePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddDateCubit(Repository(RemoteDataSource())),
-      child:
-          BlocListener<AddDateCubit, AddDateState>(listener: (context, state) {
-        if (state.errorMessage.isNotEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(state.errorMessage),
-            backgroundColor: Colors.red,
-          ));
-        }
-      }, child: BlocBuilder<AddDateCubit, AddDateState>(
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => WeatherCubit(
-                WeatherRepository(WeatherRemoteRetrofitDataSource(Dio()))),
-            child: BlocBuilder<WeatherCubit, WeatherState>(
-              builder: (context, state) {
-                return Scaffold(
-                  backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-                  appBar: AppBar(
+        create: (context) => AddDateCubit(Repository(RemoteDataSource())),
+        child: BlocConsumer<AddDateCubit, AddDateState>(
+          listener: (context, state) {
+            if (state.errorMessage.isNotEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.errorMessage),
+                backgroundColor: Colors.red,
+              ));
+            }
+          },
+          builder: (context, state) {
+            return BlocProvider<WeatherCubit>(
+              create: (context) => getIt(),
+              child: BlocBuilder<WeatherCubit, WeatherState>(
+                builder: (context, state) {
+                  return Scaffold(
                     backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-                    title: Text(
-                      'D o d a j  i n f o ',
-                      style: GoogleFonts.bebasNeue(
-                        fontSize: 35,
-                        color: Colors.grey.shade900,
+                    appBar: AppBar(
+                      backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                      title: Text(
+                        'D o d a j  i n f o ',
+                        style: GoogleFonts.bebasNeue(
+                          fontSize: 35,
+                          color: Colors.grey.shade900,
+                        ),
                       ),
-                    ),
-                    actions: [
-                      IconButton(
-                        onPressed: _city == null ||
-                                _adress == null ||
-                                _date == null ||
-                                _time == null
-                            ? null
-                            : () {
-                                Navigator.pop(context, _city!);
+                      actions: [
+                        IconButton(
+                          onPressed: _city == null ||
+                                  _adress == null ||
+                                  _date == null ||
+                                  _time == null
+                              ? null
+                              : () {
+                                  Navigator.pop(context, _city!);
 
-                                context.read<AddDateCubit>().add(
-                                      _city!,
-                                      _adress!,
-                                      _date!,
-                                      _time!.format(context),
-                                    );
-                              },
-                        icon: const Icon(Icons.check),
-                      ),
-                    ],
-                  ),
-                  body: _AddDatePageBody(
-                    onCityChanged: (newValue) {
-                      setState(() {
-                        _city = newValue;
-                      });
-                    },
-                    onAdressChanged: (newValue) {
-                      setState(() {
-                        _adress = newValue;
-                      });
-                    },
-                    onDateChanged: (newValue) {
-                      setState(() {
-                        _date = newValue;
-                      });
-                    },
-                    onTimeChanged: (newValue) {
-                      setState(() {
-                        _time = newValue;
-                      });
-                    },
-                    selectedTimeFormatted:
-                        _time == null ? null : _time!.format(context),
-                    selectedDateFormatted: _date == null
-                        ? null
-                        : DateFormat.yMMMMEEEEd().format(_date!),
-                  ),
-                );
-              },
-            ),
-          );
-        },
-      )),
-    );
+                                  context.read<AddDateCubit>().add(
+                                        _city!,
+                                        _adress!,
+                                        _date!,
+                                        _time!.format(context),
+                                      );
+                                },
+                          icon: const Icon(Icons.check),
+                        ),
+                      ],
+                    ),
+                    body: _AddDatePageBody(
+                      onCityChanged: (newValue) {
+                        setState(() {
+                          _city = newValue;
+                        });
+                      },
+                      onAdressChanged: (newValue) {
+                        setState(() {
+                          _adress = newValue;
+                        });
+                      },
+                      onDateChanged: (newValue) {
+                        setState(() {
+                          _date = newValue;
+                        });
+                      },
+                      onTimeChanged: (newValue) {
+                        setState(() {
+                          _time = newValue;
+                        });
+                      },
+                      selectedTimeFormatted:
+                          _time == null ? null : _time!.format(context),
+                      selectedDateFormatted: _date == null
+                          ? null
+                          : DateFormat.yMMMMEEEEd().format(_date!),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ));
   }
 }
 

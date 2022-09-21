@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:letsparty/app/core/injection_container.dart';
 import 'package:letsparty/features/pages/login/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:letsparty/features/pages/home/home_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
