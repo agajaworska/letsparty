@@ -13,9 +13,7 @@ class _WeatherRemoteRetrofitDataSource
   _WeatherRemoteRetrofitDataSource(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'http://api.weatherapi.com/v1/';
-  }
+  });
 
   final Dio _dio;
 

@@ -150,7 +150,7 @@ class RemoteDataSource {
   Future<void> addBudgetDocuments({
     required String data,
   }) async {
-    await FirebaseFirestore.instance.collection('user').add(
+    await FirebaseFirestore.instance.collection('finance').add(
       {
         'data': data,
       },

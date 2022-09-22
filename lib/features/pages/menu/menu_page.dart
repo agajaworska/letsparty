@@ -133,9 +133,9 @@ class MenuWidget extends StatelessWidget {
             color: Colors.grey.shade600,
           ),
           const BoxShadow(
-            offset: const Offset(-5, -5),
+            offset: Offset(-5, -5),
             blurRadius: 6.0,
-            color: const Color.fromARGB(255, 232, 222, 240),
+            color: Color.fromARGB(255, 232, 222, 240),
           ),
         ],
       ),

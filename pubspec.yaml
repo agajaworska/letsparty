@@ -49,6 +49,7 @@ dependencies:
   freezed_annotation: ^2.1.0
   retrofit: ^3.0.1+1
   get_it: ^7.2.0
+  injectable: ^1.5.3
  
   
   
@@ -69,6 +70,7 @@ dev_dependencies:
   json_serializable: ^6.3.2
   freezed: ^2.1.0+1
   retrofit_generator: ^4.0.3+2
+  injectable_generator: ^1.5.4
 
 flutter_icons:
   android: "launcher_icon"

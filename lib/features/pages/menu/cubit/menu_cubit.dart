@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:letsparty/models/menu_model.dart';
 import 'package:letsparty/repositories/repository.dart';
-import 'package:meta/meta.dart';
 
 part 'menu_state.dart';
 

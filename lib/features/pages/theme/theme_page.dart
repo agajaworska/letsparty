@@ -37,13 +37,13 @@ class ThemePage extends StatelessWidget {
               heightFactor: 0.5,
               child: TextField(
                 controller: controller,
-                style: GoogleFonts.montserrat(),
+                style: GoogleFonts.montserrat(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: 'Dodaj link do zdjęcia',
-                  hintStyle: GoogleFonts.montserrat(),
+                  hintStyle: GoogleFonts.montserrat(color: Colors.white),
                   prefixIcon: const Icon(
                     Icons.image_outlined,
-                    color: Color.fromARGB(205, 107, 26, 213),
+                    color: Colors.white,
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -52,7 +52,7 @@ class ThemePage extends StatelessWidget {
                     },
                     icon: const Icon(
                       Icons.add,
-                      color: Color.fromARGB(205, 107, 26, 213),
+                      color: Colors.white,
                     ),
                   ),
                 ),

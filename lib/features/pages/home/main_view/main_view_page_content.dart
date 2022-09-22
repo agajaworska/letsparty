@@ -24,13 +24,13 @@ class MainViewPageContent extends StatelessWidget {
             style: GoogleFonts.bebasNeue(
               fontWeight: FontWeight.w600,
               fontSize: 50,
-              color: const Color.fromARGB(255, 50, 5, 58),
+              color: const Color.fromARGB(240, 50, 5, 58),
               textStyle: const TextStyle(
                 shadows: <Shadow>[
                   Shadow(
                     offset: Offset(4, 3),
                     blurRadius: 4.0,
-                    color: Color.fromARGB(255, 123, 24, 209),
+                    color: Color.fromARGB(255, 85, 16, 146),
                   ),
                   Shadow(
                     offset: Offset(2, 2),
