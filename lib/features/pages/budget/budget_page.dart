@@ -25,7 +25,7 @@ class BudgetPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 212, 208, 245),
           title: Text(
-            'F i n a n s e',
+            'B u d g e t',
             style: GoogleFonts.bebasNeue(
               fontSize: 35,
               color: Colors.grey.shade900,
@@ -58,9 +58,9 @@ class BudgetPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
                 child: Text(
-                  'Informacje o wysokości składki oraz dane do przelewu:',
+                  'Bank transfer details:',
                   style: GoogleFonts.montserrat(
-                    fontSize: 18,
+                    fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -98,7 +98,7 @@ class BudgetPage extends StatelessWidget {
                         color: Color.fromARGB(183, 119, 77, 175),
                       ),
                     ),
-                    hintText: 'Podaj kwotę i dane przelewu',
+                    hintText: 'Total cost and bank details transfer',
                     hintStyle: GoogleFonts.montserrat(),
                     prefixIcon: const Icon(
                       Icons.monetization_on_outlined,
@@ -199,7 +199,7 @@ class ListOfSpendings extends StatelessWidget {
               children: [
                 Center(
                   child: Text(
-                    'Lista wydatków:',
+                    'List of spendings:',
                     style: GoogleFonts.montserrat(
                       fontSize: 20,
                       textStyle: const TextStyle(),

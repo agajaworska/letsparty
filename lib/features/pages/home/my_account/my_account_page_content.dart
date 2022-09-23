@@ -25,7 +25,7 @@ class MyAccountPageContent extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 212, 208, 245),
               title: Text(
-                'M o j e  k o n t o',
+                'M Y  A C C O U N T',
                 style: GoogleFonts.bebasNeue(
                   fontSize: 35,
                   color: Colors.grey.shade900,
@@ -158,7 +158,7 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
                           color: Color.fromARGB(183, 119, 77, 175),
                         ),
                       ),
-                      hintText: 'Imię i nazwisko',
+                      hintText: 'Full name',
                       hintStyle: GoogleFonts.montserrat(),
                       prefixIcon: const Icon(
                         Icons.text_fields_outlined,
@@ -186,7 +186,7 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
                           color: Color.fromARGB(183, 119, 77, 175),
                         ),
                       ),
-                      hintText: 'Url zdjęcia: http://...jpg',
+                      hintText: 'Photo url: http://...jpg',
                       hintStyle: GoogleFonts.montserrat(),
                       prefixIcon: const Icon(
                         Icons.add_a_photo_outlined,

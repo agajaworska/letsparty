@@ -30,7 +30,7 @@ class _AddSpendingsPageState extends State<AddSpendingsPage> {
               appBar: AppBar(
                 backgroundColor: const Color.fromARGB(255, 212, 208, 245),
                 title: Text(
-                  'W y d a t k i',
+                  'S p e  n d i n g s',
                   style: GoogleFonts.bebasNeue(
                     fontSize: 35,
                     color: Colors.grey.shade900,
@@ -103,11 +103,11 @@ class _AddDatePageBody extends StatelessWidget {
                 color: Color.fromARGB(183, 119, 77, 175),
               ),
             ),
-            hintText: 'Nazwa wydatku',
+            hintText: 'Expense name',
             hintStyle: GoogleFonts.montserrat(),
             labelStyle: TextStyle(color: Colors.grey.shade700),
             label: Text(
-              'Nazwa wydatku',
+              'Expense name',
               style: GoogleFonts.montserrat(),
             ),
           ),
@@ -131,11 +131,11 @@ class _AddDatePageBody extends StatelessWidget {
                 color: Color.fromARGB(183, 119, 77, 175),
               ),
             ),
-            hintText: 'Cena',
+            hintText: 'Cost',
             hintStyle: GoogleFonts.montserrat(),
             labelStyle: TextStyle(color: Colors.grey.shade700),
             label: Text(
-              'Cena',
+              'Cost',
               style: GoogleFonts.montserrat(),
             ),
           ),

@@ -23,7 +23,7 @@ class _QuestPageState extends State<QuestPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 212, 208, 245),
         title: Text(
-          'L i s t a  g o ś c i',
+          'Q u e s t  l i s t',
           style: GoogleFonts.bebasNeue(
             fontSize: 35,
             color: Colors.grey.shade900,

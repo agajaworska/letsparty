@@ -57,7 +57,7 @@ class MainViewPageContent extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 child: NewBox(
                   child: Text(
-                    'Lista gości',
+                    'Quest list',
                     style: GoogleFonts.bebasNeue(
                       fontSize: 30,
                       color: Colors.grey.shade900,
@@ -75,7 +75,8 @@ class MainViewPageContent extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: NewBox(
-                  child: Text('Gdzie i kiedy',
+                  child: Text(' Where & when ',
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.bebasNeue(
                         fontSize: 30,
                         color: Colors.grey.shade900,
@@ -114,7 +115,7 @@ class MainViewPageContent extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 child: NewBox(
                   child: Text(
-                    'Atrakcje',
+                    'Attractions',
                     style: GoogleFonts.bebasNeue(
                       fontSize: 30,
                       color: Colors.grey.shade900,
@@ -133,8 +134,7 @@ class MainViewPageContent extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 child: NewBox(
                   child: Text(
-                    'Motyw imprezy',
-                    textAlign: TextAlign.center,
+                    'Party theme',
                     style: GoogleFonts.bebasNeue(
                       fontSize: 30,
                       color: Colors.grey.shade900,
@@ -153,7 +153,7 @@ class MainViewPageContent extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 child: NewBox(
                   child: Text(
-                    'Finanse',
+                    'Budget',
                     style: GoogleFonts.bebasNeue(
                       fontSize: 30,
                       color: Colors.grey.shade900,

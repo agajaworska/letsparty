@@ -24,7 +24,7 @@ class AttractionPage extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 212, 208, 245),
               title: Text(
-                'A t r a k c j e',
+                'A t t r a c t i o n s',
                 style: GoogleFonts.bebasNeue(
                   fontSize: 35,
                   color: Colors.grey.shade900,
@@ -85,7 +85,7 @@ class AttractionPage extends StatelessWidget {
                                   color: Color.fromARGB(183, 119, 77, 175),
                                 ),
                               ),
-                              hintText: 'Podaj propozycję atrakcji',
+                              hintText: 'Your attraction suggestion',
                               hintStyle: GoogleFonts.montserrat(),
                               prefixIcon: const Icon(
                                 Ionicons.sparkles_outline,

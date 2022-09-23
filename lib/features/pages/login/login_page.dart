@@ -121,11 +121,11 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           border: const OutlineInputBorder(),
-                          hintText: 'Hasło',
+                          hintText: 'Password',
                           hintStyle: GoogleFonts.montserrat(),
                           labelStyle: TextStyle(color: Colors.grey.shade700),
                           label: Text(
-                            'Hasło',
+                            'Password',
                             style: GoogleFonts.montserrat(),
                           ),
                         ),
@@ -166,8 +166,8 @@ class LoginPage extends StatelessWidget {
                       ),
                       child: Text(
                         state.isCreatingAccount
-                            ? 'Zarejestruj się'
-                            : 'Zaloguj się',
+                            ? 'Register new account'
+                            : 'Sign in',
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -178,7 +178,7 @@ class LoginPage extends StatelessWidget {
                               .read<RootCubit>()
                               .createAccountButtonPressed();
                         },
-                        child: Text('Utwórz konto',
+                        child: Text('Create an account',
                             style: GoogleFonts.montserrat(
                               color: const Color.fromARGB(252, 122, 51, 214),
                             )),
@@ -189,7 +189,7 @@ class LoginPage extends StatelessWidget {
                         onPressed: () {
                           context.read<RootCubit>().signInButtonPressed();
                         },
-                        child: Text('Masz już konto?',
+                        child: Text('Already have an account?',
                             style: GoogleFonts.montserrat(
                               color: const Color.fromARGB(252, 122, 51, 214),
                             )),
@@ -204,7 +204,7 @@ class LoginPage extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Text('Zapomniałeś hasła?',
+                      child: Text('Forgot password?',
                           style: GoogleFonts.montserrat(
                             color: const Color.fromARGB(252, 122, 51, 214),
                           )),

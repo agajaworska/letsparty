@@ -24,7 +24,7 @@ class ThemePage extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(255, 212, 208, 245),
             title: Text(
-              'M o t y w  i m p r e z y',
+              'P A R T Y  T H E M E',
               style: GoogleFonts.bebasNeue(
                 fontSize: 35,
                 color: Colors.grey.shade900,
@@ -39,7 +39,7 @@ class ThemePage extends StatelessWidget {
                 controller: controller,
                 style: GoogleFonts.montserrat(color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: 'Dodaj link do zdjęcia',
+                  hintText: 'Add photo url http://....',
                   hintStyle: GoogleFonts.montserrat(color: Colors.white),
                   prefixIcon: const Icon(
                     Icons.image_outlined,

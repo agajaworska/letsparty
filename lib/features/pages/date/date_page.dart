@@ -45,7 +45,7 @@ class _DatePageState extends State<DatePage> {
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 212, 208, 245),
               title: Text(
-                'G d z i e  i  k i e d y',
+                'W h e r e  &  w h e n',
                 style: GoogleFonts.bebasNeue(
                   fontSize: 35,
                   color: Colors.grey.shade900,
@@ -63,16 +63,14 @@ class _DatePageState extends State<DatePage> {
                     Center(
                       child: weatherModel == null
                           ? Text(
-                              'Obecna pogoda dla miasta:',
+                              'The current weather in the city ...',
                               style: GoogleFonts.montserrat(fontSize: 18),
                               textAlign: TextAlign.center,
                             )
-                          : Expanded(
-                              child: Text(
-                                'Obecna pogoda dla miasta ${weatherModel.location.name}:',
-                                style: GoogleFonts.montserrat(fontSize: 18),
-                                textAlign: TextAlign.center,
-                              ),
+                          : Text(
+                              'The current weather in the city of ${weatherModel.location.name}',
+                              style: GoogleFonts.montserrat(fontSize: 18),
+                              textAlign: TextAlign.center,
                             ),
                     ),
                     const SizedBox(height: 20),
@@ -164,7 +162,7 @@ class _DatePageBody extends StatelessWidget {
                       fullscreenDialog: true,
                     ),
                   );
-                  if (city == null) throw Exception('No data found!');
+                  if (city == null) return null;
                   if (city != null)
                     return BlocProvider.of<WeatherCubit>(context)
                         .getWeatherModel(

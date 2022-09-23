@@ -1,15 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:letsparty/app/core/injection_container.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
-import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
-import 'package:letsparty/repositories/weather_repository.dart';
 
 class AddDatePage extends StatefulWidget {
   const AddDatePage({
@@ -54,7 +51,7 @@ class _AddDatePageState extends State<AddDatePage> {
                     appBar: AppBar(
                       backgroundColor: const Color.fromARGB(255, 212, 208, 245),
                       title: Text(
-                        'D o d a j  i n f o ',
+                        'A d d  i n f o ',
                         style: GoogleFonts.bebasNeue(
                           fontSize: 35,
                           color: Colors.grey.shade900,
@@ -187,10 +184,10 @@ class _AddDatePageBody extends StatelessWidget {
               ),
             ),
             border: const OutlineInputBorder(),
-            hintText: 'Adres',
+            hintText: 'Adress',
             labelStyle: TextStyle(color: Colors.grey.shade700),
             label: Text(
-              'Adres',
+              'Adress',
               style: GoogleFonts.montserrat(),
             ),
           ),
@@ -216,7 +213,7 @@ class _AddDatePageBody extends StatelessWidget {
             textStyle: GoogleFonts.montserrat(),
           ),
           child: Text(
-            selectedDateFormatted ?? 'Wybierz datę',
+            selectedDateFormatted ?? 'Pick a date',
             style: GoogleFonts.montserrat(),
           ),
         ),
@@ -241,7 +238,7 @@ class _AddDatePageBody extends StatelessWidget {
             textStyle: GoogleFonts.montserrat(),
           ),
           child: Text(
-            selectedTimeFormatted ?? 'Wybierz godzinę',
+            selectedTimeFormatted ?? 'Choose an hour',
             style: GoogleFonts.montserrat(),
           ),
         ),
