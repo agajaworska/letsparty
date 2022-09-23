@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'weather_model.g.dart';
 part 'weather_model.freezed.dart';
 
@@ -44,6 +43,8 @@ class ConditionModel with _$ConditionModel {
   factory ConditionModel.fromJson(Map<String, dynamic> json) =>
       _$ConditionModelFromJson(json);
 }
+
+
 
 // @JsonSerializable()
 // class WeatherModel {

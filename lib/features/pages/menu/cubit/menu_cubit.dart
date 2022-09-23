@@ -1,19 +1,19 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/models/menu_model.dart';
 import 'package:letsparty/repositories/repository.dart';
 
+part 'menu_cubit.freezed.dart';
 part 'menu_state.dart';
 
 class MenuCubit extends Cubit<MenuState> {
   MenuCubit(this._repository)
-      : super(const MenuState(
+      : super(MenuState(
           documents: [],
           errorMessage: '',
-          isLoading: false,
+          status: Status.initial,
         ));
 
   final Repository _repository;
@@ -22,10 +22,10 @@ class MenuCubit extends Cubit<MenuState> {
 
   Future<void> start() async {
     emit(
-      const MenuState(
+      MenuState(
         documents: [],
         errorMessage: '',
-        isLoading: true,
+        status: Status.loading,
       ),
     );
     _streamSubscription = _repository.getMenuStream().listen((documents) {
@@ -33,7 +33,7 @@ class MenuCubit extends Cubit<MenuState> {
       emit(
         MenuState(
           documents: menuModels,
-          isLoading: false,
+          status: Status.success,
           errorMessage: '',
         ),
       );
@@ -42,7 +42,7 @@ class MenuCubit extends Cubit<MenuState> {
         emit(
           MenuState(
             documents: const [],
-            isLoading: false,
+            status: Status.error,
             errorMessage: error.toString(),
           ),
         );
@@ -55,13 +55,13 @@ class MenuCubit extends Cubit<MenuState> {
       emit(MenuState(
         documents: state.documents,
         errorMessage: '',
-        isLoading: false,
+        status: Status.success,
       ));
     } catch (error) {
       emit(MenuState(
         documents: const [],
         errorMessage: error.toString(),
-        isLoading: false,
+        status: Status.error,
       ));
     }
   }
@@ -74,7 +74,7 @@ class MenuCubit extends Cubit<MenuState> {
         MenuState(
             errorMessage: error.toString(),
             documents: const [],
-            isLoading: false),
+            status: Status.error),
       );
       start();
     }

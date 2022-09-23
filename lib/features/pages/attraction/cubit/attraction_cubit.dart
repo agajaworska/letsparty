@@ -1,19 +1,20 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/models/attraction_model.dart';
 import 'package:letsparty/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'attraction_state.dart';
+part 'attraction_cubit.freezed.dart';
 
 class AttractionCubit extends Cubit<AttractionState> {
   AttractionCubit(this._repository)
-      : super(const AttractionState(
+      : super(AttractionState(
           documents: [],
           errorMessage: '',
-          isLoading: false,
+          status: Status.initial,
         ));
 
   final Repository _repository;
@@ -21,10 +22,10 @@ class AttractionCubit extends Cubit<AttractionState> {
 
   Future<void> start() async {
     emit(
-      const AttractionState(
+      AttractionState(
         documents: [],
         errorMessage: '',
-        isLoading: true,
+        status: Status.loading,
       ),
     );
     _streamSubscription = _repository.getAttractionStream().listen((documents) {
@@ -32,7 +33,7 @@ class AttractionCubit extends Cubit<AttractionState> {
       emit(
         AttractionState(
           documents: attractionModels,
-          isLoading: false,
+          status: Status.success,
           errorMessage: '',
         ),
       );
@@ -41,7 +42,7 @@ class AttractionCubit extends Cubit<AttractionState> {
         emit(
           AttractionState(
             documents: const [],
-            isLoading: false,
+            status: Status.error,
             errorMessage: error.toString(),
           ),
         );
@@ -54,13 +55,13 @@ class AttractionCubit extends Cubit<AttractionState> {
       emit(AttractionState(
         documents: state.documents,
         errorMessage: '',
-        isLoading: false,
+        status: Status.success,
       ));
     } catch (error) {
       emit(AttractionState(
         documents: const [],
         errorMessage: error.toString(),
-        isLoading: false,
+        status: Status.error,
       ));
     }
   }
@@ -71,9 +72,10 @@ class AttractionCubit extends Cubit<AttractionState> {
     } catch (error) {
       emit(
         AttractionState(
-            errorMessage: error.toString(),
-            documents: const [],
-            isLoading: false),
+          errorMessage: error.toString(),
+          documents: const [],
+          status: Status.error,
+        ),
       );
       start();
     }

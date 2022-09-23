@@ -7,13 +7,13 @@ import 'package:meta/meta.dart';
 part 'account_state.dart';
 
 class AccountCubit extends Cubit<AccountState> {
-  AccountCubit(this._repository)
+  AccountCubit(this.repository)
       : super(const AccountState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
-  final Repository _repository;
+  final Repository repository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
@@ -24,7 +24,7 @@ class AccountCubit extends Cubit<AccountState> {
         isLoading: true,
       ),
     );
-    _streamSubscription = _repository.getUserStream().listen(
+    _streamSubscription = repository.getUserStream().listen(
       (documents) {
         final userModels = documents;
         emit(
@@ -48,7 +48,7 @@ class AccountCubit extends Cubit<AccountState> {
 
   Future<void> add({required String name, required String photo}) async {
     try {
-      await _repository.addUserItems(name: name, photo: photo);
+      await repository.addUserItems(name: name, photo: photo);
       emit(AccountState(
         documents: state.documents,
         errorMessage: '',
@@ -65,7 +65,7 @@ class AccountCubit extends Cubit<AccountState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await _repository.removeUserItems(id: documentID);
+      await repository.removeUserItems(id: documentID);
     } catch (error) {
       emit(
         AccountState(

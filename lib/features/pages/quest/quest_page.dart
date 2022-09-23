@@ -30,7 +30,7 @@ class _QuestPageState extends State<QuestPage> {
           ),
         ),
       ),
-      bottomSheet: const _bottomSheet(),
+      bottomSheet: const BottomSheet(),
       body: BlocProvider(
         create: (context) =>
             AccountCubit(Repository(RemoteDataSource()))..start(),
@@ -61,8 +61,8 @@ class _QuestPageState extends State<QuestPage> {
   }
 }
 
-class _bottomSheet extends StatelessWidget {
-  const _bottomSheet({
+class BottomSheet extends StatelessWidget {
+  const BottomSheet({
     Key? key,
   }) : super(key: key);
 
@@ -73,7 +73,7 @@ class _bottomSheet extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Text(
-          'Wpisz swoje imię i nazwisko w zakładce Moje konto, aby znaleźć się na liście gości.',
+          'Enter your full name in the "My Account" tab to show up on the guest list.',
           style: GoogleFonts.montserrat(color: Colors.white, fontSize: 16),
         ),
       ),

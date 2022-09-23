@@ -23,11 +23,6 @@ class DatePage extends StatefulWidget {
 
 class _DatePageState extends State<DatePage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider<WeatherCubit>(
       create: (context) => getIt(),
@@ -72,10 +67,12 @@ class _DatePageState extends State<DatePage> {
                               style: GoogleFonts.montserrat(fontSize: 18),
                               textAlign: TextAlign.center,
                             )
-                          : Text(
-                              'Obecna pogoda dla miasta ${weatherModel.location.name}:',
-                              style: GoogleFonts.montserrat(fontSize: 18),
-                              textAlign: TextAlign.center,
+                          : Expanded(
+                              child: Text(
+                                'Obecna pogoda dla miasta ${weatherModel.location.name}:',
+                                style: GoogleFonts.montserrat(fontSize: 18),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                     ),
                     const SizedBox(height: 20),
@@ -167,7 +164,7 @@ class _DatePageBody extends StatelessWidget {
                       fullscreenDialog: true,
                     ),
                   );
-                  if (city == null) return;
+                  if (city == null) throw Exception('No data found!');
                   if (city != null)
                     return BlocProvider.of<WeatherCubit>(context)
                         .getWeatherModel(
@@ -186,7 +183,7 @@ class _DatePageBody extends StatelessWidget {
                       fullscreenDialog: true,
                     ),
                   );
-                  if (city == null) return null;
+                  if (city == null) throw Exception('No data found! ');
                   if (city != null)
                     return BlocProvider.of<WeatherCubit>(context)
                         .getWeatherModel(
@@ -404,6 +401,13 @@ class _DisplayWeatherWidget extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 10),
+      // Center(
+      //   child: Image.network(
+      //     'https://uxwing.com/wp-content/themes/uxwing/download/hand-gestures/good-icon.png',
+      //     width: 40,
+      //     height: 40,
+      //   ),
+      // )
     ]);
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/features/pages/attraction/cubit/attraction_cubit.dart';
 import 'package:letsparty/repositories/repository.dart';
@@ -32,75 +33,82 @@ class AttractionPage extends StatelessWidget {
             ),
             body: BlocBuilder<AttractionCubit, AttractionState>(
               builder: (context, state) {
-                if (state.errorMessage.isNotEmpty) {
-                  return const Text('Wystąpił nieoczekiwany problem');
-                }
-                if (state.isLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.purple,
-                    ),
-                  );
-                }
-                final attractionModels = state.documents;
-                return ListView(
-                  children: [
-                    for (final attractionModel in attractionModels) ...[
-                      Dismissible(
-                        key: ValueKey(attractionModel.id),
-                        onDismissed: (_) {
-                          context
-                              .read<AttractionCubit>()
-                              .remove(documentID: attractionModel.id);
-                        },
-                        child: AttractionWidget(attractionModel.title),
+                switch (state.status) {
+                  case Status.initial:
+                    return const Center(
+                      child: Text('Wait a second...'),
+                    );
+                  case Status.error:
+                    return const Text('Oops, we have a problem :(');
+
+                  case Status.loading:
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.purple,
                       ),
-                    ],
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: TextField(
-                        controller: controller,
-                        style: GoogleFonts.montserrat(),
-                        decoration: InputDecoration(
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color.fromARGB(183, 119, 77, 175),
-                            ),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color.fromARGB(183, 119, 77, 175),
-                            ),
-                          ),
-                          hintText: 'Podaj propozycję atrakcji',
-                          hintStyle: GoogleFonts.montserrat(),
-                          prefixIcon: const Icon(
-                            Ionicons.sparkles_outline,
-                            color: Color.fromARGB(183, 119, 77, 175),
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
+                    );
+
+                  case Status.success:
+                    final attractionModels = state.documents;
+                    return ListView(
+                      children: [
+                        for (final attractionModel in attractionModels) ...[
+                          Dismissible(
+                            key: ValueKey(attractionModel.id),
+                            onDismissed: (_) {
                               context
                                   .read<AttractionCubit>()
-                                  .add(title: controller.text);
-                              controller.clear();
+                                  .remove(documentID: attractionModel.id);
                             },
-                            icon: const Icon(
-                              Icons.add,
-                              color: Color.fromARGB(183, 119, 77, 175),
+                            child: AttractionWidget(attractionModel.title),
+                          ),
+                        ],
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: TextField(
+                            controller: controller,
+                            style: GoogleFonts.montserrat(),
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Color.fromARGB(183, 119, 77, 175),
+                                ),
+                              ),
+                              focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Color.fromARGB(183, 119, 77, 175),
+                                ),
+                              ),
+                              hintText: 'Podaj propozycję atrakcji',
+                              hintStyle: GoogleFonts.montserrat(),
+                              prefixIcon: const Icon(
+                                Ionicons.sparkles_outline,
+                                color: Color.fromARGB(183, 119, 77, 175),
+                              ),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<AttractionCubit>()
+                                      .add(title: controller.text);
+                                  controller.clear();
+                                },
+                                icon: const Icon(
+                                  Icons.add,
+                                  color: Color.fromARGB(183, 119, 77, 175),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    )
-                  ],
-                );
+                        )
+                      ],
+                    );
+                }
               },
             ),
           );
@@ -133,9 +141,9 @@ class AttractionWidget extends StatelessWidget {
             color: Colors.grey.shade600,
           ),
           const BoxShadow(
-            offset: const Offset(-5, -5),
+            offset: Offset(-5, -5),
             blurRadius: 6.0,
-            color: const Color.fromARGB(255, 232, 222, 240),
+            color: Color.fromARGB(255, 232, 222, 240),
           ),
         ],
       ),
