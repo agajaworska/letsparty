@@ -8,9 +8,9 @@ import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
 import 'package:letsparty/features/pages/add%20date/update_date_page.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
-import 'package:letsparty/models/date_model.dart';
-import 'package:letsparty/models/weather_model.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/models/date_model.dart';
+import 'package:letsparty/domain/models/weather_model.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 class DatePage extends StatefulWidget {
   const DatePage({

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:letsparty/models/theme_model.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/models/theme_model.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 part 'details_theme_state.dart';
 

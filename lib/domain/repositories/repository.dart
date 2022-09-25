@@ -1,12 +1,12 @@
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/domain/models/addSpendings_model.dart';
+import 'package:letsparty/domain/models/attraction_model.dart';
+import 'package:letsparty/domain/models/budget_model.dart';
+import 'package:letsparty/domain/models/date_model.dart';
+import 'package:letsparty/domain/models/menu_model.dart';
 
-import 'package:letsparty/models/addSpendings_model.dart';
-import 'package:letsparty/models/attraction_model.dart';
-import 'package:letsparty/models/budget_model.dart';
-import 'package:letsparty/models/date_model.dart';
-import 'package:letsparty/models/menu_model.dart';
-import 'package:letsparty/models/theme_model.dart';
-import 'package:letsparty/models/user_model.dart';
+import 'package:letsparty/domain/models/theme_model.dart';
+import 'package:letsparty/domain/models/user_model.dart';
 
 class Repository {
   Repository(

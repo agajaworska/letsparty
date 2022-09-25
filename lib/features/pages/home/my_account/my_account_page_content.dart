@@ -5,8 +5,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
-import 'package:letsparty/models/user_model.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/models/user_model.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   MyAccountPageContent({

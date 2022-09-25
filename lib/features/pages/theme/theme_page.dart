@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/features/pages/detailsTheme/cubit/details_theme_cubit.dart';
 import 'package:letsparty/features/pages/theme/cubit/theme_cubit.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 class ThemePage extends StatelessWidget {
   ThemePage({Key? key}) : super(key: key);

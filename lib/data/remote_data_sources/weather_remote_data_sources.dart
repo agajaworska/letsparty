@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:letsparty/models/weather_model.dart';
+import 'package:letsparty/domain/models/weather_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'weather_remote_data_sources.g.dart';

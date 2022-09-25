@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
-import 'package:letsparty/models/weather_model.dart';
-import 'package:letsparty/repositories/weather_repository.dart';
+import 'package:letsparty/domain/models/weather_model.dart';
+import 'package:letsparty/domain/repositories/weather_repository.dart';
 
 part 'weather_state.dart';
 

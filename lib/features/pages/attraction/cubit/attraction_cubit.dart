@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
-import 'package:letsparty/models/attraction_model.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/models/attraction_model.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'attraction_state.dart';

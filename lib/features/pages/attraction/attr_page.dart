@@ -5,7 +5,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/features/pages/attraction/cubit/attraction_cubit.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 class AttractionPage extends StatelessWidget {
   AttractionPage({Key? key}) : super(key: key);

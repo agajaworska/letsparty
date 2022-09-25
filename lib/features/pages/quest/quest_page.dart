@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
-
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 class QuestPage extends StatefulWidget {
   const QuestPage({

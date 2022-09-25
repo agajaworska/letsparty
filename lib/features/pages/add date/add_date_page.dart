@@ -6,7 +6,7 @@ import 'package:letsparty/app/core/injection_container.dart';
 import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 class AddDatePage extends StatefulWidget {
   const AddDatePage({

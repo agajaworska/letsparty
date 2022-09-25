@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
-import 'package:letsparty/models/menu_model.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/models/menu_model.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 part 'menu_cubit.freezed.dart';
 part 'menu_state.dart';

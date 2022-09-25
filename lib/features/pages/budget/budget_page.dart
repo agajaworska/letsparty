@@ -5,7 +5,7 @@ import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
 import 'package:letsparty/features/pages/add%20spendings/add_spendings_page.dart';
 import 'package:letsparty/features/pages/add%20spendings/cubit/add_spendings_cubit.dart';
 import 'package:letsparty/features/pages/budget/cubit/budget_cubit.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 class BudgetPage extends StatelessWidget {
   BudgetPage({Key? key}) : super(key: key);

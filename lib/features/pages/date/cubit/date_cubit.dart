@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 
-import 'package:letsparty/models/date_model.dart';
-import 'package:letsparty/repositories/repository.dart';
+import 'package:letsparty/domain/models/date_model.dart';
+import 'package:letsparty/domain/repositories/repository.dart';
 
 part 'date_state.dart';
 
