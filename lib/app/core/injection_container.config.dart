@@ -10,8 +10,8 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../../data/remote_data_sources/weather_remote_data_sources.dart' as _i4;
-import '../../features/pages/weather/cubit/weather_cubit.dart' as _i6;
 import '../../domain/repositories/weather_repository.dart' as _i5;
+import '../../features/pages/weather/cubit/weather_cubit.dart' as _i6;
 import 'injection_container.dart'
     as _i7; // ignore_for_file: unnecessary_lambdas
 

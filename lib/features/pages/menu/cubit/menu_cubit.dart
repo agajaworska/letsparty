@@ -9,14 +9,14 @@ part 'menu_cubit.freezed.dart';
 part 'menu_state.dart';
 
 class MenuCubit extends Cubit<MenuState> {
-  MenuCubit(this._repository)
+  MenuCubit(this.repository)
       : super(MenuState(
           documents: [],
           errorMessage: '',
           status: Status.initial,
         ));
 
-  final Repository _repository;
+  final Repository repository;
 
   StreamSubscription? _streamSubscription;
 
@@ -28,7 +28,7 @@ class MenuCubit extends Cubit<MenuState> {
         status: Status.loading,
       ),
     );
-    _streamSubscription = _repository.getMenuStream().listen((documents) {
+    _streamSubscription = repository.getMenuStream().listen((documents) {
       final menuModels = documents;
       emit(
         MenuState(
@@ -51,7 +51,7 @@ class MenuCubit extends Cubit<MenuState> {
 
   Future<void> add({required String title}) async {
     try {
-      await _repository.addMenuDocuments(title: title);
+      await repository.addMenuDocuments(title: title);
       emit(MenuState(
         documents: state.documents,
         errorMessage: '',
@@ -68,7 +68,7 @@ class MenuCubit extends Cubit<MenuState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await _repository.removeMenu(id: documentID);
+      await repository.removeMenu(id: documentID);
     } catch (error) {
       emit(
         MenuState(

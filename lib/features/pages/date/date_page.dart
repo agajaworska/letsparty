@@ -164,8 +164,7 @@ class _DatePageBody extends StatelessWidget {
                   );
                   if (city == null) return null;
                   if (city != null)
-                    return BlocProvider.of<WeatherCubit>(context)
-                        .getWeatherModel(
+                    return BlocProvider.of<WeatherCubit>(context).getWeather(
                       city: city.toString(),
                     );
                 },
@@ -183,8 +182,7 @@ class _DatePageBody extends StatelessWidget {
                   );
                   if (city == null) throw Exception('No data found! ');
                   if (city != null)
-                    return BlocProvider.of<WeatherCubit>(context)
-                        .getWeatherModel(
+                    return BlocProvider.of<WeatherCubit>(context).getWeather(
                       city: city.toString(),
                     );
                 },
