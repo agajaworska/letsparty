@@ -1,16 +1,8 @@
-# letsparty
+Let's Party!
 
-A new Flutter project.
+With this application you can organize any party. You can plan every detail together with other guests.
+Keep all information in one place - let's party app.
 
-## Getting Started
+https://user-images.githubusercontent.com/105042902/192281914-ae390aae-9cd5-4419-bea8-c17c60e487a9.mp4
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
