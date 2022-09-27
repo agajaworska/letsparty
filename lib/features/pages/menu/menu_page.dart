@@ -40,7 +40,8 @@ class MenuPage extends StatelessWidget {
                       child: Text('Wait a second...'),
                     );
                   case Status.error:
-                    return const Text('Oops, we have a problem :(');
+                    return const Center(
+                        child: Text('Oops, we have a problem :('));
 
                   case Status.loading:
                     return const Center(
@@ -86,7 +87,7 @@ class MenuPage extends StatelessWidget {
                                   color: Color.fromARGB(183, 119, 77, 175),
                                 ),
                               ),
-                              hintText: 'Your dish suggestion',
+                              hintText: 'Dish and drink suggestion',
                               hintStyle: GoogleFonts.montserrat(),
                               prefixIcon: const Icon(
                                 Ionicons.fast_food_outline,

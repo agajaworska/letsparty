@@ -39,7 +39,8 @@ class AttractionPage extends StatelessWidget {
                       child: Text('Wait a second...'),
                     );
                   case Status.error:
-                    return const Text('Oops, we have a problem :(');
+                    return const Center(
+                        child: Text('Oops, we have a problem :('));
 
                   case Status.loading:
                     return const Center(

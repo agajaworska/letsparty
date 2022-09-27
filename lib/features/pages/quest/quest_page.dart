@@ -36,6 +36,12 @@ class _QuestPageState extends State<QuestPage> {
         child: Center(
           child: BlocBuilder<AccountCubit, AccountState>(
               builder: (context, state) {
+            if (state.errorMessage.isNotEmpty) {
+              return const Text('Oops, we have a problem :(');
+            }
+            if (state.isLoading) {
+              return const Text('Loading...');
+            }
             final userModels = state.documents;
             return ListView(
               children: [

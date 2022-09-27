@@ -47,10 +47,10 @@ class BudgetPage extends StatelessWidget {
         body: BlocBuilder<BudgetCubit, BudgetState>(
           builder: (context, state) {
             if (state.errorMessage.isNotEmpty) {
-              return const Text('Wystąpił nieoczekiwany problem');
+              return const Center(child: Text('Oops, we have a problem :('));
             }
             if (state.isLoading == true) {
-              return const Text('Trwa ładowanie danych');
+              return const Center(child: Text('Loading ...'));
             }
             final budgetModels = state.documents;
 
@@ -185,7 +185,7 @@ class ListOfSpendings extends StatelessWidget {
         child: BlocBuilder<AddSpendingsCubit, AddSpendingsState>(
           builder: (context, state) {
             if (state.errorMessage.isNotEmpty) {
-              return const Text('Wystąpił nieoczekiwany problem');
+              return const Center(child: Text('Oops, we have a problem :('));
             }
             if (state.isLoading) {
               return const Center(
@@ -227,7 +227,7 @@ class ListOfSpendings extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${addSpendingsModel.price}${' zł'}',
+                            addSpendingsModel.price.toString(),
                             style: GoogleFonts.montserrat(fontSize: 18),
                           ),
                         ],

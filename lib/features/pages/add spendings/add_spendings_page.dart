@@ -30,7 +30,7 @@ class _AddSpendingsPageState extends State<AddSpendingsPage> {
               appBar: AppBar(
                 backgroundColor: const Color.fromARGB(255, 212, 208, 245),
                 title: Text(
-                  'S p e  n d i n g s',
+                  'S p e n d i n g s',
                   style: GoogleFonts.bebasNeue(
                     fontSize: 35,
                     color: Colors.grey.shade900,

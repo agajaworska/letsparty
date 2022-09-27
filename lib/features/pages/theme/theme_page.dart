@@ -62,10 +62,10 @@ class ThemePage extends StatelessWidget {
           body: Builder(
             builder: (context) {
               if (state.errorMessage.isNotEmpty) {
-                return const Text('Wystąpił nieoczekiwany problem');
+                return const Center(child: Text('Oops, we have a problem :('));
               }
               if (state.isLoading) {
-                return const Text('Trwa ładowanie danych');
+                return const Center(child: Text('Loading...'));
               }
 
               final themeModels = state.documents;

@@ -57,21 +57,28 @@ class _DatePageState extends State<DatePage> {
                 if (state.status == Status.loading) {
                   return const Text('Loading');
                 }
+                if (state.status == Status.error) {
+                  return const Center(
+                      child: Text('Oops, we have a problem :('));
+                }
                 return ListView(
                   children: [
                     const _DatePageBody(),
-                    Center(
-                      child: weatherModel == null
-                          ? Text(
-                              'The current weather in the city ...',
-                              style: GoogleFonts.montserrat(fontSize: 18),
-                              textAlign: TextAlign.center,
-                            )
-                          : Text(
-                              'The current weather in the city of ${weatherModel.location.name}',
-                              style: GoogleFonts.montserrat(fontSize: 18),
-                              textAlign: TextAlign.center,
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: weatherModel == null
+                            ? Text(
+                                'The current weather in the city ...',
+                                style: GoogleFonts.montserrat(fontSize: 18),
+                                textAlign: TextAlign.center,
+                              )
+                            : Text(
+                                'The current weather in the city of ${weatherModel.location.name}',
+                                style: GoogleFonts.montserrat(fontSize: 18),
+                                textAlign: TextAlign.center,
+                              ),
+                      ),
                     ),
                     const SizedBox(height: 20),
                     if (weatherModel != null)
@@ -180,7 +187,7 @@ class _DatePageBody extends StatelessWidget {
                       fullscreenDialog: true,
                     ),
                   );
-                  if (city == null) throw Exception('No data found! ');
+                  if (city == null) return null;
                   if (city != null)
                     return BlocProvider.of<WeatherCubit>(context).getWeather(
                       city: city.toString(),

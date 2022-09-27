@@ -95,7 +95,7 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
           const SizedBox(height: 20),
           BlocBuilder<AccountCubit, AccountState>(builder: (context, state) {
             if (state.errorMessage.isNotEmpty) {
-              return const Text('Wystąpił nieoczekiwany problem');
+              return const Center(child: Text('Oops, we have a problem'));
             }
             if (state.isLoading) {
               return const Center(
