@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:letsparty/domain/models/addSpendings_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/spendings_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'add_spendings_state.dart';
 
 class AddSpendingsCubit extends Cubit<AddSpendingsState> {
-  AddSpendingsCubit(this._repository)
+  AddSpendingsCubit(this._spendingsRepository)
       : super(
           const AddSpendingsState(
             documents: [],
@@ -16,7 +16,7 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
           ),
         );
 
-  final Repository _repository;
+  final SpendingsRepository _spendingsRepository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
@@ -28,7 +28,7 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
       ),
     );
     _streamSubscription =
-        _repository.getAddSpendingsStream().listen((documents) {
+        _spendingsRepository.getAddSpendingsStream().listen((documents) {
       final addSpendingsModels = documents;
       emit(
         AddSpendingsState(
@@ -54,7 +54,7 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
     required String price,
   }) async {
     try {
-      await _repository.addSpendings(name: name, price: price);
+      await _spendingsRepository.addSpendings(name: name, price: price);
 
       emit(
         AddSpendingsState(
@@ -74,7 +74,7 @@ class AddSpendingsCubit extends Cubit<AddSpendingsState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await _repository.removeSpendings(id: documentID);
+      await _spendingsRepository.removeSpendings(id: documentID);
     } catch (error) {
       emit(
         AddSpendingsState(errorMessage: error.toString()),

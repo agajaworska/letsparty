@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:letsparty/domain/models/theme_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/theme_photos_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit(this._repository)
+  ThemeCubit(this._themePhotosRepository)
       : super(const ThemeState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
 
-  final Repository _repository;
+  final ThemePhotosRepository _themePhotosRepository;
 
   StreamSubscription? _streamSubscription;
 
@@ -26,7 +26,8 @@ class ThemeCubit extends Cubit<ThemeState> {
         isLoading: true,
       ),
     );
-    _streamSubscription = _repository.getThemeStream().listen((documents) {
+    _streamSubscription =
+        _themePhotosRepository.getThemeStream().listen((documents) {
       final themeModels = documents;
       emit(
         ThemeState(
@@ -36,20 +37,20 @@ class ThemeCubit extends Cubit<ThemeState> {
         ),
       );
     })
-      ..onError((error) {
-        emit(
-          ThemeState(
-            documents: const [],
-            isLoading: false,
-            errorMessage: error.toString(),
-          ),
-        );
-      });
+          ..onError((error) {
+            emit(
+              ThemeState(
+                documents: const [],
+                isLoading: false,
+                errorMessage: error.toString(),
+              ),
+            );
+          });
   }
 
   Future<void> add({required String imageUrl}) async {
     try {
-      await _repository.addThemePhoto(imageUrl: imageUrl);
+      await _themePhotosRepository.addThemePhoto(imageUrl: imageUrl);
       emit(ThemeState(
         documents: state.documents,
         errorMessage: '',
@@ -66,7 +67,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await _repository.removeThemePhoto(id: documentID);
+      await _themePhotosRepository.removeThemePhoto(id: documentID);
     } catch (error) {
       emit(
         ThemeState(

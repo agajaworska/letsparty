@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/user_remote_data_source.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/user_repository.dart';
 
 class QuestPage extends StatefulWidget {
   const QuestPage({
@@ -22,7 +22,7 @@ class _QuestPageState extends State<QuestPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 212, 208, 245),
         title: Text(
-          'Q u e s t  l i s t',
+          'G u e s t  l i s t',
           style: GoogleFonts.bebasNeue(
             fontSize: 35,
             color: Colors.grey.shade900,
@@ -32,7 +32,7 @@ class _QuestPageState extends State<QuestPage> {
       bottomSheet: const BottomSheet(),
       body: BlocProvider(
         create: (context) =>
-            AccountCubit(Repository(RemoteDataSource()))..start(),
+            AccountCubit(UserRepository(UserRemoteDataSource()))..start(),
         child: Center(
           child: BlocBuilder<AccountCubit, AccountState>(
               builder: (context, state) {

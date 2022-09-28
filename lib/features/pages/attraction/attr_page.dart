@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
-import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/attraction_remote_data_source.dart';
 import 'package:letsparty/features/pages/attraction/cubit/attraction_cubit.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/attraction_repository.dart';
 
 class AttractionPage extends StatelessWidget {
   AttractionPage({Key? key}) : super(key: key);
@@ -16,7 +16,8 @@ class AttractionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          AttractionCubit(Repository(RemoteDataSource()))..start(),
+          AttractionCubit(AttractionRepository(AttractionRemoteDataSource()))
+            ..start(),
       child: BlocBuilder<AttractionCubit, AttractionState>(
         builder: (context, state) {
           return Scaffold(

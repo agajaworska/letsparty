@@ -15,15 +15,4 @@ abstract class RegisterModule {
 
   @lazySingleton
   Dio dio(@Named('BaseUrl') String url) => Dio(BaseOptions(baseUrl: url));
-} 
-
-// void configureDependencies() {
-//   //bloc
-//   getIt.registerFactory(() => WeatherCubit(getIt()));
-
-//   //repository
-//   getIt.registerFactory(() => WeatherRepository(getIt()));
-
-//   //data sources
-//   getIt.registerFactory(() => WeatherRemoteRetrofitDataSource(Dio()));
-// }
+}

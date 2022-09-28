@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/app/core/injection_container.dart';
-import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/items_remote_data_source.dart';
 import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
 import 'package:letsparty/features/pages/add%20date/update_date_page.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
 import 'package:letsparty/domain/models/date_model.dart';
 import 'package:letsparty/domain/models/weather_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/items_repository.dart';
 
 class DatePage extends StatefulWidget {
   const DatePage({
@@ -105,7 +105,7 @@ class _DatePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DateCubit(
-        Repository(RemoteDataSource()),
+        ItemsRepository(ItemsRemoteDataSource()),
       )..start(),
       child: BlocBuilder<DateCubit, DateState>(
         builder: (context, state) {
@@ -404,13 +404,6 @@ class _DisplayWeatherWidget extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 10),
-      // Center(
-      //   child: Image.network(
-      //     'https://uxwing.com/wp-content/themes/uxwing/download/hand-gestures/good-icon.png',
-      //     width: 40,
-      //     height: 40,
-      //   ),
-      // )
     ]);
   }
 }

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
-import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/menu_remote_data_source.dart';
 import 'package:letsparty/features/pages/menu/cubit/menu_cubit.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/menu_repository.dart';
 
 class MenuPage extends StatelessWidget {
   MenuPage(
@@ -17,7 +17,8 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MenuCubit(Repository(RemoteDataSource()))..start(),
+      create: (context) =>
+          MenuCubit(MenuRepository(MenuRemoteDataSource()))..start(),
       child: BlocBuilder<MenuCubit, MenuState>(
         builder: (context, state) {
           return Scaffold(

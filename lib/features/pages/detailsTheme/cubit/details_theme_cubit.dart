@@ -1,18 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:letsparty/domain/models/theme_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/theme_photos_repository.dart';
 
 part 'details_theme_state.dart';
 
 class DetailsThemeCubit extends Cubit<DetailsThemeState> {
-  DetailsThemeCubit(this._repository)
+  DetailsThemeCubit(this._themePhotosRepository)
       : super(DetailsThemeState(themeModel: null, errorMessage: ''));
 
-  final Repository _repository;
+  final ThemePhotosRepository _themePhotosRepository;
 
   Future<void> getPhotoWithId(String id, String imageUrl) async {
     try {
-      final themeModel = await _repository.getPhoto(
+      final themeModel = await _themePhotosRepository.getPhoto(
         id: id,
         imageUrl: imageUrl,
       );

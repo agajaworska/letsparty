@@ -11,7 +11,7 @@ class WeatherRepository {
 
   Future<WeatherModel?> getWeatherModel({
     required String city,
-  }) async {
-    return await weatherRemoteDataSource.getWeatherData(city);
+  }) {
+    return weatherRemoteDataSource.getWeatherData(city);
   }
 }

@@ -46,9 +46,9 @@ class RootPage extends StatelessWidget {
       child: BlocBuilder<RootCubit, RootState>(
         builder: (context, state) {
           final user = state.user;
-          {
-            if (user == null) return LoginPage();
-          }
+
+          if (user == null) return LoginPage();
+
           return const HomePage();
         },
       ),

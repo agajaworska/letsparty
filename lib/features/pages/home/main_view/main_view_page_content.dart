@@ -57,7 +57,7 @@ class MainViewPageContent extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 child: NewBox(
                   child: Text(
-                    'Quest list',
+                    'Guest list',
                     style: GoogleFonts.bebasNeue(
                       fontSize: 30,
                       color: Colors.grey.shade900,

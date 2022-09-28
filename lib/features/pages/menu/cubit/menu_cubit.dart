@@ -3,20 +3,20 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/domain/models/menu_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/menu_repository.dart';
 
 part 'menu_cubit.freezed.dart';
 part 'menu_state.dart';
 
 class MenuCubit extends Cubit<MenuState> {
-  MenuCubit(this.repository)
+  MenuCubit(this.menuRepository)
       : super(MenuState(
           documents: [],
           errorMessage: '',
           status: Status.initial,
         ));
 
-  final Repository repository;
+  final MenuRepository menuRepository;
 
   StreamSubscription? _streamSubscription;
 
@@ -28,7 +28,7 @@ class MenuCubit extends Cubit<MenuState> {
         status: Status.loading,
       ),
     );
-    _streamSubscription = repository.getMenuStream().listen((documents) {
+    _streamSubscription = menuRepository.getMenuStream().listen((documents) {
       final menuModels = documents;
       emit(
         MenuState(
@@ -51,7 +51,7 @@ class MenuCubit extends Cubit<MenuState> {
 
   Future<void> add({required String title}) async {
     try {
-      await repository.addMenuDocuments(title: title);
+      await menuRepository.addMenuDocuments(title: title);
       emit(MenuState(
         documents: state.documents,
         errorMessage: '',
@@ -68,7 +68,7 @@ class MenuCubit extends Cubit<MenuState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await repository.removeMenu(id: documentID);
+      await menuRepository.removeMenu(id: documentID);
     } catch (error) {
       emit(
         MenuState(

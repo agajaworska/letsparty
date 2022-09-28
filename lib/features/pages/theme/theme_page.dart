@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/theme_photos_remote_data_source.dart';
 import 'package:letsparty/features/pages/detailsTheme/cubit/details_theme_cubit.dart';
 import 'package:letsparty/features/pages/theme/cubit/theme_cubit.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/theme_photos_repository.dart';
 
 class ThemePage extends StatelessWidget {
   ThemePage({Key? key}) : super(key: key);
@@ -17,7 +17,9 @@ class ThemePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeCubit(Repository(RemoteDataSource()))..start(),
+      create: (context) =>
+          ThemeCubit(ThemePhotosRepository(ThemePhotosRemoteDataSource()))
+            ..start(),
       child: BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
         return Scaffold(
           backgroundColor: const Color.fromARGB(255, 212, 208, 245),
@@ -141,7 +143,8 @@ class DetailsThemePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DetailsThemeCubit(Repository(RemoteDataSource()))
+      create: (context) => DetailsThemeCubit(
+          ThemePhotosRepository(ThemePhotosRemoteDataSource()))
         ..getPhotoWithId(id, imageUrl),
       child: BlocBuilder<DetailsThemeCubit, DetailsThemeState>(
         builder: (context, state) {

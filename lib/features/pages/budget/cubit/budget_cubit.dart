@@ -1,24 +1,25 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:letsparty/domain/models/budget_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/finance_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'budget_state.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
-  BudgetCubit(this._repository)
+  BudgetCubit(this._financeRepository)
       : super(const BudgetState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
 
-  final Repository _repository;
+  final FinanceRepository _financeRepository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = _repository.getBudgetStream().listen((documents) {
+    _streamSubscription =
+        _financeRepository.getBudgetStream().listen((documents) {
       final budgetModels = documents;
       emit(
         BudgetState(
@@ -28,20 +29,20 @@ class BudgetCubit extends Cubit<BudgetState> {
         ),
       );
     })
-      ..onError((error) {
-        emit(
-          BudgetState(
-            documents: const [],
-            isLoading: false,
-            errorMessage: error.toString(),
-          ),
-        );
-      });
+          ..onError((error) {
+            emit(
+              BudgetState(
+                documents: const [],
+                isLoading: false,
+                errorMessage: error.toString(),
+              ),
+            );
+          });
   }
 
   Future<void> add({required String data}) async {
     try {
-      await _repository.addBudgetDocuments(data: data);
+      await _financeRepository.addBudgetDocuments(data: data);
       emit(
         BudgetState(
             documents: state.documents, errorMessage: '', isLoading: false),
@@ -56,7 +57,7 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await _repository.removeBudgetDocuments(id: documentID);
+      await _financeRepository.removeBudgetDocuments(id: documentID);
     } catch (error) {
       emit(
         BudgetState(
@@ -67,7 +68,7 @@ class BudgetCubit extends Cubit<BudgetState> {
 
   Future<void> update(
       {required String documentID, required String data}) async {
-    await _repository.updateBudgetDocuments(id: documentID, data: data);
+    await _financeRepository.updateBudgetDocuments(id: documentID, data: data);
   }
 
   @override

@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:letsparty/app/core/injection_container.dart';
-import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/items_remote_data_source.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/items_repository.dart';
 
 class AddDatePage extends StatefulWidget {
   const AddDatePage({
@@ -31,7 +31,8 @@ class _AddDatePageState extends State<AddDatePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => AddDateCubit(Repository(RemoteDataSource())),
+        create: (context) =>
+            AddDateCubit(ItemsRepository(ItemsRemoteDataSource())),
         child: BlocConsumer<AddDateCubit, AddDateState>(
           listener: (context, state) {
             if (state.errorMessage.isNotEmpty) {

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/items_remote_data_source.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/items_repository.dart';
 
 class UpdatePage extends StatefulWidget {
   const UpdatePage(
@@ -25,7 +25,7 @@ class _UpdatePageState extends State<UpdatePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DateCubit(
-        Repository(RemoteDataSource()),
+        ItemsRepository(ItemsRemoteDataSource()),
       )..start(),
       child: BlocListener<DateCubit, DateState>(
         listener: (context, state) {
@@ -125,12 +125,6 @@ class _UpdatePageState extends State<UpdatePage> {
                 selectedDateFormatted: _date == null
                     ? null
                     : DateFormat.yMMMMEEEEd().format(_date!),
-                // itemModel: ItemModel(
-                //   id: state.items.toString(),
-                //   adress: state.items.toString(),
-                //   date: (state.items as Timestamp).toDate(),
-                //   time: state.items.toString(),
-                // ),
               ),
             );
           },
@@ -162,7 +156,7 @@ class _UpdateDatePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DateCubit(
-        Repository(RemoteDataSource()),
+        ItemsRepository(ItemsRemoteDataSource()),
       )..start(),
       child: BlocBuilder<DateCubit, DateState>(
         builder: (context, state) {

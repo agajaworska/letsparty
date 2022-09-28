@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:letsparty/domain/models/user_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'account_state.dart';
 
 class AccountCubit extends Cubit<AccountState> {
-  AccountCubit(this.repository)
+  AccountCubit(this.userRepository)
       : super(const AccountState(
           documents: [],
           errorMessage: '',
           isLoading: false,
         ));
-  final Repository repository;
+  final UserRepository userRepository;
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
@@ -24,7 +24,7 @@ class AccountCubit extends Cubit<AccountState> {
         isLoading: true,
       ),
     );
-    _streamSubscription = repository.getUserStream().listen(
+    _streamSubscription = userRepository.getUserStream().listen(
       (documents) {
         final userModels = documents;
         emit(
@@ -48,7 +48,7 @@ class AccountCubit extends Cubit<AccountState> {
 
   Future<void> add({required String name, required String photo}) async {
     try {
-      await repository.addUserItems(name: name, photo: photo);
+      await userRepository.addUserItems(name: name, photo: photo);
       emit(AccountState(
         documents: state.documents,
         errorMessage: '',
@@ -65,7 +65,7 @@ class AccountCubit extends Cubit<AccountState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await repository.removeUserItems(id: documentID);
+      await userRepository.removeUserItems(id: documentID);
     } catch (error) {
       emit(
         AccountState(

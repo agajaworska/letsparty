@@ -2,21 +2,21 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import 'package:letsparty/domain/models/date_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/items_repository.dart';
 
 part 'date_state.dart';
 
 class DateCubit extends Cubit<DateState> {
   DateCubit(
-    this._repository,
+    this._itemsRepository,
   ) : super(const DateState());
 
-  final Repository _repository;
+  final ItemsRepository _itemsRepository;
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = _repository.getItemsStream().listen(
+    _streamSubscription = _itemsRepository.getItemsStream().listen(
       (items) {
         final dateModels = items;
 
@@ -35,7 +35,7 @@ class DateCubit extends Cubit<DateState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await _repository.removeItems(id: documentID);
+      await _itemsRepository.removeItems(id: documentID);
     } catch (error) {
       emit(
         const DateState(removingErrorOccured: true),
@@ -52,7 +52,7 @@ class DateCubit extends Cubit<DateState> {
     required String time,
   }) async {
     try {
-      await _repository.updateItems(
+      await _itemsRepository.updateItems(
         id: documentID,
         city: city,
         adress: adress,

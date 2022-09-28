@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:letsparty/data/remote_data_sources/remote_data_source.dart';
+import 'package:letsparty/data/remote_data_sources/user_remote_data_source.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
 import 'package:letsparty/domain/models/user_model.dart';
-import 'package:letsparty/domain/repositories/repository.dart';
+import 'package:letsparty/domain/repositories/user_repository.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   MyAccountPageContent({
@@ -89,7 +89,7 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          AccountCubit(Repository(RemoteDataSource()))..start(),
+          AccountCubit(UserRepository(UserRemoteDataSource()))..start(),
       child: Center(
         child: ListView(children: [
           const SizedBox(height: 20),
