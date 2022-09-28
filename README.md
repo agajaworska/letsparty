@@ -1,7 +1,14 @@
-Let's Party!
+<b>Let's Party!</b>
 
 With this application you can organize any party. You can plan every detail together with other guests.
 Keep all information in one place - let's party app.
+
+<p>&#8680 'My account': add you name, profile photo and log out.</p>
+<p>&#8680 'Where & when': add city, adress, date and time.The weather will show up automatically after entering the city.</p>
+<p>&#8680 'Menu' and 'Attracions': add your proposition, delete it by swiping.</p>
+<p>&#8680 "Party theme": add image url, tap to enlarge, delete photo by swiping.</p>
+<p>&#8680 "Budget": add bank transfer details and create list of spendings.</p>
+
 
 https://user-images.githubusercontent.com/105042902/192281914-ae390aae-9cd5-4419-bea8-c17c60e487a9.mp4
 
