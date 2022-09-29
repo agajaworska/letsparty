@@ -10,15 +10,3 @@ class UserModel with _$UserModel {
     required String photo,
   }) = _UserModel;
 }
-
-// class UserModel {
-//   final String id;
-//   final String name;
-//   final String photo;
-
-//   UserModel({
-//     required this.id,
-//     required this.name,
-//     required this.photo,
-//   });
-// }

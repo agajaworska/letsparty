@@ -9,14 +9,3 @@ class BudgetModel with _$BudgetModel {
     required String data,
   }) = _BudgetModel;
 }
-
-
-// class BudgetModel {
-//   final String id;
-//   final String data;
-
-//   BudgetModel({
-//     required this.id,
-//     required this.data,
-//   });
-// }

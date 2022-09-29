@@ -13,6 +13,7 @@ class AccountCubit extends Cubit<AccountState> {
           errorMessage: '',
           isLoading: false,
         ));
+
   final UserRepository userRepository;
   StreamSubscription? _streamSubscription;
 

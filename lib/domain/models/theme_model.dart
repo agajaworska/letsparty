@@ -9,13 +9,3 @@ class ThemeModel with _$ThemeModel {
     required String imageUrl,
   }) = _ThemeModel;
 }
-
-// class ThemeModel {
-//   final String id;
-//   final String imageUrl;
-
-//   ThemeModel({
-//     required this.id,
-//     required this.imageUrl,
-//   });
-// }

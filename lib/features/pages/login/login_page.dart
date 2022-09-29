@@ -241,55 +241,7 @@ class PasswordAlertDialog extends StatelessWidget {
               actions: [
                 ForgotPasswordView(),
               ],
-            )
-                // child: AlertDialog(
-                //   content: Text(
-                //     'Na podany niżej email wyślemy wiadomość z linkiem do zresetowania hasła.',
-                //     style: GoogleFonts.montserrat(
-                //       color: Colors.grey.shade700,
-                //     ),
-                //   ),
-                //   backgroundColor: Color.fromARGB(255, 223, 220, 247),
-                //   title: Center(
-                //     child: Text(
-                //       'Podaj email',
-                //       style: GoogleFonts.montserrat(
-                //         color: Colors.grey.shade900,
-                //       ),
-                //     ),
-                //   ),
-                // actions: [
-                //   Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: TextField(
-                //       controller: controller,
-                //     ),
-                //   ),
-                //   const SizedBox(height: 15),
-
-                //   const SizedBox(height: 15),
-                //   ElevatedButton(
-                //     onPressed: () {
-                //       context
-                //           .read<RootCubit>()
-                //           .passwordReset(email: controller.text);
-
-                //       Navigator.of(context).pop;
-                //     },
-                //     style: ElevatedButton.styleFrom(
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(15.0),
-                //       ),
-                //       primary: const Color.fromARGB(252, 122, 51, 214),
-                //       shadowColor: Colors.grey,
-                //       elevation: 6.0,
-                //       textStyle: GoogleFonts.montserrat(),
-                //     ),
-                //     child: const Text(
-                //       'Resetuj hasło',
-                //     ),
-                //   ),
-                ),
+            )),
           );
         },
       ),

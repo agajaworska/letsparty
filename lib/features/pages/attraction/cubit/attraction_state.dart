@@ -8,19 +8,3 @@ class AttractionState with _$AttractionState {
     String? errorMessage,
   }) = _AttractionState;
 }
-
-
-
-
-// @immutable
-// class AttractionState {
-//   final List<AttractionModel> documents;
-//   final bool isLoading;
-//   final String errorMessage;
-
-//   const AttractionState({
-//     required this.documents,
-//     required this.isLoading,
-//     required this.errorMessage,
-//   });
-// }
