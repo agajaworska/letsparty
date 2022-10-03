@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
-
 import 'package:letsparty/domain/models/weather_model.dart';
 
 @injectable

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:letsparty/app/core/config.dart';
 import 'package:letsparty/features/pages/attraction/attr_page.dart';
 import 'package:letsparty/features/pages/budget/budget_page.dart';
 import 'package:letsparty/features/pages/date/date_page.dart';
@@ -42,6 +43,7 @@ class MainViewPageContent extends StatelessWidget {
             ),
           ),
         ),
+        Text(Config.helloMessage),
         Expanded(
             child: GridView.count(
           crossAxisCount: 2,

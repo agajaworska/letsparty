@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-
 import 'package:letsparty/domain/models/date_model.dart';
 import 'package:letsparty/domain/repositories/items_repository.dart';
 
@@ -59,13 +58,16 @@ class DateCubit extends Cubit<DateState> {
         date: date,
         time: time,
       );
-      emit(const DateState(saved: true));
+      emit(const DateState(
+        loadingErrorOccured: false,
+      ));
     } catch (error) {
       emit(
         DateState(
           errorMessage: error.toString(),
         ),
       );
+      start();
     }
   }
 
