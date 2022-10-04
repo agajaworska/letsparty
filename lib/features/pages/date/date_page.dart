@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/app/core/injection_container.dart';
 import 'package:letsparty/data/remote_data_sources/items_remote_data_source.dart';
+import 'package:letsparty/domain/models/date_model.dart';
+import 'package:letsparty/domain/models/weather_model.dart';
+import 'package:letsparty/domain/repositories/items_repository.dart';
 import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
 import 'package:letsparty/features/pages/add%20date/update_date_page.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
-import 'package:letsparty/domain/models/date_model.dart';
-import 'package:letsparty/domain/models/weather_model.dart';
-import 'package:letsparty/domain/repositories/items_repository.dart';
 
 class DatePage extends StatefulWidget {
   const DatePage({
@@ -81,15 +81,57 @@ class _DatePageState extends State<DatePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    if (weatherModel != null)
-                      _DisplayWeatherWidget(
-                        weatherModel: weatherModel,
-                      ),
+                    weatherModel != null
+                        ? _DisplayWeatherWidget(
+                            weatherModel: weatherModel,
+                          )
+                        : const RefreshWeather(),
                   ],
                 );
               }),
             ),
           );
+        },
+      ),
+    );
+  }
+}
+
+class RefreshWeather extends StatelessWidget {
+  const RefreshWeather({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          DateCubit(ItemsRepository(ItemsRemoteDataSource()))..start(),
+      child: BlocBuilder<DateCubit, DateState>(
+        builder: (context, state) {
+          final dateModels = state.items;
+          for (final dateModel in dateModels) {
+            return Column(
+              children: [
+                IconButton(
+                  tooltip: 'Tap to refresh the weather!',
+                  onPressed: () async {
+                    await BlocProvider.of<WeatherCubit>(context)
+                        .getWeather(city: dateModel.city);
+                  },
+                  icon: const Icon(
+                    Icons.refresh_outlined,
+                    size: 28,
+                  ),
+                ),
+                Text(
+                  'Tap to refresh the weather',
+                  style: GoogleFonts.montserrat(fontSize: 12),
+                )
+              ],
+            );
+          }
+          return const SizedBox.shrink();
         },
       ),
     );
@@ -188,10 +230,11 @@ class _DatePageBody extends StatelessWidget {
                     ),
                   );
                   if (city == null) return null;
-                  if (city != null)
+                  if (city != null) {
                     return BlocProvider.of<WeatherCubit>(context).getWeather(
                       city: city.toString(),
                     );
+                  }
                 },
                 icon: const Icon(Icons.edit_outlined),
               ),

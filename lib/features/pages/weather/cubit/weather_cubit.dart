@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
+import 'package:letsparty/data/remote_data_sources/weather_remote_data_sources.dart';
 import 'package:letsparty/domain/models/weather_model.dart';
 import 'package:letsparty/domain/repositories/weather_repository.dart';
 
@@ -38,16 +40,21 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  // Stream<WeatherState> getWeatherStream() {
-  //   try {
-  //     final subscription = WeatherCubit(
-  //             WeatherRepository(WeatherRemoteRetrofitDataSource(Dio())))
-  //         .stream;
-  //     return subscription;
-  //   } catch (error) {
-  //     throw Exception(
-  //       error.toString(),
-  //     );
-  //   }
-  // }
+  Stream<WeatherState> getWeatherStream({
+    required String city,
+  }) {
+    try {
+      final subscription = WeatherCubit(
+              WeatherRepository(WeatherRemoteRetrofitDataSource(Dio())))
+          .stream
+          .listen((_) {
+        getWeather(city: city);
+      });
+      return stream;
+    } catch (error) {
+      throw Exception(
+        error.toString(),
+      );
+    }
+  }
 }
