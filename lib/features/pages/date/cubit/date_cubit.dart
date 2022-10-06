@@ -39,7 +39,6 @@ class DateCubit extends Cubit<DateState> {
       emit(
         const DateState(removingErrorOccured: true),
       );
-      start();
     }
   }
 
@@ -67,7 +66,6 @@ class DateCubit extends Cubit<DateState> {
           errorMessage: error.toString(),
         ),
       );
-      start();
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterfire_ui/auth.dart';
@@ -12,6 +13,31 @@ class LoginPage extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  final colorizeColors = [
+    Colors.purple,
+    const Color.fromARGB(255, 243, 33, 184),
+    const Color.fromARGB(255, 255, 230, 0),
+    const Color.fromARGB(255, 245, 100, 10),
+  ];
+
+  final colorizeTextStyle = const TextStyle(
+    fontFamily: 'Bebas',
+    fontSize: 80,
+    color: Color.fromARGB(240, 50, 5, 58),
+    shadows: <Shadow>[
+      Shadow(
+        offset: Offset(4, 3),
+        blurRadius: 4.0,
+        color: Color.fromARGB(255, 85, 16, 146),
+      ),
+      Shadow(
+        offset: Offset(2, 2),
+        blurRadius: 4.0,
+        color: Color.fromARGB(255, 251, 251, 251),
+      ),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -24,45 +50,18 @@ class LoginPage extends StatelessWidget {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'L E T\' S',
-                      style: GoogleFonts.bebasNeue(
-                          fontSize: 80,
-                          color: Color.fromARGB(240, 50, 5, 58),
-                          textStyle: const TextStyle(
-                            shadows: <Shadow>[
-                              Shadow(
-                                offset: Offset(7.0, 5.0),
-                                blurRadius: 8.0,
-                                color: Color.fromARGB(255, 104, 3, 151),
-                              ),
-                              Shadow(
-                                offset: Offset(3.0, 4.0),
-                                blurRadius: 4.0,
-                                color: Color.fromARGB(255, 225, 186, 244),
-                              ),
-                            ],
-                          )),
-                    ),
-                    Text(
-                      'P A R T Y !',
-                      style: GoogleFonts.bebasNeue(
-                          fontSize: 80,
-                          color: Color.fromARGB(240, 50, 5, 58),
-                          textStyle: const TextStyle(
-                            shadows: <Shadow>[
-                              Shadow(
-                                offset: Offset(7.0, 5.0),
-                                blurRadius: 8.0,
-                                color: Color.fromARGB(255, 104, 3, 151),
-                              ),
-                              Shadow(
-                                offset: Offset(3.0, 4.0),
-                                blurRadius: 4.0,
-                                color: Color.fromARGB(255, 225, 186, 244),
-                              ),
-                            ],
-                          )),
+                    Column(
+                      children: [
+                        AnimatedTextKit(
+                          animatedTexts: [
+                            ColorizeAnimatedText(
+                              'Let\'s party!',
+                              textStyle: colorizeTextStyle,
+                              colors: colorizeColors,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 15),
                     Padding(
@@ -159,7 +158,8 @@ class LoginPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        primary: const Color.fromARGB(252, 122, 51, 214),
+                        backgroundColor:
+                            const Color.fromARGB(252, 122, 51, 214),
                         shadowColor: Colors.grey,
                         elevation: 6.0,
                         textStyle: GoogleFonts.montserrat(),
