@@ -13,7 +13,7 @@ Keep all information in one place - let's party app.
 https://user-images.githubusercontent.com/105042902/192776423-1485fa17-fca7-4e76-8300-6dc2318a78e8.mp4
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/105042902/192367881-5c10628a-eff7-4a8a-b573-feae61d29e8e.png" width="30%" />
+  <img src="https://user-images.githubusercontent.com/105042902/194311873-a25ad5a1-d660-42f7-a259-f8f4f540180a.gif" width="30%" />
   <img src="https://user-images.githubusercontent.com/105042902/192773229-a19dc828-fae6-4427-ba42-4caaf56b644f.png" width="30%" />
   <img src="https://user-images.githubusercontent.com/105042902/192368037-f5b16c3e-1445-4c67-b097-95e547960a9a.png" width="30%" />
   <img src="https://user-images.githubusercontent.com/105042902/192776967-6fdcec40-a495-447d-9090-8e2d17216a3b.png" width="30%" />
@@ -24,6 +24,7 @@ https://user-images.githubusercontent.com/105042902/192776423-1485fa17-fca7-4e76
   <img src="https://user-images.githubusercontent.com/105042902/192368510-1b4cd83f-26ac-4e83-be38-27b3976d1b6d.png" width="30%" />
   
 </p>
+
 
 
 
