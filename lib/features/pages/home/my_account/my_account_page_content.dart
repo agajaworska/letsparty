@@ -208,7 +208,8 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            primary: const Color.fromARGB(205, 107, 26, 213),
+                            backgroundColor:
+                                const Color.fromARGB(205, 107, 26, 213),
                             shadowColor: Colors.grey,
                             elevation: 6.0,
                             textStyle: GoogleFonts.montserrat(),
@@ -241,7 +242,8 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            primary: const Color.fromARGB(205, 107, 26, 213),
+                            backgroundColor:
+                                const Color.fromARGB(205, 107, 26, 213),
                             shadowColor: Colors.grey,
                             elevation: 6.0,
                             textStyle: GoogleFonts.montserrat(),

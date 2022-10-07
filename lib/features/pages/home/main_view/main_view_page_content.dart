@@ -25,7 +25,7 @@ class MainViewPageContent extends StatelessWidget {
             style: GoogleFonts.bebasNeue(
               fontWeight: FontWeight.w600,
               fontSize: 50,
-              color: const Color.fromARGB(240, 50, 5, 58),
+              color: Color.fromARGB(249, 64, 25, 114),
               textStyle: const TextStyle(
                 shadows: <Shadow>[
                   Shadow(

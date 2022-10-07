@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                 return const MainViewPageContent();
               }
 
-              return const ChatPageContent();
+              return ChatPageContent();
             }),
             bottomNavigationBar: CurvedNavigationBar(
               color: const Color.fromARGB(255, 194, 188, 227),
@@ -58,6 +58,16 @@ class HomePage extends StatelessWidget {
                         offset: Offset(1.0, 1.0),
                         blurRadius: 5.0)
                   ],
+                ),
+                Icon(
+                  Ionicons.chatbox_outline,
+                  size: 26,
+                  shadows: [
+                    Shadow(
+                        color: Color.fromARGB(255, 123, 24, 209),
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 5.0)
+                  ],
                 )
               ],
               onTap: (index) {
@@ -65,8 +75,8 @@ class HomePage extends StatelessWidget {
                   context.read<HomeCubit>().onTapPressed(GNavItem.account);
                 } else if (index == 1) {
                   context.read<HomeCubit>().onTapPressed(GNavItem.home);
-                  // } else if (index == 2) {
-                  // context.read<HomeCubit>().onTapPressed(GNavItem.chat);
+                } else if (index == 2) {
+                  context.read<HomeCubit>().onTapPressed(GNavItem.chat);
                 }
               },
             ),

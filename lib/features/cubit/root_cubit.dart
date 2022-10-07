@@ -128,6 +128,17 @@ class RootCubit extends Cubit<RootState> {
           );
   }
 
+  Future<void> getCurrentUser() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        user;
+      }
+    } catch (error) {
+      error.toString();
+    }
+  }
+
   @override
   Future<void> close() {
     _streamSubscription?.cancel();

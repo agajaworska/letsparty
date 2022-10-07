@@ -112,6 +112,9 @@ flutter:
     - family: Bebas
       fonts:
         - asset: asset/fonts/BebasNeue-Regular.ttf
+    - family: Montserrat    
+      fonts:
+        - asset: asset/fonts/Montserrat-Regular.ttf
         
    
    
