@@ -47,173 +47,171 @@ class LoginPage extends StatelessWidget {
           return Scaffold(
             backgroundColor: const Color.fromARGB(255, 212, 208, 245),
             body: Center(
-              child: Flexible(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          AnimatedTextKit(
-                            animatedTexts: [
-                              ColorizeAnimatedText(
-                                'Let\'s party!',
-                                textStyle: colorizeTextStyle,
-                                colors: colorizeColors,
-                              ),
-                            ],
-                            totalRepeatCount: 1,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        AnimatedTextKit(
+                          animatedTexts: [
+                            ColorizeAnimatedText(
+                              'Let\'s party!',
+                              textStyle: colorizeTextStyle,
+                              colors: colorizeColors,
+                            ),
+                          ],
+                          totalRepeatCount: 1,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
+                            ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 15),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                        child: TextField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: emailController,
-                          decoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(183, 119, 77, 175),
-                              ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
                             ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(183, 119, 77, 175),
-                              ),
-                            ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Email',
-                            hintStyle: GoogleFonts.montserrat(),
-                            labelStyle: TextStyle(color: Colors.grey.shade700),
-                            label: Text(
-                              'Email',
-                              style: GoogleFonts.montserrat(),
-                            ),
+                          ),
+                          border: const OutlineInputBorder(),
+                          hintText: 'Email',
+                          hintStyle: GoogleFonts.montserrat(),
+                          labelStyle: TextStyle(color: Colors.grey.shade700),
+                          label: Text(
+                            'Email',
+                            style: GoogleFonts.montserrat(),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
-                        child: TextField(
-                          controller: passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(183, 119, 77, 175),
-                              ),
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
+                      child: TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
                             ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(183, 119, 77, 175),
-                              ),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(183, 119, 77, 175),
                             ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Password',
-                            hintStyle: GoogleFonts.montserrat(),
-                            labelStyle: TextStyle(color: Colors.grey.shade700),
-                            label: Text(
-                              'Password',
-                              style: GoogleFonts.montserrat(),
-                            ),
+                          ),
+                          border: const OutlineInputBorder(),
+                          hintText: 'Password',
+                          hintStyle: GoogleFonts.montserrat(),
+                          labelStyle: TextStyle(color: Colors.grey.shade700),
+                          label: Text(
+                            'Password',
+                            style: GoogleFonts.montserrat(),
                           ),
                         ),
                       ),
-                      Text(state.errorMessage),
-                      const SizedBox(height: 15),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (state.isCreatingAccount) {
-                            try {
-                              context.read<RootCubit>().register(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  );
-                            } catch (error) {
-                              state.errorMessage.toString();
-                            }
-                          } else {
-                            try {
-                              context.read<RootCubit>().signIn(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  );
-                            } catch (error) {
-                              state.errorMessage.toString();
-                            }
+                    ),
+                    Text(state.errorMessage),
+                    const SizedBox(height: 15),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (state.isCreatingAccount) {
+                          try {
+                            context.read<RootCubit>().register(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                          } catch (error) {
+                            state.errorMessage.toString();
                           }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          backgroundColor:
-                              const Color.fromARGB(252, 122, 51, 214),
-                          shadowColor: Colors.grey,
-                          elevation: 6.0,
-                          textStyle: GoogleFonts.montserrat(),
+                        } else {
+                          try {
+                            context.read<RootCubit>().signIn(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                          } catch (error) {
+                            state.errorMessage.toString();
+                          }
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
-                        child: Text(
-                          state.isCreatingAccount
-                              ? 'Register new account'
-                              : 'Sign in',
-                        ),
+                        backgroundColor:
+                            const Color.fromARGB(252, 122, 51, 214),
+                        shadowColor: Colors.grey,
+                        elevation: 6.0,
+                        textStyle: GoogleFonts.montserrat(),
                       ),
-                      const SizedBox(height: 15),
-                      if (state.isCreatingAccount == false) ...[
-                        TextButton(
-                          onPressed: () {
-                            context
-                                .read<RootCubit>()
-                                .createAccountButtonPressed();
-                          },
-                          child: Text('Create an account',
-                              style: GoogleFonts.montserrat(
-                                color: const Color.fromARGB(252, 122, 51, 214),
-                              )),
-                        ),
-                      ],
-                      if (state.isCreatingAccount) ...[
-                        TextButton(
-                          onPressed: () {
-                            context.read<RootCubit>().signInButtonPressed();
-                          },
-                          child: Text('Already have an account?',
-                              style: GoogleFonts.montserrat(
-                                color: const Color.fromARGB(252, 122, 51, 214),
-                              )),
-                        ),
-                      ],
+                      child: Text(
+                        state.isCreatingAccount
+                            ? 'Register new account'
+                            : 'Sign in',
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    if (state.isCreatingAccount == false) ...[
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => PasswordAlertDialog(),
-                              fullscreenDialog: true,
-                            ),
-                          );
+                          context
+                              .read<RootCubit>()
+                              .createAccountButtonPressed();
                         },
-                        child: Text('Forgot password?',
+                        child: Text('Create an account',
                             style: GoogleFonts.montserrat(
                               color: const Color.fromARGB(252, 122, 51, 214),
                             )),
                       ),
-                    ]),
-              ),
+                    ],
+                    if (state.isCreatingAccount) ...[
+                      TextButton(
+                        onPressed: () {
+                          context.read<RootCubit>().signInButtonPressed();
+                        },
+                        child: Text('Already have an account?',
+                            style: GoogleFonts.montserrat(
+                              color: const Color.fromARGB(252, 122, 51, 214),
+                            )),
+                      ),
+                    ],
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => PasswordAlertDialog(),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                      },
+                      child: Text('Forgot password?',
+                          style: GoogleFonts.montserrat(
+                            color: const Color.fromARGB(252, 122, 51, 214),
+                          )),
+                    ),
+                  ]),
             ),
           );
         },

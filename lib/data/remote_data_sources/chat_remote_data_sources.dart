@@ -12,6 +12,7 @@ class ChatRemoteDataSource {
           .collection('users')
           .doc(userId)
           .collection('messages')
+          .orderBy('timestamp')
           .snapshots();
       return stream;
     } catch (error) {

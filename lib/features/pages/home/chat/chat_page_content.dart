@@ -7,7 +7,7 @@ import 'package:letsparty/constants/constants.dart';
 import 'package:letsparty/data/remote_data_sources/chat_remote_data_sources.dart';
 import 'package:letsparty/domain/models/chat_model.dart';
 import 'package:letsparty/domain/repositories/chat_repository.dart';
-import 'package:letsparty/features/cubit/root_cubit.dart';
+
 import 'package:letsparty/features/pages/home/chat/cubit/chat_cubit.dart';
 
 class ChatPageContent extends StatefulWidget {
@@ -43,46 +43,50 @@ class _ChatPageContentState extends State<ChatPageContent> {
               final messages = state.messages;
               final currentUser = user!.email;
 
-              return Expanded(
-                child: ListView(
-                  children: [
-                    for (final message in messages)
-                      if (currentUser == message.sender)
-                        MessageViewBox(
-                          message: message,
-                          isMe: currentUser == message.sender,
-                        ),
-                    Container(
-                      decoration: messageBoxDecoration,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: TextField(
-                              controller: controller,
-                              onChanged: (value) {
-                                messageText = value;
-                              },
-                              decoration: messageTextFieldDecoration,
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        for (final message in messages)
+                          if (currentUser == message.sender)
+                            MessageViewBox(
+                              message: message,
+                              isMe: currentUser == message.sender,
                             ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    decoration: messageBoxDecoration,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: controller,
+                            onChanged: (value) {
+                              messageText = value;
+                            },
+                            decoration: messageTextFieldDecoration,
                           ),
-                          IconButton(
-                              color: Colors.deepPurple,
-                              icon: const Icon(
-                                Ionicons.send_outline,
-                              ),
-                              onPressed: () {
-                                context.read<ChatCubit>().sendMessage(
-                                      text: messageText,
-                                      email: user!.email!.toString(),
-                                    );
-                                controller.clear();
-                              }),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                        IconButton(
+                            color: Colors.deepPurple,
+                            icon: const Icon(
+                              Ionicons.send_outline,
+                            ),
+                            onPressed: () {
+                              context.read<ChatCubit>().sendMessage(
+                                    text: messageText,
+                                    email: user!.email!.toString(),
+                                  );
+                              controller.clear();
+                            }),
+                      ],
+                    ),
+                  )
+                ],
               );
             },
           ),

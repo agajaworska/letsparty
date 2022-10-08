@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -64,6 +63,7 @@ class ChatCubit extends Cubit<ChatState> {
         .add({
       'text': text,
       'sender': email,
+      'timestamp': FieldValue.serverTimestamp(),
     });
   }
 }
