@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/data/remote_data_sources/theme_photos_remote_data_source.dart';
+
 import 'package:letsparty/features/pages/detailsTheme/cubit/details_theme_cubit.dart';
 import 'package:letsparty/features/pages/theme/cubit/theme_cubit.dart';
 import 'package:letsparty/domain/repositories/theme_photos_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class ThemePage extends StatelessWidget {
   ThemePage({Key? key}) : super(key: key);
@@ -22,7 +25,6 @@ class ThemePage extends StatelessWidget {
             ..start(),
       child: BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
         return Scaffold(
-          backgroundColor: const Color.fromARGB(255, 212, 208, 245),
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(255, 212, 208, 245),
             title: Text(
@@ -37,17 +39,25 @@ class ThemePage extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Center(
               heightFactor: 0.5,
-              child: TextField(
-                controller: controller,
-                style: GoogleFonts.montserrat(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: 'Add photo url http://....',
-                  hintStyle: GoogleFonts.montserrat(color: Colors.white),
-                  prefixIcon: const Icon(
-                    Icons.image_outlined,
-                    color: Colors.white,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      style: GoogleFonts.montserrat(color: Colors.white),
+                      decoration: textFieldDecoration(
+                        text: 'Add photo url',
+                        icon: const Icon(
+                          Ionicons.image_outline,
+                          color: Colors.white,
+                        ),
+                      ).copyWith(
+                        hintText: 'Add photo url ...jpg',
+                        hintStyle: const TextStyle(color: Colors.white),
+                      ),
+                    ),
                   ),
-                  suffixIcon: IconButton(
+                  IconButton(
                     onPressed: () {
                       context.read<ThemeCubit>().add(imageUrl: controller.text);
                       clearText();
@@ -57,7 +67,7 @@ class ThemePage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ),
@@ -87,38 +97,16 @@ class ThemePage extends StatelessWidget {
                         },
                         child: InkWell(
                           onTap: (() {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
                                 builder: (_) => DetailsThemePage(
-                                      id: themeModel.id,
-                                      imageUrl: themeModel.imageUrl,
-                                    )));
-                          }),
-                          child: Container(
-                            height: 150,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 240, 234, 255),
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: const Offset(5, 5),
-                                  blurRadius: 6.0,
-                                  color: Colors.grey.shade600,
+                                  id: themeModel.id,
+                                  imageUrl: themeModel.imageUrl,
                                 ),
-                                const BoxShadow(
-                                  offset: Offset(-5, -5),
-                                  blurRadius: 6.0,
-                                  color: Color.fromARGB(255, 232, 222, 240),
-                                ),
-                              ],
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  themeModel.imageUrl,
-                                ),
-                                fit: BoxFit.cover,
                               ),
-                            ),
-                          ),
+                            );
+                          }),
+                          child: ThemeImageWidget(themeModel: themeModel),
                         ),
                       ),
                     ),
@@ -160,14 +148,18 @@ class DetailsThemePage extends StatelessWidget {
           }
 
           return Scaffold(
+            appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-              appBar: AppBar(),
-              body: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.contain,
-                        image: NetworkImage(themeModel.imageUrl))),
-              ));
+            ),
+            body: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: NetworkImage(themeModel.imageUrl),
+                ),
+              ),
+            ),
+          );
         },
       ),
     );

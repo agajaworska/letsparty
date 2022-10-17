@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:letsparty/constants/constants.dart';
+import 'package:letsparty/widgets/widgets.dart';
 import 'package:letsparty/data/remote_data_sources/chat_remote_data_sources.dart';
 import 'package:letsparty/domain/models/chat_model.dart';
 import 'package:letsparty/domain/repositories/chat_repository.dart';
@@ -26,7 +26,6 @@ class _ChatPageContentState extends State<ChatPageContent> {
       create: (context) =>
           ChatCubit(ChatRepository(ChatRemoteDataSource()))..start(),
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 212, 208, 245),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 212, 208, 245),
           title: Text(
@@ -49,11 +48,10 @@ class _ChatPageContentState extends State<ChatPageContent> {
                     child: ListView(
                       children: [
                         for (final message in messages)
-                          if (currentUser == message.sender)
-                            MessageViewBox(
-                              message: message,
-                              isMe: currentUser == message.sender,
-                            ),
+                          MessageViewBox(
+                            message: message,
+                            isMe: currentUser == message.sender,
+                          ),
                       ],
                     ),
                   ),
@@ -72,12 +70,12 @@ class _ChatPageContentState extends State<ChatPageContent> {
                           ),
                         ),
                         IconButton(
-                            color: Colors.deepPurple,
+                            color: const Color(0xFF332A6F),
                             icon: const Icon(
                               Ionicons.send_outline,
                             ),
                             onPressed: () {
-                              context.read<ChatCubit>().sendMessage(
+                              context.read<ChatCubit>().addMessage(
                                     text: messageText,
                                     email: user!.email!.toString(),
                                   );
@@ -112,12 +110,15 @@ class MessageViewBox extends StatelessWidget {
       crossAxisAlignment:
           isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        Text(
-          message.sender,
-          style: const TextStyle(
-            fontFamily: 'Montsserat',
-            fontSize: 14,
-            color: Colors.black54,
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          child: Text(
+            message.sender,
+            style: const TextStyle(
+              fontFamily: 'Montsserat',
+              fontSize: 14,
+              color: Colors.black54,
+            ),
           ),
         ),
         Container(
@@ -125,13 +126,13 @@ class MessageViewBox extends StatelessWidget {
           margin: const EdgeInsets.fromLTRB(
             15.0,
             5.0,
+            5.0,
             15.0,
-            25.0,
           ),
           decoration: BoxDecoration(
             color: isMe
-                ? const Color.fromARGB(255, 240, 234, 255)
-                : Colors.purpleAccent,
+                ? Color.fromARGB(205, 183, 186, 241)
+                : const Color.fromARGB(255, 240, 234, 255),
             borderRadius: isMe
                 ? const BorderRadius.only(
                     topLeft: Radius.circular(20.0),

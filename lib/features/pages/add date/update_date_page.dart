@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/data/remote_data_sources/items_remote_data_source.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/domain/repositories/items_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class UpdatePage extends StatefulWidget {
   const UpdatePage(
@@ -171,28 +173,9 @@ class _UpdateDatePageBody extends StatelessWidget {
                 TextFormField(
                   initialValue: itemModel.city,
                   onChanged: onCityChanged,
-                  decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                    border: const OutlineInputBorder(),
-                    hintText: 'Miasto',
-                    labelStyle: TextStyle(color: Colors.grey.shade700),
-                    label: Text(
-                      'Miasto',
-                      style: GoogleFonts.montserrat(),
-                    ),
+                  decoration: textFieldDecoration(
+                    text: itemModel.city,
+                    icon: const Icon(Ionicons.business_outline),
                   ),
                 ),
               const SizedBox(height: 20),
@@ -200,28 +183,9 @@ class _UpdateDatePageBody extends StatelessWidget {
                 TextFormField(
                   initialValue: itemModel.adress,
                   onChanged: onAdressChanged,
-                  decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                    border: const OutlineInputBorder(),
-                    hintText: 'Adres',
-                    labelStyle: TextStyle(color: Colors.grey.shade700),
-                    label: Text(
-                      'Adres',
-                      style: GoogleFonts.montserrat(),
-                    ),
+                  decoration: textFieldDecoration(
+                    text: itemModel.adress,
+                    icon: const Icon(Ionicons.pin_outline),
                   ),
                 ),
               const SizedBox(height: 20),
@@ -238,15 +202,7 @@ class _UpdateDatePageBody extends StatelessWidget {
                     );
                     onDateChanged(selectedDate);
                   },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    primary: const Color.fromARGB(205, 107, 26, 213),
-                    shadowColor: Colors.grey,
-                    elevation: 6.0,
-                    textStyle: GoogleFonts.montserrat(),
-                  ),
+                  style: elevatedButtonStyle(),
                   child: Text(
                     selectedDateFormatted ??
                         DateFormat.yMMMMEEEEd().format(itemModel.date),
@@ -263,15 +219,7 @@ class _UpdateDatePageBody extends StatelessWidget {
                         context: context, initialTime: TimeOfDay.now());
                     onTimeChanged(selectedTime);
                   },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    primary: const Color.fromARGB(205, 107, 26, 213),
-                    shadowColor: Colors.grey,
-                    elevation: 6.0,
-                    textStyle: GoogleFonts.montserrat(),
-                  ),
+                  style: elevatedButtonStyle(),
                   child: Text(
                     selectedTimeFormatted ?? itemModel.time.toString(),
                     style: GoogleFonts.montserrat(),

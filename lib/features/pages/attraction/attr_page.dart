@@ -6,6 +6,7 @@ import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/data/remote_data_sources/attraction_remote_data_source.dart';
 import 'package:letsparty/features/pages/attraction/cubit/attraction_cubit.dart';
 import 'package:letsparty/domain/repositories/attraction_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class AttractionPage extends StatelessWidget {
   AttractionPage({Key? key}) : super(key: key);
@@ -33,67 +34,55 @@ class AttractionPage extends StatelessWidget {
               ),
             ),
             body: BlocBuilder<AttractionCubit, AttractionState>(
-              builder: (context, state) {
-                switch (state.status) {
-                  case Status.initial:
-                    return const Center(
-                      child: Text('Wait a second...'),
-                    );
-                  case Status.error:
-                    return const Center(
-                        child: Text('Oops, we have a problem :('));
+                builder: (context, state) {
+              switch (state.status) {
+                case Status.initial:
+                  return const Center(
+                    child: Text('Wait a second...'),
+                  );
+                case Status.error:
+                  return const Center(
+                      child: Text('Oops, we have a problem :('));
 
-                  case Status.loading:
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.purple,
-                      ),
-                    );
+                case Status.loading:
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.purple,
+                    ),
+                  );
 
-                  case Status.success:
-                    final attractionModels = state.documents;
-                    return ListView(
-                      children: [
-                        for (final attractionModel in attractionModels) ...[
-                          Dismissible(
-                            key: ValueKey(attractionModel.id),
-                            onDismissed: (_) {
-                              context
-                                  .read<AttractionCubit>()
-                                  .remove(documentID: attractionModel.id);
-                            },
-                            child: AttractionWidget(attractionModel.title),
-                          ),
-                        ],
-                        Padding(
+                case Status.success:
+                  final attractionModels = state.documents;
+                  return ListView(
+                    children: [
+                      for (final attractionModel in attractionModels) ...[
+                        Dismissible(
+                          key: ValueKey(attractionModel.id),
+                          onDismissed: (_) {
+                            context
+                                .read<AttractionCubit>()
+                                .remove(documentID: attractionModel.id);
+                          },
+                          child: DisplayBox(name: attractionModel.title),
+                        ),
+                      ],
+                      Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: TextField(
-                            controller: controller,
-                            style: GoogleFonts.montserrat(),
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Color.fromARGB(183, 119, 77, 175),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: controller,
+                                  style: GoogleFonts.montserrat(),
+                                  decoration: textFieldDecoration(
+                                    text: 'Your attraction suggestion',
+                                    icon: const Icon(
+                                      Ionicons.gift_outline,
+                                    ),
+                                  ),
                                 ),
                               ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Color.fromARGB(183, 119, 77, 175),
-                                ),
-                              ),
-                              hintText: 'Your attraction suggestion',
-                              hintStyle: GoogleFonts.montserrat(),
-                              prefixIcon: const Icon(
-                                Ionicons.sparkles_outline,
-                                color: Color.fromARGB(183, 119, 77, 175),
-                              ),
-                              suffixIcon: IconButton(
+                              IconButton(
                                 onPressed: () {
                                   context
                                       .read<AttractionCubit>()
@@ -102,58 +91,17 @@ class AttractionPage extends StatelessWidget {
                                 },
                                 icon: const Icon(
                                   Icons.add,
-                                  color: Color.fromARGB(183, 119, 77, 175),
+                                  color: Color(0xFF332A6F),
                                 ),
                               ),
-                            ),
-                          ),
-                        )
-                      ],
-                    );
-                }
-              },
-            ),
+                            ],
+                          )),
+                    ],
+                  );
+              }
+            }),
           );
         },
-      ),
-    );
-  }
-}
-
-class AttractionWidget extends StatelessWidget {
-  const AttractionWidget(
-    this.title, {
-    Key? key,
-  }) : super(key: key);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 240, 234, 255),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(5, 5),
-            blurRadius: 6.0,
-            color: Colors.grey.shade600,
-          ),
-          const BoxShadow(
-            offset: Offset(-5, -5),
-            blurRadius: 6.0,
-            color: Color.fromARGB(255, 232, 222, 240),
-          ),
-        ],
-      ),
-      child: Text(
-        title,
-        style: GoogleFonts.montserrat(
-          fontSize: 18,
-        ),
       ),
     );
   }

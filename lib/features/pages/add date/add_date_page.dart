@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:letsparty/app/core/injection_container.dart';
+import 'package:ionicons/ionicons.dart';
+
 import 'package:letsparty/data/remote_data_sources/items_remote_data_source.dart';
 import 'package:letsparty/features/pages/add%20date/cubit/add_date_cubit.dart';
-import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
+
 import 'package:letsparty/domain/repositories/items_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class AddDatePage extends StatefulWidget {
   const AddDatePage({
@@ -135,57 +137,22 @@ class _AddDatePageBody extends StatelessWidget {
       children: [
         TextField(
           onChanged: onCityChanged,
-          decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Color.fromARGB(183, 119, 77, 175),
-              ),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Color.fromARGB(183, 119, 77, 175),
-              ),
-            ),
-            border: const OutlineInputBorder(),
-            hintText: 'City',
-            labelStyle: TextStyle(color: Colors.grey.shade700),
-            label: Text(
-              'City',
-              style: GoogleFonts.montserrat(),
+          decoration: textFieldDecoration(
+            text: 'City',
+            icon: const Icon(
+              Ionicons.business_outline,
             ),
           ),
         ),
         const SizedBox(height: 20),
         TextField(
-          onChanged: onAdressChanged,
-          decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Color.fromARGB(183, 119, 77, 175),
+            onChanged: onAdressChanged,
+            decoration: textFieldDecoration(
+              text: 'Adress',
+              icon: const Icon(
+                Ionicons.pin_outline,
               ),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Color.fromARGB(183, 119, 77, 175),
-              ),
-            ),
-            border: const OutlineInputBorder(),
-            hintText: 'Adress',
-            labelStyle: TextStyle(color: Colors.grey.shade700),
-            label: Text(
-              'Adress',
-              style: GoogleFonts.montserrat(),
-            ),
-          ),
-        ),
+            )),
         const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () async {
@@ -197,15 +164,7 @@ class _AddDatePageBody extends StatelessWidget {
             );
             onDateChanged(selectedDate);
           },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            primary: const Color.fromARGB(205, 107, 26, 213),
-            shadowColor: Colors.grey,
-            elevation: 6.0,
-            textStyle: GoogleFonts.montserrat(),
-          ),
+          style: elevatedButtonStyle(),
           child: Text(
             selectedDateFormatted ?? 'Pick a date',
             style: GoogleFonts.montserrat(),
@@ -222,15 +181,7 @@ class _AddDatePageBody extends StatelessWidget {
             );
             onTimeChanged(selectedTime);
           },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            primary: const Color.fromARGB(205, 107, 26, 213),
-            shadowColor: Colors.grey,
-            elevation: 6.0,
-            textStyle: GoogleFonts.montserrat(),
-          ),
+          style: elevatedButtonStyle(),
           child: Text(
             selectedTimeFormatted ?? 'Choose an hour',
             style: GoogleFonts.montserrat(),

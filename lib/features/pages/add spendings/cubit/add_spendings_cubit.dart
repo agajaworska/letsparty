@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:letsparty/domain/models/addSpendings_model.dart';
 import 'package:letsparty/domain/repositories/spendings_repository.dart';
-import 'package:meta/meta.dart';
 
 part 'add_spendings_state.dart';
 

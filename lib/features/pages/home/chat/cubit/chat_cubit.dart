@@ -48,22 +48,26 @@ class ChatCubit extends Cubit<ChatState> {
           });
   }
 
-  Future<void> sendMessage({
-    required String text,
-    required String email,
-  }) async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
-      throw Exception('User is not logged in');
+  Future<void> addMessage({required String text, required String email}) async {
+    try {
+      await chatRepository.sendMessage(text: text, email: email);
+      emit(ChatState(
+        messages: state.messages,
+        isLoading: false,
+        errorMessage: '',
+      ));
+    } catch (error) {
+      emit(ChatState(
+        messages: const [],
+        errorMessage: error.toString(),
+        isLoading: false,
+      ));
     }
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('messages')
-        .add({
-      'text': text,
-      'sender': email,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
+  }
+
+  @override
+  Future<void> close() {
+    _streamSubscription?.cancel();
+    return super.close();
   }
 }

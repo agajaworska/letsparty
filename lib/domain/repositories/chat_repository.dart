@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:letsparty/data/remote_data_sources/chat_remote_data_sources.dart';
 import 'package:letsparty/domain/models/chat_model.dart';
 
@@ -23,5 +22,12 @@ class ChatRepository {
         ).toList();
       },
     );
+  }
+
+  Future<void> sendMessage({
+    required String text,
+    required String email,
+  }) {
+    return chatRemoteDataSource.sendMessage(text: text, email: email);
   }
 }

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/data/remote_data_sources/user_remote_data_source.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
 import 'package:letsparty/domain/repositories/user_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class QuestPage extends StatefulWidget {
   const QuestPage({
@@ -53,7 +54,7 @@ class _QuestPageState extends State<QuestPage> {
                             .read<AccountCubit>()
                             .remove(documentID: userModel.id);
                       },
-                      child: UserBox(
+                      child: DisplayBox(
                         name: userModel.name,
                       )),
                 ],
@@ -80,45 +81,6 @@ class BottomSheet extends StatelessWidget {
         child: Text(
           'Enter your full name in the "My Account" tab to show up on the guest list.',
           style: GoogleFonts.montserrat(color: Colors.white, fontSize: 16),
-        ),
-      ),
-    );
-  }
-}
-
-class UserBox extends StatelessWidget {
-  const UserBox({
-    required this.name,
-    Key? key,
-  }) : super(key: key);
-
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 240, 234, 255),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(5, 5),
-            blurRadius: 6.0,
-            color: Colors.grey.shade600,
-          ),
-          const BoxShadow(
-            offset: Offset(-5, -5),
-            blurRadius: 6.0,
-            color: Color.fromARGB(255, 232, 222, 240),
-          ),
-        ],
-      ),
-      child: Text(
-        name,
-        style: GoogleFonts.montserrat(
-          fontSize: 18,
         ),
       ),
     );

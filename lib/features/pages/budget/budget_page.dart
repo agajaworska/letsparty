@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/data/remote_data_sources/finance_remote_data_source.dart';
 import 'package:letsparty/data/remote_data_sources/spendings_remote_data_source.dart';
 import 'package:letsparty/domain/repositories/spendings_repository.dart';
@@ -8,6 +9,7 @@ import 'package:letsparty/features/pages/add%20spendings/add_spendings_page.dart
 import 'package:letsparty/features/pages/add%20spendings/cubit/add_spendings_cubit.dart';
 import 'package:letsparty/features/pages/budget/cubit/budget_cubit.dart';
 import 'package:letsparty/domain/repositories/finance_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class BudgetPage extends StatelessWidget {
   BudgetPage({Key? key}) : super(key: key);
@@ -36,7 +38,6 @@ class BudgetPage extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color.fromARGB(255, 107, 26, 213),
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -57,76 +58,70 @@ class BudgetPage extends StatelessWidget {
             }
             final budgetModels = state.documents;
 
-            return ListView(children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
-                child: Text(
-                  'Bank transfer details:',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              for (final budgetModel in budgetModels) ...[
-                Dismissible(
-                  key: ValueKey(budgetModel.id),
-                  onDismissed: (_) {
-                    context
-                        .read<BudgetCubit>()
-                        .remove(documentID: budgetModel.id);
-                  },
-                  child: DataBox(
-                    (budgetModel.data),
+            return ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+                  child: Text(
+                    'Bank transfer details:',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-              ],
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: TextField(
-                  controller: controller,
-                  style: GoogleFonts.montserrat(),
-                  decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                    hintText: 'Total cost and bank details transfer',
-                    hintStyle: GoogleFonts.montserrat(),
-                    prefixIcon: const Icon(
-                      Icons.monetization_on_outlined,
-                      color: Color.fromARGB(183, 119, 77, 175),
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        context.read<BudgetCubit>().add(data: controller.text);
-                        controller.clear();
+                const SizedBox(
+                  height: 12,
+                ),
+                for (final budgetModel in budgetModels) ...[
+                  Dismissible(
+                      key: ValueKey(budgetModel.id),
+                      onDismissed: (_) {
+                        context
+                            .read<BudgetCubit>()
+                            .remove(documentID: budgetModel.id);
                       },
-                      icon: const Icon(
-                        Icons.add,
-                        color: Color.fromARGB(183, 119, 77, 175),
+                      child: DisplayBox(
+                        name: budgetModel.data,
+                      )),
+                ],
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: controller,
+                          style: GoogleFonts.montserrat(),
+                          decoration: textFieldDecoration(
+                            text: 'Total cost and bank details transfer',
+                            icon: const Icon(Ionicons.cash_outline),
+                          ),
+                        ),
                       ),
-                    ),
+                      IconButton(
+                        onPressed: () {
+                          context
+                              .read<BudgetCubit>()
+                              .add(data: controller.text);
+                          controller.clear();
+                        },
+                        icon: const Icon(
+                          Icons.add,
+                          color: Color(0xFF332A6F),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0),
-                child: Divider(
-                    thickness: 1.0, color: Color.fromARGB(76, 82, 67, 92)),
-              ),
-              const ListOfSpendings(),
-            ]);
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0),
+                  child: Divider(
+                      thickness: 1.0, color: Color.fromARGB(76, 82, 67, 92)),
+                ),
+                const ListOfSpendings(),
+              ],
+            );
           },
         ),
       ),

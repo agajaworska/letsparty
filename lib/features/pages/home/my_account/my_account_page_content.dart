@@ -7,6 +7,7 @@ import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
 import 'package:letsparty/domain/models/user_model.dart';
 import 'package:letsparty/domain/repositories/user_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   MyAccountPageContent({
@@ -21,7 +22,6 @@ class MyAccountPageContent extends StatelessWidget {
       create: (context) => RootCubit(),
       child: BlocBuilder<RootCubit, RootState>(builder: (context, state) {
         return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 212, 208, 245),
               title: Text(
@@ -142,58 +142,18 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: TextField(
-                    controller: controller,
-                    decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Color.fromARGB(183, 119, 77, 175),
-                        ),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Color.fromARGB(183, 119, 77, 175),
-                        ),
-                      ),
-                      hintText: 'Full name',
-                      hintStyle: GoogleFonts.montserrat(),
-                      prefixIcon: const Icon(
-                        Icons.text_fields_outlined,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                  ),
+                      controller: controller,
+                      decoration: textFieldDecoration(
+                          text: 'Full name',
+                          icon: const Icon(Ionicons.text_outline))),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: TextField(
-                    controller: imageController,
-                    decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Color.fromARGB(183, 119, 77, 175),
-                        ),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Color.fromARGB(183, 119, 77, 175),
-                        ),
-                      ),
-                      hintText: 'Photo url: http://...jpg',
-                      hintStyle: GoogleFonts.montserrat(),
-                      prefixIcon: const Icon(
-                        Icons.add_a_photo_outlined,
-                        color: Color.fromARGB(183, 119, 77, 175),
-                      ),
-                    ),
-                  ),
+                      controller: imageController,
+                      decoration: textFieldDecoration(
+                          text: 'Photo url http://...jpg',
+                          icon: const Icon(Ionicons.camera_outline))),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -204,16 +164,7 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
                       child: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            backgroundColor:
-                                const Color.fromARGB(205, 107, 26, 213),
-                            shadowColor: Colors.grey,
-                            elevation: 6.0,
-                            textStyle: GoogleFonts.montserrat(),
-                          ),
+                          style: elevatedButtonStyle(),
                           onPressed: isButtonActive
                               ? () {
                                   setState(() {
@@ -238,16 +189,7 @@ class _MyAccountPageBodyState extends State<_MyAccountPageBody> {
                       child: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            backgroundColor:
-                                const Color.fromARGB(205, 107, 26, 213),
-                            shadowColor: Colors.grey,
-                            elevation: 6.0,
-                            textStyle: GoogleFonts.montserrat(),
-                          ),
+                          style: elevatedButtonStyle(),
                           onPressed: () {
                             for (final userModel in userModels) {
                               context

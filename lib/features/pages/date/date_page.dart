@@ -1,16 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/app/core/injection_container.dart';
 import 'package:letsparty/data/remote_data_sources/items_remote_data_source.dart';
-import 'package:letsparty/domain/models/date_model.dart';
 import 'package:letsparty/domain/models/weather_model.dart';
 import 'package:letsparty/domain/repositories/items_repository.dart';
 import 'package:letsparty/features/pages/add%20date/add_date_page.dart';
 import 'package:letsparty/features/pages/add%20date/update_date_page.dart';
 import 'package:letsparty/features/pages/date/cubit/date_cubit.dart';
 import 'package:letsparty/features/pages/weather/cubit/weather_cubit.dart';
+import 'package:letsparty/widgets/widgets.dart';
+import 'package:intl/intl.dart';
 
 class DatePage extends StatefulWidget {
   const DatePage({
@@ -163,7 +165,9 @@ class _DatePageBody extends StatelessWidget {
                   ),
                 ),
                 for (final dateModel in dateModels)
-                  _CityBox(dateModel: dateModel),
+                  Expanded(
+                      child: DisplayBox(
+                          dateModel: dateModel, name: dateModel.city)),
               ],
             ),
             Row(
@@ -175,7 +179,9 @@ class _DatePageBody extends StatelessWidget {
                   ),
                 ),
                 for (final dateModel in dateModels)
-                  _AdressBox(dateModel: dateModel),
+                  Expanded(
+                      child: DisplayBox(
+                          dateModel: dateModel, name: dateModel.adress)),
               ],
             ),
             Row(
@@ -187,7 +193,12 @@ class _DatePageBody extends StatelessWidget {
                   ),
                 ),
                 for (final dateModel in dateModels)
-                  _DateBox(dateModel: dateModel),
+                  Expanded(
+                    child: DisplayBox(
+                      dateModel: dateModel,
+                      name: dateModel.relaseDateFormatted(),
+                    ),
+                  ),
               ],
             ),
             Row(
@@ -199,7 +210,9 @@ class _DatePageBody extends StatelessWidget {
                   ),
                 ),
                 for (final dateModel in dateModels)
-                  _HourBox(dateModel: dateModel),
+                  Expanded(
+                      child: DisplayBox(
+                          dateModel: dateModel, name: dateModel.time)),
               ],
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -253,170 +266,6 @@ class _DatePageBody extends StatelessWidget {
             ),
           ]);
         },
-      ),
-    );
-  }
-}
-
-class _CityBox extends StatelessWidget {
-  const _CityBox({
-    Key? key,
-    required this.dateModel,
-  }) : super(key: key);
-
-  final DateModel dateModel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 240, 234, 255),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(5, 5),
-              blurRadius: 6.0,
-              color: Colors.grey.shade600,
-            ),
-            const BoxShadow(
-              offset: Offset(-5, -5),
-              blurRadius: 6.0,
-              color: Color.fromARGB(255, 232, 222, 240),
-            ),
-          ],
-        ),
-        child: Text(
-          dateModel.city,
-          style: GoogleFonts.montserrat(
-            fontSize: 18,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _AdressBox extends StatelessWidget {
-  const _AdressBox({
-    Key? key,
-    required this.dateModel,
-  }) : super(key: key);
-
-  final DateModel dateModel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 240, 234, 255),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(5, 5),
-              blurRadius: 6.0,
-              color: Colors.grey.shade600,
-            ),
-            const BoxShadow(
-              offset: Offset(-5, -5),
-              blurRadius: 6.0,
-              color: Color.fromARGB(255, 232, 222, 240),
-            ),
-          ],
-        ),
-        child: Text(
-          dateModel.adress,
-          style: GoogleFonts.montserrat(
-            fontSize: 18,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _DateBox extends StatelessWidget {
-  const _DateBox({
-    Key? key,
-    required this.dateModel,
-  }) : super(key: key);
-
-  final DateModel dateModel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 240, 234, 255),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(5, 5),
-              blurRadius: 6.0,
-              color: Colors.grey.shade600,
-            ),
-            const BoxShadow(
-              offset: Offset(-5, -5),
-              blurRadius: 6.0,
-              color: Color.fromARGB(255, 232, 222, 240),
-            ),
-          ],
-        ),
-        child: Text(
-          dateModel.relaseDateFormatted(),
-          style: GoogleFonts.montserrat(
-            fontSize: 18,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _HourBox extends StatelessWidget {
-  const _HourBox({
-    Key? key,
-    required this.dateModel,
-  }) : super(key: key);
-
-  final DateModel dateModel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 240, 234, 255),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(5, 5),
-              blurRadius: 6.0,
-              color: Colors.grey.shade600,
-            ),
-            const BoxShadow(
-              offset: Offset(-5, -5),
-              blurRadius: 6.0,
-              color: Color.fromARGB(255, 232, 222, 240),
-            ),
-          ],
-        ),
-        child: Text(
-          dateModel.time.toString(),
-          style: GoogleFonts.montserrat(
-            fontSize: 18,
-          ),
-        ),
       ),
     );
   }

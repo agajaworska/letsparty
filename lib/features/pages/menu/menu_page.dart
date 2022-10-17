@@ -6,6 +6,7 @@ import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/data/remote_data_sources/menu_remote_data_source.dart';
 import 'package:letsparty/features/pages/menu/cubit/menu_cubit.dart';
 import 'package:letsparty/domain/repositories/menu_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class MenuPage extends StatelessWidget {
   MenuPage(
@@ -63,38 +64,25 @@ class MenuPage extends StatelessWidget {
                                   .read<MenuCubit>()
                                   .remove(documentID: menuModel.id);
                             },
-                            child: MenuWidget(menuModel.title),
+                            child: DisplayBox(name: menuModel.title),
                           ),
                         ],
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: TextField(
-                            controller: controller,
-                            style: GoogleFonts.montserrat(),
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Color.fromARGB(183, 119, 77, 175),
+                          padding: const EdgeInsets.all(6.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: controller,
+                                  style: GoogleFonts.montserrat(),
+                                  decoration: textFieldDecoration(
+                                    text: 'Dish and drink suggestion',
+                                    icon:
+                                        const Icon(Ionicons.fast_food_outline),
+                                  ),
                                 ),
                               ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Color.fromARGB(183, 119, 77, 175),
-                                ),
-                              ),
-                              hintText: 'Dish and drink suggestion',
-                              hintStyle: GoogleFonts.montserrat(),
-                              prefixIcon: const Icon(
-                                Ionicons.fast_food_outline,
-                                color: Color.fromARGB(183, 119, 77, 175),
-                              ),
-                              suffixIcon: IconButton(
+                              IconButton(
                                 onPressed: () {
                                   context
                                       .read<MenuCubit>()
@@ -103,12 +91,12 @@ class MenuPage extends StatelessWidget {
                                 },
                                 icon: const Icon(
                                   Icons.add,
-                                  color: Color.fromARGB(183, 119, 77, 175),
+                                  color: Color(0xFF332A6F),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        )
+                        ),
                       ],
                     );
                 }
@@ -116,45 +104,6 @@ class MenuPage extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class MenuWidget extends StatelessWidget {
-  const MenuWidget(
-    this.title, {
-    Key? key,
-  }) : super(key: key);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 240, 234, 255),
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(5, 5),
-            blurRadius: 6.0,
-            color: Colors.grey.shade600,
-          ),
-          const BoxShadow(
-            offset: Offset(-5, -5),
-            blurRadius: 6.0,
-            color: Color.fromARGB(255, 232, 222, 240),
-          ),
-        ],
-      ),
-      child: Text(
-        title,
-        style: GoogleFonts.montserrat(
-          fontSize: 18,
-        ),
       ),
     );
   }

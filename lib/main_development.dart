@@ -7,6 +7,7 @@ import 'package:letsparty/features/pages/login/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
 import 'package:letsparty/features/pages/home/home_page.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -28,11 +29,14 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const RootPage(),
         theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
+          primaryColor: const Color.fromARGB(255, 212, 208, 245),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 212, 208, 245),
           fontFamily: 'Montsserat',
           bottomSheetTheme: const BottomSheetThemeData(
-            backgroundColor: Color.fromARGB(255, 158, 99, 235),
+            backgroundColor: Color(0xFF332A6F),
           ),
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(secondary: const Color(0xFF332A6F)),
         ));
   }
 }
@@ -52,7 +56,7 @@ class RootPage extends StatelessWidget {
 
           if (user == null) return LoginPage();
 
-          return const HomePage();
+          return HomePage();
         },
       ),
     );

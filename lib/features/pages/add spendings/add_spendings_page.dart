@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/data/remote_data_sources/spendings_remote_data_source.dart';
 import 'package:letsparty/features/pages/add%20spendings/cubit/add_spendings_cubit.dart';
 import 'package:letsparty/domain/repositories/spendings_repository.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class AddSpendingsPage extends StatefulWidget {
   const AddSpendingsPage({Key? key}) : super(key: key);
@@ -89,58 +91,19 @@ class _AddDatePageBody extends StatelessWidget {
       children: [
         TextField(
           onChanged: onNameChanged,
-          decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Color.fromARGB(183, 119, 77, 175),
-              ),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Color.fromARGB(183, 119, 77, 175),
-              ),
-            ),
-            hintText: 'Expense name',
-            hintStyle: GoogleFonts.montserrat(),
-            labelStyle: TextStyle(color: Colors.grey.shade700),
-            label: Text(
-              'Expense name',
-              style: GoogleFonts.montserrat(),
-            ),
+          decoration: textFieldDecoration(
+            text: 'Expense name',
+            icon: const Icon(Ionicons.text_outline),
           ),
         ),
         const SizedBox(height: 20),
         TextField(
-          keyboardType: const TextInputType.numberWithOptions(),
-          onChanged: onPriceChanged,
-          decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Color.fromARGB(183, 119, 77, 175),
-              ),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              borderSide: BorderSide(
-                width: 2,
-                color: Color.fromARGB(183, 119, 77, 175),
-              ),
-            ),
-            hintText: 'Cost',
-            hintStyle: GoogleFonts.montserrat(),
-            labelStyle: TextStyle(color: Colors.grey.shade700),
-            label: Text(
-              'Cost',
-              style: GoogleFonts.montserrat(),
-            ),
-          ),
-        ),
+            keyboardType: const TextInputType.numberWithOptions(),
+            onChanged: onPriceChanged,
+            decoration: textFieldDecoration(
+              text: 'Cost',
+              icon: const Icon(Ionicons.cash_outline),
+            )),
       ],
     );
   }
