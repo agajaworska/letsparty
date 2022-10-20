@@ -16,6 +16,62 @@ const messageBoxDecoration = BoxDecoration(
   ),
 );
 
+final inactiveBoxDecoration = BoxDecoration(
+  color: const Color.fromARGB(255, 212, 208, 245),
+  borderRadius: BorderRadius.circular(25.0),
+  boxShadow: const [
+    BoxShadow(
+      color: Color.fromARGB(255, 83, 80, 85),
+      blurRadius: 15,
+      offset: Offset(5, 5),
+    ),
+    BoxShadow(
+      color: Color.fromARGB(246, 253, 250, 255),
+      blurRadius: 16,
+      offset: Offset(-4, -4),
+    ),
+  ],
+  gradient: const LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color.fromARGB(93, 183, 178, 229),
+        Color.fromARGB(255, 195, 191, 231),
+      ],
+      stops: [
+        0.1,
+        0.9
+      ]),
+);
+
+final activeBoxDecoration = BoxDecoration(
+  color: const Color.fromARGB(255, 212, 208, 245),
+  borderRadius: BorderRadius.circular(25.0),
+  boxShadow: const [
+    BoxShadow(
+      color: Color.fromARGB(255, 83, 80, 85),
+      blurRadius: 15,
+      offset: Offset(5, 5),
+    ),
+    BoxShadow(
+      color: Color.fromARGB(246, 253, 250, 255),
+      blurRadius: 16,
+      offset: Offset(-4, -4),
+    ),
+  ],
+  gradient: const LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color.fromARGB(93, 183, 178, 229),
+        Color.fromARGB(255, 25, 5, 211),
+      ],
+      stops: [
+        0.1,
+        0.9
+      ]),
+);
+
 ButtonStyle elevatedButtonStyle() {
   return ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
@@ -52,14 +108,14 @@ InputDecoration textFieldDecoration({
 }
 
 class DisplayBox extends StatelessWidget {
-  DisplayBox({
+  const DisplayBox({
     this.dateModel,
     required this.name,
     Key? key,
   }) : super(key: key);
 
-  String name;
-  DateModel? dateModel;
+  final String name;
+  final DateModel? dateModel;
 
   @override
   Widget build(BuildContext context) {
