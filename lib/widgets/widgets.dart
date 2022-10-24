@@ -47,28 +47,23 @@ final inactiveBoxDecoration = BoxDecoration(
 final activeBoxDecoration = BoxDecoration(
   color: const Color.fromARGB(255, 212, 208, 245),
   borderRadius: BorderRadius.circular(25.0),
-  boxShadow: const [
+  boxShadow: [
     BoxShadow(
-      color: Color.fromARGB(255, 83, 80, 85),
-      blurRadius: 15,
-      offset: Offset(5, 5),
-    ),
-    BoxShadow(
-      color: Color.fromARGB(246, 253, 250, 255),
-      blurRadius: 16,
-      offset: Offset(-4, -4),
+      spreadRadius: -2.0,
+      color: Colors.grey.shade200,
+      blurRadius: 14.0,
     ),
   ],
   gradient: const LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
+      begin: Alignment.bottomRight,
+      end: Alignment.topLeft,
       colors: [
-        Color.fromARGB(93, 183, 178, 229),
-        Color.fromARGB(255, 25, 5, 211),
+        Color.fromARGB(255, 225, 222, 255),
+        Color.fromARGB(172, 172, 169, 205),
       ],
       stops: [
-        0.1,
-        0.9
+        0.3,
+        0.9,
       ]),
 );
 
@@ -87,6 +82,7 @@ ButtonStyle elevatedButtonStyle() {
 InputDecoration textFieldDecoration({
   required String text,
   required Icon icon,
+  TextStyle? textColor,
 }) {
   return InputDecoration(
     enabledBorder: const OutlineInputBorder(

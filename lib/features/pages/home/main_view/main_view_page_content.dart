@@ -29,6 +29,7 @@ class MainViewPageContent extends StatefulWidget {
 
 class _MainViewPageContentState extends State<MainViewPageContent> {
   Tab? selectedTab;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,7 +66,7 @@ class _MainViewPageContentState extends State<MainViewPageContent> {
           crossAxisCount: 2,
           padding: const EdgeInsets.fromLTRB(18.0, 5.0, 18.0, 18.0),
           children: [
-            InkWell(
+            GestureDetector(
               onTap: (() {
                 setState(() {
                   selectedTab = Tab.guest;

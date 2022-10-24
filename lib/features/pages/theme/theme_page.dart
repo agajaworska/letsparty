@@ -44,16 +44,19 @@ class ThemePage extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: controller,
-                      style: GoogleFonts.montserrat(color: Colors.white),
+                      style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                      ),
                       decoration: textFieldDecoration(
-                        text: 'Add photo url',
+                        text: 'Add photo url...',
                         icon: const Icon(
                           Ionicons.image_outline,
                           color: Colors.white,
                         ),
                       ).copyWith(
-                        hintText: 'Add photo url ...jpg',
-                        hintStyle: const TextStyle(color: Colors.white),
+                        hintStyle: const TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
