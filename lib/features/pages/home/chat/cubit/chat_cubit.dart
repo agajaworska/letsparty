@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsparty/domain/models/chat_model.dart';
 import 'package:letsparty/domain/repositories/chat_repository.dart';
 

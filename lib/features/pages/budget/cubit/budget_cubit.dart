@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsparty/domain/models/budget_model.dart';
 import 'package:letsparty/domain/repositories/finance_repository.dart';
-import 'package:meta/meta.dart';
 
 part 'budget_state.dart';
 

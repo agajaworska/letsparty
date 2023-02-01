@@ -11,6 +11,8 @@ import 'package:letsparty/domain/repositories/chat_repository.dart';
 import 'package:letsparty/features/pages/home/chat/cubit/chat_cubit.dart';
 
 class ChatPageContent extends StatefulWidget {
+  const ChatPageContent({super.key});
+
   @override
   _ChatPageContentState createState() => _ChatPageContentState();
 }
@@ -27,7 +29,7 @@ class _ChatPageContentState extends State<ChatPageContent> {
           ChatCubit(ChatRepository(ChatRemoteDataSource()))..start(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+          backgroundColor: const Color.fromARGB(255, 144, 222, 212),
           title: Text(
             'C H A T',
             style: GoogleFonts.bebasNeue(
@@ -131,8 +133,8 @@ class MessageViewBox extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: isMe
-                ? Color.fromARGB(205, 183, 186, 241)
-                : const Color.fromARGB(255, 240, 234, 255),
+                ? const Color.fromARGB(255, 249, 193, 195)
+                : const Color.fromARGB(255, 245, 232, 206),
             borderRadius: isMe
                 ? const BorderRadius.only(
                     topLeft: Radius.circular(20.0),
@@ -144,16 +146,11 @@ class MessageViewBox extends StatelessWidget {
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0),
                   ),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
-                offset: const Offset(5, 5),
-                blurRadius: 6.0,
-                color: Colors.grey.shade600,
-              ),
-              const BoxShadow(
-                offset: Offset(-3, -3),
-                blurRadius: 6.0,
-                color: Color.fromARGB(255, 232, 222, 240),
+                offset: Offset(5, 5),
+                blurRadius: 2.0,
+                color: Color.fromARGB(255, 0, 0, 0),
               ),
             ],
           ),
@@ -161,6 +158,7 @@ class MessageViewBox extends StatelessWidget {
             message.text,
             style: const TextStyle(
               fontFamily: 'Montserrat',
+              color: Colors.black,
               fontSize: 16,
             ),
           ),

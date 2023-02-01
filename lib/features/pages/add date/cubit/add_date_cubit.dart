@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsparty/domain/models/date_model.dart';
 import 'package:letsparty/domain/repositories/items_repository.dart';
-import 'package:meta/meta.dart';
 
 part 'add_date_state.dart';
 
