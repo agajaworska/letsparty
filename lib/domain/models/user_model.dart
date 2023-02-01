@@ -1,12 +1,13 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class UserModel {
+  UserModel({
+    required this.id,
+    required this.name,
+    required this.photo,
+    required this.groupId,
+  });
 
-part 'user_model.freezed.dart';
-
-@freezed
-class UserModel with _$UserModel {
-  factory UserModel({
-    required String id,
-    required String name,
-    required String photo,
-  }) = _UserModel;
+  String id;
+  String name;
+  String photo;
+  String groupId;
 }

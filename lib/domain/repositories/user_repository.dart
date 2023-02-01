@@ -17,6 +17,7 @@ class UserRepository {
               id: doc.id,
               name: doc['name'],
               photo: doc['photo'],
+              groupId: doc['group'],
             );
           },
         ).toList();
