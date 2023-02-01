@@ -39,13 +39,13 @@ class _MainViewPageContentState extends State<MainViewPageContent> {
             style: GoogleFonts.bungeeShade(
               fontWeight: FontWeight.w600,
               fontSize: 50,
-              color: textColor,
+              color: const Color.fromARGB(255, 42, 42, 42),
               textStyle: const TextStyle(
                 shadows: <Shadow>[
                   Shadow(
                     offset: Offset(-1, 1),
-                    blurRadius: 40,
-                    color: Color.fromARGB(255, 255, 230, 0),
+                    blurRadius: 30,
+                    color: Color.fromARGB(255, 249, 235, 127),
                   ),
                 ],
               ),
@@ -87,9 +87,8 @@ class _MainViewPageContentState extends State<MainViewPageContent> {
                 );
               },
               child: NewBox(
-                boxDecoration: selectedBox == Box.where
-                    ? activeBoxDecoration
-                    : inactiveBoxDecoration(iconPath: 'images/party.png'),
+                boxDecoration:
+                    inactiveBoxDecoration(iconPath: 'images/party.png'),
                 child: Text('Where \n& \nwhen',
                     textAlign: TextAlign.start,
                     style: GoogleFonts.bebasNeue(
@@ -107,9 +106,8 @@ class _MainViewPageContentState extends State<MainViewPageContent> {
                 );
               },
               child: NewBox(
-                boxDecoration: selectedBox == Box.menu
-                    ? activeBoxDecoration
-                    : inactiveBoxDecoration(iconPath: 'images/food.png'),
+                boxDecoration:
+                    inactiveBoxDecoration(iconPath: 'images/food.png'),
                 child: Text(
                   'Menu',
                   style: GoogleFonts.bebasNeue(

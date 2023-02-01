@@ -52,60 +52,6 @@ BoxDecoration inactiveBoxDecoration({required String iconPath}) {
   );
 }
 
-// final inactiveBoxDecoration = BoxDecoration(
-//   image: const DecorationImage(
-//     image: AssetImage(
-//       'images/fast-food.png',
-//     ),
-//     alignment: Alignment.bottomRight,
-//     scale: 6,
-//     colorFilter:
-//         ColorFilter.mode(Color.fromARGB(46, 194, 1, 72), BlendMode.modulate),
-//   ),
-//   color: const Color(0xFFC0C2CE),
-//   borderRadius: BorderRadius.circular(25.0),
-//   boxShadow: const [
-//     BoxShadow(
-//       color: Color.fromARGB(255, 83, 80, 85),
-//       blurRadius: 15,
-//       offset: Offset(5, 5),
-//     ),
-//     BoxShadow(
-//       color: Color.fromARGB(246, 253, 250, 255),
-//       blurRadius: 16,
-//       offset: Offset(-4, -4),
-//     ),
-//   ],
-//   gradient: const LinearGradient(
-//       begin: Alignment.topLeft,
-//       end: Alignment.bottomRight,
-//       colors: [
-//         Color.fromARGB(128, 192, 194, 206),
-//         Color(0xFFC0C2CE),
-//       ],
-//       stops: [
-//         0.1,
-//         0.9
-//       ]),
-// );
-
-final activeBoxDecoration = BoxDecoration(
-  color: const Color.fromARGB(255, 249, 143, 103),
-  borderRadius: BorderRadius.circular(25.0),
-  boxShadow: const [
-    BoxShadow(
-      color: Color.fromARGB(87, 32, 31, 31),
-      blurRadius: 8.0,
-      offset: Offset(-2, -2),
-    ),
-    BoxShadow(
-      color: Colors.black,
-      blurRadius: 1,
-      offset: Offset(4, 4),
-    ),
-  ],
-);
-
 ButtonStyle elevatedButtonStyle() {
   return ElevatedButton.styleFrom(
     padding: EdgeInsets.all(12.0),
