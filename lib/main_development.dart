@@ -29,14 +29,15 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const RootPage(),
         theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 212, 208, 245),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 212, 208, 245),
+          primaryColor: const Color.fromARGB(255, 144, 222, 212),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 144, 222, 212),
           fontFamily: 'Montsserat',
           bottomSheetTheme: const BottomSheetThemeData(
-            backgroundColor: Color(0xFF332A6F),
+            backgroundColor: Color.fromARGB(255, 249, 143, 103),
           ),
-          colorScheme: ColorScheme.fromSwatch()
-              .copyWith(secondary: const Color(0xFF332A6F)),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: Color.fromARGB(255, 249, 143, 103),
+          ),
         ));
   }
 }
@@ -56,7 +57,7 @@ class RootPage extends StatelessWidget {
 
           if (user == null) return LoginPage();
 
-          return HomePage();
+          return const HomePage();
         },
       ),
     );

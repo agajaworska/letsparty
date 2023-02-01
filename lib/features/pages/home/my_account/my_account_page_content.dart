@@ -9,9 +9,10 @@ import 'package:letsparty/domain/repositories/user_repository.dart';
 import 'package:letsparty/widgets/widgets.dart';
 
 class MyAccountPageContent extends StatefulWidget {
-  const MyAccountPageContent({
+  MyAccountPageContent({
     Key? key,
   }) : super(key: key);
+  final controller = TextEditingController();
 
   @override
   State<MyAccountPageContent> createState() => _MyAccountPageContentState();
@@ -20,6 +21,7 @@ class MyAccountPageContent extends StatefulWidget {
 class _MyAccountPageContentState extends State<MyAccountPageContent> {
   String? name;
   String? photo;
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
               final userModels = state.documents;
               return Scaffold(
                 appBar: AppBar(
-                  backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                  backgroundColor: const Color.fromARGB(255, 144, 222, 212),
                   title: Text(
                     'M Y  A C C O U N T',
                     style: GoogleFonts.bebasNeue(
@@ -47,7 +49,17 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
                       onPressed: () {
                         context.read<RootCubit>().signOut();
                       },
-                      icon: const Icon(Icons.logout_outlined),
+                      icon: const Icon(
+                        Icons.logout_outlined,
+                        size: 32,
+                        color: Colors.black87,
+                        shadows: [
+                          Shadow(
+                              color: Color.fromARGB(255, 249, 193, 195),
+                              offset: Offset(2.0, 2.0),
+                              blurRadius: 1.0)
+                        ],
+                      ),
                       color: Colors.grey.shade900,
                     )
                   ],
@@ -57,11 +69,13 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
                     setState(() {
                       name = newValue;
                     });
+                    controller.clear();
                   },
                   onPhotoChanged: (newValue) {
                     setState(() {
                       photo = newValue;
                     });
+                    controller.clear();
                   },
                   addButton: ElevatedButton(
                     onPressed: name == null || photo == null
@@ -72,16 +86,18 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
                                   photo: photo!,
                                 );
                           },
+                    style: elevatedButtonStyle(),
                     child: const Icon(Ionicons.add),
                   ),
                   removeButton: ElevatedButton(
                     onPressed: () {
                       for (final userModel in userModels) {
-                        context
-                            .read<AccountCubit>()
-                            .remove(documentID: userModel.id);
+                        context.read<AccountCubit>().remove(
+                              documentID: userModel.id,
+                            );
                       }
                     },
+                    style: elevatedButtonStyle(),
                     child: const Icon(Ionicons.trash_bin_outline),
                   ),
                 ),
@@ -155,8 +171,7 @@ class _MyAccountPageBody extends StatelessWidget {
                               child: Text(
                             userModel.name,
                             style: GoogleFonts.montserrat(
-                              fontSize: 22,
-                            ),
+                                fontSize: 26, fontWeight: FontWeight.w500),
                           )),
                         ),
                       ],
@@ -166,22 +181,45 @@ class _MyAccountPageBody extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: TextField(
+                        textInputAction: TextInputAction.next,
+                        style: GoogleFonts.montserrat(),
                         onChanged: onNameChanged,
                         decoration: textFieldDecoration(
                             text: 'Full name',
-                            icon: const Icon(Ionicons.text_outline))),
+                            icon: const Icon(
+                              Ionicons.text_outline,
+                              size: 32,
+                              color: Colors.black87,
+                              shadows: [
+                                Shadow(
+                                    color: Color.fromARGB(255, 249, 193, 195),
+                                    offset: Offset(2.0, 2.0),
+                                    blurRadius: 1.0)
+                              ],
+                            ))),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: TextField(
                         onChanged: onPhotoChanged,
+                        style: GoogleFonts.montserrat(),
                         decoration: textFieldDecoration(
                             text: 'Photo url http://...jpg',
-                            icon: const Icon(Ionicons.camera_outline))),
+                            icon: const Icon(
+                              Ionicons.camera_outline,
+                              size: 32,
+                              color: Colors.black87,
+                              shadows: [
+                                Shadow(
+                                    color: Color.fromARGB(255, 249, 193, 195),
+                                    offset: Offset(2.0, 2.0),
+                                    blurRadius: 1.0)
+                              ],
+                            ))),
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     SizedBox(
-                      height: 42,
+                      height: 44,
                       width: 80,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
@@ -189,7 +227,7 @@ class _MyAccountPageBody extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 42,
+                      height: 44,
                       width: 80,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 8.0),

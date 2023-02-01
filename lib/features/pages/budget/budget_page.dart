@@ -26,9 +26,9 @@ class BudgetPage extends StatelessWidget {
       create: (context) =>
           BudgetCubit(FinanceRepository(FinanceRemoteDataSource()))..start(),
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+        backgroundColor: const Color.fromARGB(255, 144, 222, 212),
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+          backgroundColor: const Color.fromARGB(255, 144, 222, 212),
           title: Text(
             'B u d g e t',
             style: GoogleFonts.bebasNeue(
@@ -60,12 +60,16 @@ class BudgetPage extends StatelessWidget {
 
             return ListView(
               children: [
+                const SizedBox(
+                  height: 12.0,
+                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 0.0),
                   child: Text(
                     'Bank transfer details:',
                     style: GoogleFonts.montserrat(
                       fontSize: 20,
+                      fontWeight: FontWeight.w600,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -95,7 +99,17 @@ class BudgetPage extends StatelessWidget {
                           style: GoogleFonts.montserrat(),
                           decoration: textFieldDecoration(
                             text: 'Total cost and bank details transfer',
-                            icon: const Icon(Ionicons.cash_outline),
+                            icon: const Icon(
+                              Ionicons.cash_outline,
+                              size: 32,
+                              color: Colors.black87,
+                              shadows: [
+                                Shadow(
+                                    color: Color.fromARGB(255, 249, 193, 195),
+                                    offset: Offset(2.0, 2.0),
+                                    blurRadius: 1.0)
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -108,7 +122,14 @@ class BudgetPage extends StatelessWidget {
                         },
                         icon: const Icon(
                           Icons.add,
-                          color: Color(0xFF332A6F),
+                          size: 32,
+                          color: Colors.black87,
+                          shadows: [
+                            Shadow(
+                                color: Color.fromARGB(255, 249, 193, 195),
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 1.0)
+                          ],
                         ),
                       ),
                     ],
@@ -201,6 +222,7 @@ class ListOfSpendings extends StatelessWidget {
                     'List of spendings:',
                     style: GoogleFonts.montserrat(
                       fontSize: 20,
+                      fontWeight: FontWeight.w600,
                       textStyle: const TextStyle(),
                     ),
                   ),

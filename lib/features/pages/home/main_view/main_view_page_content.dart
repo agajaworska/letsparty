@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:letsparty/app/core/config.dart';
+import 'package:letsparty/app/core/enums/enums.dart';
 import 'package:letsparty/features/pages/attraction/attr_page.dart';
 import 'package:letsparty/features/pages/budget/budget_page.dart';
 import 'package:letsparty/features/pages/date/date_page.dart';
@@ -9,56 +10,50 @@ import 'package:letsparty/features/pages/quest/quest_page.dart';
 import 'package:letsparty/features/pages/theme/theme_page.dart';
 import 'package:letsparty/widgets/widgets.dart';
 
-enum Tab {
-  guest,
-  where,
-  menu,
-  attractions,
-  theme,
-  budget,
-}
-
 class MainViewPageContent extends StatefulWidget {
   const MainViewPageContent({
     Key? key,
-  }) : super(key: key);
+  }) : super(
+          key: key,
+        );
 
   @override
   State<MainViewPageContent> createState() => _MainViewPageContentState();
 }
 
 class _MainViewPageContentState extends State<MainViewPageContent> {
-  Tab? selectedTab;
+  Box? selectedBox;
+  final Color textColor = Colors.black87;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 18.0),
+          padding: const EdgeInsets.only(
+              top: 18.0, right: 8.0, left: 8.0, bottom: 18.0),
           child: Text(
-            'L  E  T \' S   P  A  R  T  Y ',
-            style: GoogleFonts.bebasNeue(
+            'LET\'S  PARTY ',
+            style: GoogleFonts.bungeeShade(
               fontWeight: FontWeight.w600,
               fontSize: 50,
-              color: const Color.fromARGB(255, 29, 21, 83),
+              color: textColor,
               textStyle: const TextStyle(
                 shadows: <Shadow>[
                   Shadow(
-                    offset: Offset(4, 3),
-                    blurRadius: 4.0,
-                    color: Color(0xFF332A6F),
-                  ),
-                  Shadow(
-                    offset: Offset(2, 2),
-                    blurRadius: 4.0,
-                    color: Color.fromARGB(255, 173, 166, 252),
+                    offset: Offset(-1, 1),
+                    blurRadius: 40,
+                    color: Color.fromARGB(255, 255, 230, 0),
                   ),
                 ],
               ),
             ),
           ),
+        ),
+        const SizedBox(
+          height: 12,
         ),
         Text(Config.helloMessage),
         Expanded(
@@ -66,54 +61,45 @@ class _MainViewPageContentState extends State<MainViewPageContent> {
           crossAxisCount: 2,
           padding: const EdgeInsets.fromLTRB(18.0, 5.0, 18.0, 18.0),
           children: [
-            GestureDetector(
-              onTap: (() {
-                setState(() {
-                  selectedTab = Tab.guest;
-                });
+            InkWell(
+              onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const QuestPage()),
                 );
-              }),
+              },
               child: NewBox(
-                boxDecoration: selectedTab == Tab.guest
-                    ? activeBoxDecoration
-                    : inactiveBoxDecoration,
+                boxDecoration: inactiveBoxDecoration(
+                  iconPath: 'images/to-do.png',
+                ),
                 child: Text(
-                  'Guest list',
+                  'Guest \nlist',
                   style: GoogleFonts.bebasNeue(
-                    fontSize: 30,
-                    color: Colors.grey.shade900,
+                    fontSize: 32,
+                    color: textColor,
                   ),
                 ),
               ),
             ),
             InkWell(
               onTap: () {
-                setState(() {
-                  selectedTab = Tab.where;
-                });
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const DatePage()),
                 );
               },
               child: NewBox(
-                boxDecoration: selectedTab == Tab.where
+                boxDecoration: selectedBox == Box.where
                     ? activeBoxDecoration
-                    : inactiveBoxDecoration,
-                child: Text(' Where & when ',
-                    textAlign: TextAlign.center,
+                    : inactiveBoxDecoration(iconPath: 'images/party.png'),
+                child: Text('Where \n& \nwhen',
+                    textAlign: TextAlign.start,
                     style: GoogleFonts.bebasNeue(
-                      fontSize: 30,
-                      color: Colors.grey.shade900,
+                      fontSize: 32,
+                      color: textColor,
                     )),
               ),
             ),
             InkWell(
               onTap: () {
-                setState(() {
-                  selectedTab = Tab.menu;
-                });
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => MenuPage(widget.key),
@@ -121,80 +107,69 @@ class _MainViewPageContentState extends State<MainViewPageContent> {
                 );
               },
               child: NewBox(
-                boxDecoration: selectedTab == Tab.menu
+                boxDecoration: selectedBox == Box.menu
                     ? activeBoxDecoration
-                    : inactiveBoxDecoration,
+                    : inactiveBoxDecoration(iconPath: 'images/food.png'),
                 child: Text(
                   'Menu',
                   style: GoogleFonts.bebasNeue(
-                    fontSize: 30,
-                    color: Colors.grey.shade900,
+                    fontSize: 32,
+                    color: textColor,
                   ),
                 ),
               ),
             ),
             InkWell(
               onTap: () {
-                setState(() {
-                  selectedTab = Tab.attractions;
-                });
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => AttractionPage()),
                 );
               },
               child: NewBox(
-                boxDecoration: selectedTab == Tab.attractions
-                    ? activeBoxDecoration
-                    : inactiveBoxDecoration,
+                boxDecoration:
+                    inactiveBoxDecoration(iconPath: 'images/dance.png'),
                 child: Text(
                   'Attractions',
                   style: GoogleFonts.bebasNeue(
-                    fontSize: 30,
-                    color: Colors.grey.shade900,
+                    fontSize: 32,
+                    color: textColor,
                   ),
                 ),
               ),
             ),
             InkWell(
               onTap: () {
-                setState(() {
-                  selectedTab = Tab.theme;
-                });
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => ThemePage()),
                 );
               },
               child: NewBox(
-                boxDecoration: selectedTab == Tab.theme
-                    ? activeBoxDecoration
-                    : inactiveBoxDecoration,
+                boxDecoration:
+                    inactiveBoxDecoration(iconPath: 'images/camera.png'),
                 child: Text(
-                  'Party theme',
+                  'Party \ntheme',
                   style: GoogleFonts.bebasNeue(
-                    fontSize: 30,
-                    color: Colors.grey.shade900,
+                    fontSize: 32,
+                    color: textColor,
                   ),
                 ),
               ),
             ),
             InkWell(
               onTap: () {
-                setState(() {
-                  selectedTab = Tab.budget;
-                });
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => BudgetPage()),
                 );
               },
               child: NewBox(
-                boxDecoration: selectedTab == Tab.budget
-                    ? activeBoxDecoration
-                    : inactiveBoxDecoration,
+                boxDecoration:
+                    inactiveBoxDecoration(iconPath: 'images/coins.png'),
                 child: Text(
                   'Budget',
+                  textAlign: TextAlign.start,
                   style: GoogleFonts.bebasNeue(
-                    fontSize: 30,
-                    color: Colors.grey.shade900,
+                    fontSize: 32,
+                    color: textColor,
                   ),
                 ),
               ),
@@ -215,13 +190,22 @@ class NewBox extends StatelessWidget {
 
   final Widget child;
   final BoxDecoration boxDecoration;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: boxDecoration,
-        child: Center(child: child),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: child,
+            ),
+          ],
+        ),
       ),
     );
   }

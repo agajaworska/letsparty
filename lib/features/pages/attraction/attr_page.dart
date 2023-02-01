@@ -22,9 +22,9 @@ class AttractionPage extends StatelessWidget {
       child: BlocBuilder<AttractionCubit, AttractionState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            backgroundColor: const Color.fromARGB(255, 144, 222, 212),
             appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
               title: Text(
                 'A t t r a c t i o n s',
                 style: GoogleFonts.bebasNeue(
@@ -78,6 +78,15 @@ class AttractionPage extends StatelessWidget {
                                     text: 'Your attraction suggestion',
                                     icon: const Icon(
                                       Ionicons.gift_outline,
+                                      color: Colors.black87,
+                                      size: 32,
+                                      shadows: [
+                                        Shadow(
+                                            color: Color.fromARGB(
+                                                255, 249, 193, 195),
+                                            offset: Offset(2.0, 2.0),
+                                            blurRadius: 1.0)
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -91,7 +100,15 @@ class AttractionPage extends StatelessWidget {
                                 },
                                 icon: const Icon(
                                   Icons.add,
-                                  color: Color(0xFF332A6F),
+                                  color: Colors.black87,
+                                  size: 32,
+                                  shadows: [
+                                    Shadow(
+                                        color:
+                                            Color.fromARGB(255, 249, 193, 195),
+                                        offset: Offset(2.0, 2.0),
+                                        blurRadius: 1.0)
+                                  ],
                                 ),
                               ),
                             ],

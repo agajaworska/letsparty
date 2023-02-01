@@ -29,9 +29,9 @@ class _AddSpendingsPageState extends State<AddSpendingsPage> {
         child: BlocBuilder<AddSpendingsCubit, AddSpendingsState>(
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
               appBar: AppBar(
-                backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                backgroundColor: const Color.fromARGB(255, 144, 222, 212),
                 title: Text(
                   'S p e n d i n g s',
                   style: GoogleFonts.bebasNeue(
@@ -47,7 +47,17 @@ class _AddSpendingsPageState extends State<AddSpendingsPage> {
                             price: _price!,
                           );
                     },
-                    icon: const Icon(Icons.check),
+                    icon: const Icon(
+                      Icons.check,
+                      size: 32,
+                      color: Colors.black87,
+                      shadows: [
+                        Shadow(
+                            color: Color.fromARGB(255, 249, 193, 195),
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 1.0)
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -90,19 +100,41 @@ class _AddDatePageBody extends StatelessWidget {
       ),
       children: [
         TextField(
+          style: GoogleFonts.montserrat(),
           onChanged: onNameChanged,
           decoration: textFieldDecoration(
             text: 'Expense name',
-            icon: const Icon(Ionicons.text_outline),
+            icon: const Icon(
+              Ionicons.text_outline,
+              size: 32,
+              color: Colors.black87,
+              shadows: [
+                Shadow(
+                    color: Color.fromARGB(255, 249, 193, 195),
+                    offset: Offset(2.0, 2.0),
+                    blurRadius: 1.0)
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 20),
         TextField(
+            style: GoogleFonts.montserrat(),
             keyboardType: const TextInputType.numberWithOptions(),
             onChanged: onPriceChanged,
             decoration: textFieldDecoration(
               text: 'Cost',
-              icon: const Icon(Ionicons.cash_outline),
+              icon: const Icon(
+                Ionicons.cash_outline,
+                size: 32,
+                color: Colors.black87,
+                shadows: [
+                  Shadow(
+                      color: Color.fromARGB(255, 249, 193, 195),
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 1.0)
+                ],
+              ),
             )),
       ],
     );

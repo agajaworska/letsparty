@@ -46,9 +46,9 @@ class _AddDatePageState extends State<AddDatePage> {
           },
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
               appBar: AppBar(
-                backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                backgroundColor: const Color.fromARGB(255, 144, 222, 212),
                 title: Text(
                   'A d d  i n f o ',
                   style: GoogleFonts.bebasNeue(
@@ -73,7 +73,17 @@ class _AddDatePageState extends State<AddDatePage> {
                                   _time!.format(context),
                                 );
                           },
-                    icon: const Icon(Icons.check),
+                    icon: const Icon(
+                      Icons.check,
+                      size: 32,
+                      color: Colors.black87,
+                      shadows: [
+                        Shadow(
+                            color: Color.fromARGB(255, 249, 193, 195),
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 1.0)
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -137,20 +147,38 @@ class _AddDatePageBody extends StatelessWidget {
       children: [
         TextField(
           onChanged: onCityChanged,
+          style: GoogleFonts.montserrat(),
           decoration: textFieldDecoration(
             text: 'City',
             icon: const Icon(
               Ionicons.business_outline,
+              size: 32,
+              color: Colors.black87,
+              shadows: [
+                Shadow(
+                    color: Color.fromARGB(255, 249, 193, 195),
+                    offset: Offset(2.0, 2.0),
+                    blurRadius: 1.0)
+              ],
             ),
           ),
         ),
         const SizedBox(height: 20),
         TextField(
             onChanged: onAdressChanged,
+            style: GoogleFonts.montserrat(),
             decoration: textFieldDecoration(
               text: 'Adress',
               icon: const Icon(
                 Ionicons.pin_outline,
+                size: 32,
+                color: Colors.black87,
+                shadows: [
+                  Shadow(
+                      color: Color.fromARGB(255, 249, 193, 195),
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 1.0)
+                ],
               ),
             )),
         const SizedBox(height: 20),

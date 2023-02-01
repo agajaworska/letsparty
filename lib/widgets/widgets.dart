@@ -16,89 +16,134 @@ const messageBoxDecoration = BoxDecoration(
   ),
 );
 
-final inactiveBoxDecoration = BoxDecoration(
-  color: const Color.fromARGB(255, 212, 208, 245),
+BoxDecoration inactiveBoxDecoration({required String iconPath}) {
+  return BoxDecoration(
+    image: DecorationImage(
+      image: AssetImage(
+        iconPath,
+      ),
+      alignment: Alignment.bottomRight,
+      scale: 6,
+    ),
+    color: const Color.fromARGB(255, 249, 193, 195),
+    borderRadius: BorderRadius.circular(25.0),
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.black,
+        blurRadius: 1,
+        offset: Offset(4, 4),
+      ),
+      BoxShadow(
+        color: Color.fromARGB(255, 252, 230, 188),
+        offset: Offset(-3, -3),
+      ),
+    ],
+    gradient: const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Color.fromARGB(255, 249, 193, 195),
+          Color.fromARGB(255, 249, 193, 195),
+        ],
+        stops: [
+          0.1,
+          0.9
+        ]),
+  );
+}
+
+// final inactiveBoxDecoration = BoxDecoration(
+//   image: const DecorationImage(
+//     image: AssetImage(
+//       'images/fast-food.png',
+//     ),
+//     alignment: Alignment.bottomRight,
+//     scale: 6,
+//     colorFilter:
+//         ColorFilter.mode(Color.fromARGB(46, 194, 1, 72), BlendMode.modulate),
+//   ),
+//   color: const Color(0xFFC0C2CE),
+//   borderRadius: BorderRadius.circular(25.0),
+//   boxShadow: const [
+//     BoxShadow(
+//       color: Color.fromARGB(255, 83, 80, 85),
+//       blurRadius: 15,
+//       offset: Offset(5, 5),
+//     ),
+//     BoxShadow(
+//       color: Color.fromARGB(246, 253, 250, 255),
+//       blurRadius: 16,
+//       offset: Offset(-4, -4),
+//     ),
+//   ],
+//   gradient: const LinearGradient(
+//       begin: Alignment.topLeft,
+//       end: Alignment.bottomRight,
+//       colors: [
+//         Color.fromARGB(128, 192, 194, 206),
+//         Color(0xFFC0C2CE),
+//       ],
+//       stops: [
+//         0.1,
+//         0.9
+//       ]),
+// );
+
+final activeBoxDecoration = BoxDecoration(
+  color: const Color.fromARGB(255, 249, 143, 103),
   borderRadius: BorderRadius.circular(25.0),
   boxShadow: const [
     BoxShadow(
-      color: Color.fromARGB(255, 83, 80, 85),
-      blurRadius: 15,
-      offset: Offset(5, 5),
+      color: Color.fromARGB(87, 32, 31, 31),
+      blurRadius: 8.0,
+      offset: Offset(-2, -2),
     ),
     BoxShadow(
-      color: Color.fromARGB(246, 253, 250, 255),
-      blurRadius: 16,
-      offset: Offset(-4, -4),
+      color: Colors.black,
+      blurRadius: 1,
+      offset: Offset(4, 4),
     ),
   ],
-  gradient: const LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [
-        Color.fromARGB(93, 183, 178, 229),
-        Color.fromARGB(255, 195, 191, 231),
-      ],
-      stops: [
-        0.1,
-        0.9
-      ]),
-);
-
-final activeBoxDecoration = BoxDecoration(
-  color: const Color.fromARGB(255, 212, 208, 245),
-  borderRadius: BorderRadius.circular(25.0),
-  boxShadow: [
-    BoxShadow(
-      spreadRadius: -2.0,
-      color: Colors.grey.shade200,
-      blurRadius: 14.0,
-    ),
-  ],
-  gradient: const LinearGradient(
-      begin: Alignment.bottomRight,
-      end: Alignment.topLeft,
-      colors: [
-        Color.fromARGB(255, 225, 222, 255),
-        Color.fromARGB(172, 172, 169, 205),
-      ],
-      stops: [
-        0.3,
-        0.9,
-      ]),
 );
 
 ButtonStyle elevatedButtonStyle() {
   return ElevatedButton.styleFrom(
+    padding: EdgeInsets.all(12.0),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
     ),
-    backgroundColor: const Color(0xFF332A6F),
-    shadowColor: Colors.grey,
-    elevation: 6.0,
-    textStyle: GoogleFonts.montserrat(),
+    backgroundColor: const Color.fromARGB(255, 249, 143, 103),
+    shadowColor: Colors.black87,
+    elevation: 4.0,
+    textStyle: GoogleFonts.montserrat(fontSize: 18),
   );
 }
 
 InputDecoration textFieldDecoration({
   required String text,
   required Icon icon,
-  TextStyle? textColor,
 }) {
   return InputDecoration(
     enabledBorder: const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(15.0)),
-      borderSide: BorderSide(width: 2, color: Color(0xFF332A6F)),
+      borderSide: BorderSide(
+        width: 2,
+        color: Color.fromARGB(255, 249, 193, 195),
+      ),
     ),
     focusedBorder: const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(15.0)),
-      borderSide: BorderSide(width: 2, color: Color(0xFF332A6F)),
+      borderSide: BorderSide(
+        width: 3,
+        color: Color.fromARGB(255, 249, 193, 195),
+      ),
     ),
     hintText: text,
     labelText: text,
     labelStyle: const TextStyle(
-      color: Color(0xFF332A6F),
+      color: Colors.black54,
     ),
-    hintStyle: GoogleFonts.montserrat(),
+    hintStyle: const TextStyle(fontFamily: 'Montserrat'),
     prefixIcon: icon,
   );
 }
@@ -119,19 +164,11 @@ class DisplayBox extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 240, 234, 255),
+        color: const Color.fromARGB(255, 245, 232, 206),
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            offset: const Offset(5, 5),
-            blurRadius: 6.0,
-            color: Colors.grey.shade600,
-          ),
-          const BoxShadow(
-            offset: Offset(-5, -5),
-            blurRadius: 6.0,
-            color: Color.fromARGB(255, 232, 222, 240),
-          ),
+              offset: Offset(4, 4), blurRadius: 2.0, color: Colors.black87),
         ],
       ),
       child: Text(

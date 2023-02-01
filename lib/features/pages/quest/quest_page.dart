@@ -19,9 +19,9 @@ class _QuestPageState extends State<QuestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+      backgroundColor: const Color.fromARGB(255, 144, 222, 212),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+        backgroundColor: const Color.fromARGB(255, 144, 222, 212),
         title: Text(
           'G u e s t  l i s t',
           style: GoogleFonts.bebasNeue(
@@ -77,10 +77,11 @@ class BottomSheet extends StatelessWidget {
     return Center(
       heightFactor: 1,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(12.0),
         child: Text(
           'Enter your full name in the "My Account" tab to show up on the guest list.',
           style: GoogleFonts.montserrat(color: Colors.white, fontSize: 16),
+          textAlign: TextAlign.center,
         ),
       ),
     );

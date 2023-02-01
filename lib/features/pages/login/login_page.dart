@@ -45,7 +45,7 @@ class LoginPage extends StatelessWidget {
       child: BlocBuilder<RootCubit, RootState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            backgroundColor: const Color.fromARGB(255, 144, 222, 212),
             body: Center(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

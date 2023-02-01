@@ -43,9 +43,9 @@ class _DatePageState extends State<DatePage> {
         builder: (context, state) {
           final weatherModel = state.model;
           return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            backgroundColor: const Color.fromARGB(255, 144, 222, 212),
             appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
               title: Text(
                 'W h e r e  &  w h e n',
                 style: GoogleFonts.bebasNeue(
@@ -162,6 +162,14 @@ class _DatePageBody extends StatelessWidget {
                   padding: EdgeInsets.all(15.0),
                   child: Icon(
                     Icons.location_city_outlined,
+                    size: 32,
+                    color: Colors.black87,
+                    shadows: [
+                      Shadow(
+                          color: Color.fromARGB(255, 249, 193, 195),
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 1.0)
+                    ],
                   ),
                 ),
                 for (final dateModel in dateModels)
@@ -176,6 +184,14 @@ class _DatePageBody extends StatelessWidget {
                   padding: EdgeInsets.all(15.0),
                   child: Icon(
                     Icons.home_outlined,
+                    size: 32,
+                    color: Colors.black87,
+                    shadows: [
+                      Shadow(
+                          color: Color.fromARGB(255, 249, 193, 195),
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 1.0)
+                    ],
                   ),
                 ),
                 for (final dateModel in dateModels)
@@ -190,6 +206,14 @@ class _DatePageBody extends StatelessWidget {
                   padding: EdgeInsets.all(15.0),
                   child: Icon(
                     Icons.calendar_month_outlined,
+                    size: 32,
+                    color: Colors.black87,
+                    shadows: [
+                      Shadow(
+                          color: Color.fromARGB(255, 249, 193, 195),
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 1.0)
+                    ],
                   ),
                 ),
                 for (final dateModel in dateModels)
@@ -207,6 +231,14 @@ class _DatePageBody extends StatelessWidget {
                   padding: EdgeInsets.all(15.0),
                   child: Icon(
                     Icons.watch_later_outlined,
+                    size: 32,
+                    color: Colors.black87,
+                    shadows: [
+                      Shadow(
+                          color: Color.fromARGB(255, 249, 193, 195),
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 1.0)
+                    ],
                   ),
                 ),
                 for (final dateModel in dateModels)
@@ -215,7 +247,38 @@ class _DatePageBody extends StatelessWidget {
                           dateModel: dateModel, name: dateModel.time)),
               ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const SizedBox(height: 12),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              IconButton(
+                onPressed: () async {
+                  final city = await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => UpdatePage(key),
+                      fullscreenDialog: true,
+                    ),
+                  );
+                  if (city == null) return null;
+                  if (city != null) {
+                    return BlocProvider.of<WeatherCubit>(context).getWeather(
+                      city: city.toString(),
+                    );
+                  }
+                },
+                icon: const Icon(
+                  Icons.edit_outlined,
+                  size: 32,
+                ),
+              ),
+              for (final dateModel in dateModels)
+                IconButton(
+                  onPressed: () {
+                    context.read<DateCubit>().remove(documentID: dateModel.id);
+                  },
+                  icon: const Icon(
+                    Icons.delete_outlined,
+                    size: 32,
+                  ),
+                ),
               IconButton(
                 onPressed: () async {
                   final city = await Navigator.of(context).push(
@@ -232,38 +295,16 @@ class _DatePageBody extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.add_outlined,
+                  size: 32,
                 ),
               ),
-              IconButton(
-                onPressed: () async {
-                  final city = await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => UpdatePage(key),
-                      fullscreenDialog: true,
-                    ),
-                  );
-                  if (city == null) return null;
-                  if (city != null) {
-                    return BlocProvider.of<WeatherCubit>(context).getWeather(
-                      city: city.toString(),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.edit_outlined),
-              ),
-              for (final dateModel in dateModels)
-                IconButton(
-                  onPressed: () {
-                    context.read<DateCubit>().remove(documentID: dateModel.id);
-                  },
-                  icon: const Icon(Icons.delete_outlined),
-                ),
             ]),
             const Padding(
               padding: EdgeInsets.fromLTRB(12.0, 0, 12.0, 0.0),
               child: Divider(
                   thickness: 1.0, color: Color.fromARGB(76, 82, 67, 92)),
             ),
+            const SizedBox(height: 12),
           ]);
         },
       ),

@@ -42,9 +42,9 @@ class _UpdatePageState extends State<UpdatePage> {
           builder: (context, state) {
             final itemModels = state.items;
             return Scaffold(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
               appBar: AppBar(
-                  backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+                  backgroundColor: const Color.fromARGB(255, 144, 222, 212),
                   title: Text(
                     'E D Y T U J ',
                     style: GoogleFonts.bebasNeue(
@@ -96,7 +96,17 @@ class _UpdatePageState extends State<UpdatePage> {
                                         date: itemModel.date,
                                         time: itemModel.time);
                                   },
-                            icon: const Icon(Icons.check),
+                            icon: const Icon(
+                              Icons.check,
+                              size: 32,
+                              color: Colors.black87,
+                              shadows: [
+                                Shadow(
+                                    color: Color.fromARGB(255, 249, 193, 195),
+                                    offset: Offset(2.0, 2.0),
+                                    blurRadius: 1.0)
+                              ],
+                            ),
                           );
                         }
                         throw const SizedBox.shrink();
@@ -171,21 +181,43 @@ class _UpdateDatePageBody extends StatelessWidget {
             children: [
               for (final itemModel in itemModels)
                 TextFormField(
+                  style: GoogleFonts.montserrat(),
                   initialValue: itemModel.city,
                   onChanged: onCityChanged,
                   decoration: textFieldDecoration(
                     text: itemModel.city,
-                    icon: const Icon(Ionicons.business_outline),
+                    icon: const Icon(
+                      Ionicons.business_outline,
+                      size: 32,
+                      color: Colors.black87,
+                      shadows: [
+                        Shadow(
+                            color: Color.fromARGB(255, 249, 193, 195),
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 1.0)
+                      ],
+                    ),
                   ),
                 ),
               const SizedBox(height: 20),
               for (final itemModel in itemModels)
                 TextFormField(
+                  style: GoogleFonts.montserrat(),
                   initialValue: itemModel.adress,
                   onChanged: onAdressChanged,
                   decoration: textFieldDecoration(
                     text: itemModel.adress,
-                    icon: const Icon(Ionicons.pin_outline),
+                    icon: const Icon(
+                      Ionicons.pin_outline,
+                      size: 32,
+                      color: Colors.black87,
+                      shadows: [
+                        Shadow(
+                            color: Color.fromARGB(255, 249, 193, 195),
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 1.0)
+                      ],
+                    ),
                   ),
                 ),
               const SizedBox(height: 20),

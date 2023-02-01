@@ -30,9 +30,9 @@ class HomePage extends StatelessWidget {
               return ChatPageContent();
             }),
             bottomNavigationBar: CurvedNavigationBar(
-              color: const Color.fromARGB(255, 194, 188, 227),
-              buttonBackgroundColor: const Color.fromARGB(255, 212, 208, 245),
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              color: const Color.fromARGB(255, 245, 232, 206),
+              buttonBackgroundColor: const Color.fromARGB(255, 144, 222, 212),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
               height: 46,
               animationCurve: Curves.easeOutCubic,
               animationDuration: const Duration(milliseconds: 900),
@@ -40,31 +40,31 @@ class HomePage extends StatelessWidget {
               items: const [
                 Icon(
                   Ionicons.person_outline,
-                  size: 26,
+                  size: 32,
                   shadows: [
                     Shadow(
-                        color: Color(0xFF332A6F),
+                        color: Color.fromARGB(255, 249, 108, 113),
                         offset: Offset(1.0, 1.0),
                         blurRadius: 5.0)
                   ],
                 ),
                 Icon(
                   Ionicons.home_outline,
-                  size: 26,
+                  size: 32,
                   shadows: [
                     Shadow(
-                        color: Color(0xFF332A6F),
+                        color: Color.fromARGB(255, 249, 108, 113),
                         offset: Offset(1.0, 1.0),
                         blurRadius: 5.0)
                   ],
                 ),
                 Icon(
                   Ionicons.chatbox_outline,
-                  size: 26,
+                  size: 32,
                   shadows: [
                     Shadow(
-                        color: Color(0xFF332A6F),
-                        offset: Offset(1.0, 1.0),
+                        color: Color.fromARGB(255, 249, 108, 113),
+                        offset: Offset(2.0, 2.0),
                         blurRadius: 5.0)
                   ],
                 )

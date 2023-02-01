@@ -26,7 +26,7 @@ class ThemePage extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            backgroundColor: const Color.fromARGB(255, 144, 222, 212),
             title: Text(
               'P A R T Y  T H E M E',
               style: GoogleFonts.bebasNeue(
@@ -38,7 +38,7 @@ class ThemePage extends StatelessWidget {
           bottomSheet: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Center(
-              heightFactor: 0.5,
+              heightFactor: 0.7,
               child: Row(
                 children: [
                   Expanded(
@@ -142,17 +142,21 @@ class DetailsThemePage extends StatelessWidget {
           final themeModel = state.themeModel;
           if (themeModel == null) {
             return Scaffold(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
-              appBar: AppBar(),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
+              appBar: AppBar(
+                backgroundColor: const Color.fromARGB(255, 144, 222, 212),
+              ),
               body: const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.pinkAccent,
+                ),
               ),
             );
           }
 
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
             ),
             body: Container(
               decoration: BoxDecoration(
