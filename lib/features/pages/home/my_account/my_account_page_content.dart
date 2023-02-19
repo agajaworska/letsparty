@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:letsparty/data/remote_data_sources/group_remote_data_source.dart';
 import 'package:letsparty/data/remote_data_sources/user_remote_data_source.dart';
+import 'package:letsparty/domain/models/user_model.dart';
+
+import 'package:letsparty/domain/repositories/group_repository.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
+import 'package:letsparty/features/pages/group%20page/cubit/group_cubit.dart';
+
 import 'package:letsparty/features/pages/home/my_account/cubit/account_cubit.dart';
 import 'package:letsparty/domain/repositories/user_repository.dart';
+import 'package:letsparty/features/pages/join%20group/cubit/join_group_cubit.dart';
+import 'package:letsparty/features/pages/join%20group/cubit/join_group_state.dart';
 import 'package:letsparty/widgets/widgets.dart';
 
 class MyAccountPageContent extends StatefulWidget {
@@ -34,72 +42,87 @@ class _MyAccountPageContentState extends State<MyAccountPageContent> {
           child: BlocBuilder<AccountCubit, AccountState>(
             builder: (context, state) {
               final userModels = state.documents;
-              return Scaffold(
-                appBar: AppBar(
-                  backgroundColor: const Color.fromARGB(255, 144, 222, 212),
-                  title: Text(
-                    'M Y  A C C O U N T',
-                    style: GoogleFonts.bebasNeue(
-                      fontSize: 35,
-                      color: Colors.grey.shade900,
-                    ),
-                  ),
-                  actions: [
-                    IconButton(
-                      onPressed: () {
-                        context.read<RootCubit>().signOut();
-                      },
-                      icon: const Icon(
-                        Icons.logout_outlined,
-                        size: 32,
-                        color: Colors.black87,
-                        shadows: [
-                          Shadow(
-                              color: Color.fromARGB(255, 249, 193, 195),
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 1.0)
+
+              return BlocProvider(
+                create: (context) =>
+                    GroupCubit(GroupRepository(GroupRemoteDataSource()))
+                      ..start(),
+                child: BlocBuilder<GroupCubit, GroupState>(
+                  builder: (context, state) {
+                    final groupModels = state.documents;
+                    return Scaffold(
+                      appBar: AppBar(
+                        backgroundColor:
+                            const Color.fromARGB(255, 144, 222, 212),
+                        title: Text(
+                          'M Y  A C C O U N T',
+                          style: GoogleFonts.bebasNeue(
+                            fontSize: 35,
+                            color: Colors.grey.shade900,
+                          ),
+                        ),
+                        actions: [
+                          IconButton(
+                            onPressed: () {
+                              context.read<RootCubit>().signOut();
+                            },
+                            icon: const Icon(
+                              Icons.logout_outlined,
+                              size: 32,
+                              color: Colors.black87,
+                              shadows: [
+                                Shadow(
+                                    color: Color.fromARGB(255, 249, 193, 195),
+                                    offset: Offset(2.0, 2.0),
+                                    blurRadius: 1.0)
+                              ],
+                            ),
+                            color: Colors.grey.shade900,
+                          )
                         ],
                       ),
-                      color: Colors.grey.shade900,
-                    )
-                  ],
-                ),
-                body: _MyAccountPageBody(
-                  onNameChanged: (newValue) {
-                    setState(() {
-                      name = newValue;
-                    });
-                    controller.clear();
-                  },
-                  onPhotoChanged: (newValue) {
-                    setState(() {
-                      photo = newValue;
-                    });
-                    controller.clear();
-                  },
-                  addButton: ElevatedButton(
-                    onPressed: name == null || photo == null
-                        ? null
-                        : () {
-                            context.read<AccountCubit>().add(
-                                  name: name!,
-                                  photo: photo!,
-                                );
+                      body: _MyAccountPageBody(
+                        onNameChanged: (newValue) {
+                          setState(() {
+                            name = newValue;
+                          });
+                          controller.clear();
+                        },
+                        onPhotoChanged: (newValue) {
+                          setState(() {
+                            photo = newValue;
+                          });
+                          controller.clear();
+                        },
+                        addButton: ElevatedButton(
+                          onPressed: name == null || photo == null
+                              ? null
+                              : () {
+                                  for (final groupModel in groupModels) {
+                                    context.read<AccountCubit>().add(
+                                          name: name!,
+                                          photo: photo!,
+                                          groupId: groupModel.id,
+                                        );
+                                  }
+                                },
+                          style: elevatedButtonStyle(),
+                          child: const Icon(Ionicons.add),
+                        ),
+                        removeButton: ElevatedButton(
+                          onPressed: () {
+                            for (final userModel in userModels) {
+                              context.read<AccountCubit>().remove(
+                                    documentID: userModel.id,
+                                  );
+                            }
                           },
-                    style: elevatedButtonStyle(),
-                    child: const Icon(Ionicons.add),
-                  ),
-                  removeButton: ElevatedButton(
-                    onPressed: () {
-                      for (final userModel in userModels) {
-                        context.read<AccountCubit>().remove(
-                              documentID: userModel.id,
-                            );
-                      }
-                    },
-                    style: elevatedButtonStyle(),
-                    child: const Icon(Ionicons.trash_bin_outline),
-                  ),
+                          style: elevatedButtonStyle(),
+                          child: const Icon(Ionicons.trash_bin_outline),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               );
             },

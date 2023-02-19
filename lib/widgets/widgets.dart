@@ -54,7 +54,7 @@ BoxDecoration inactiveBoxDecoration({required String iconPath}) {
 
 ButtonStyle elevatedButtonStyle() {
   return ElevatedButton.styleFrom(
-    padding: EdgeInsets.all(12.0),
+    padding: const EdgeInsets.all(12.0),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
     ),
@@ -160,6 +160,36 @@ class ThemeImageWidget extends StatelessWidget {
             themeModel.imageUrl,
           ),
           fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}
+
+class NewBox extends StatelessWidget {
+  const NewBox({
+    Key? key,
+    required this.child,
+    required this.boxDecoration,
+  }) : super(key: key);
+
+  final Widget child;
+  final BoxDecoration boxDecoration;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Container(
+        decoration: boxDecoration,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: child,
+            ),
+          ],
         ),
       ),
     );

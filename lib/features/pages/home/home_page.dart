@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                 return const MainViewPageContent();
               }
 
-              return ChatPageContent();
+              return const ChatPageContent();
             }),
             bottomNavigationBar: CurvedNavigationBar(
               color: const Color.fromARGB(255, 245, 232, 206),

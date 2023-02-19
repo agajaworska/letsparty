@@ -90,10 +90,6 @@ class RootCubit extends Cubit<RootState> {
     }
   }
 
-  Future<void> signOut() async {
-    FirebaseAuth.instance.signOut();
-  }
-
   Future<void> start() async {
     emit(
       const RootState(
@@ -128,15 +124,8 @@ class RootCubit extends Cubit<RootState> {
           );
   }
 
-  Future<void> getCurrentUser() async {
-    try {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        user;
-      }
-    } catch (error) {
-      error.toString();
-    }
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   @override

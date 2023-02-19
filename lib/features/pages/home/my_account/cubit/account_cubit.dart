@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsparty/domain/models/user_model.dart';
 import 'package:letsparty/domain/repositories/user_repository.dart';
-import 'package:meta/meta.dart';
 
 part 'account_state.dart';
 
@@ -44,12 +43,20 @@ class AccountCubit extends Cubit<AccountState> {
             errorMessage: error.toString(),
           ),
         );
+        print(error);
       });
   }
 
-  Future<void> add({required String name, required String photo}) async {
+  Future<void> add(
+      {required String name,
+      required String photo,
+      required String groupId}) async {
     try {
-      await userRepository.addUserItems(name: name, photo: photo);
+      await userRepository.addUserItems(
+        name: name,
+        photo: photo,
+        groupId: groupId,
+      );
       emit(AccountState(
         documents: state.documents,
         errorMessage: '',

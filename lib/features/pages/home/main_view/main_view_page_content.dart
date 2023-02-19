@@ -178,33 +178,3 @@ class _MainViewPageContentState extends State<MainViewPageContent> {
     ));
   }
 }
-
-class NewBox extends StatelessWidget {
-  const NewBox({
-    Key? key,
-    required this.child,
-    required this.boxDecoration,
-  }) : super(key: key);
-
-  final Widget child;
-  final BoxDecoration boxDecoration;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Container(
-        decoration: boxDecoration,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: child,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

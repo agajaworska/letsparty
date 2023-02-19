@@ -19,10 +19,10 @@ class UserRemoteDataSource {
     }
   }
 
-  Future<void> addUserItems({
-    required String name,
-    required String photo,
-  }) async {
+  Future<void> addUserItems(
+      {required String name,
+      required String photo,
+      required String? groupId}) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
       throw Exception('User is not logged in');
@@ -35,6 +35,7 @@ class UserRemoteDataSource {
       {
         'name': name,
         'photo': photo,
+        'groupId': groupId,
       },
     );
   }

@@ -132,8 +132,9 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
                     Text(state.errorMessage),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 25),
                     ElevatedButton(
                       onPressed: () async {
                         if (state.isCreatingAccount) {

@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:letsparty/app/core/config.dart';
 
 import 'package:letsparty/app/core/injection_container.dart';
+import 'package:letsparty/features/pages/group%20page/group_page.dart';
+import 'package:letsparty/features/pages/home/home_page.dart';
 import 'package:letsparty/features/pages/login/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
-import 'package:letsparty/features/pages/home/home_page.dart';
 
 import 'firebase_options.dart';
 
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Color.fromARGB(255, 249, 143, 103),
           ),
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            secondary: Color.fromARGB(255, 249, 143, 103),
+            secondary: const Color.fromARGB(255, 249, 143, 103),
           ),
         ));
   }
