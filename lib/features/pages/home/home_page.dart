@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
                 return MyAccountPageContent();
               }
               if (state.gNavItem == GNavItem.home) {
-                return const MainViewPageContent();
+                return MainViewPageContent();
               }
 
               return const ChatPageContent();

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:letsparty/features/cubit/root_cubit.dart';
+import 'package:letsparty/widgets/widgets.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({
@@ -12,28 +14,29 @@ class LoginPage extends StatelessWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final textColor = Colors.grey.shade800;
 
   final colorizeColors = [
-    const Color.fromARGB(249, 64, 25, 114),
-    const Color.fromARGB(255, 243, 33, 184),
-    const Color.fromARGB(255, 255, 230, 0),
-    const Color.fromARGB(255, 245, 100, 10),
+    const Color.fromARGB(255, 108, 188, 177),
+    const Color.fromARGB(255, 192, 133, 234),
+    const Color.fromARGB(255, 255, 251, 199),
+    const Color.fromARGB(255, 249, 193, 195),
   ];
 
   final colorizeTextStyle = const TextStyle(
     fontFamily: 'Bebas',
     fontSize: 85,
-    color: Color.fromARGB(240, 50, 5, 58),
+    color: Color.fromARGB(238, 205, 125, 219),
     shadows: <Shadow>[
       Shadow(
-        offset: Offset(4, 3),
-        blurRadius: 4.0,
-        color: Color.fromARGB(255, 85, 16, 146),
+        offset: Offset(4, 4),
+        blurRadius: 2,
+        color: Color.fromARGB(255, 7, 7, 6),
       ),
       Shadow(
-        offset: Offset(2, 2),
-        blurRadius: 4.0,
-        color: Color.fromARGB(255, 251, 251, 251),
+        offset: Offset(-3, -3),
+        blurRadius: 2.0,
+        color: Color.fromARGB(255, 255, 251, 199),
       ),
     ],
   );
@@ -54,13 +57,12 @@ class LoginPage extends StatelessWidget {
                       children: [
                         AnimatedTextKit(
                           animatedTexts: [
-                            ColorizeAnimatedText(
-                              'Let\'s party!',
-                              textStyle: colorizeTextStyle,
-                              colors: colorizeColors,
-                            ),
+                            ColorizeAnimatedText('Let\'s party!',
+                                textStyle: colorizeTextStyle,
+                                colors: colorizeColors,
+                                speed: Duration(milliseconds: 350)),
                           ],
-                          totalRepeatCount: 1,
+                          repeatForever: true,
                         ),
                       ],
                     ),
@@ -70,30 +72,11 @@ class LoginPage extends StatelessWidget {
                       child: TextField(
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
-                        decoration: InputDecoration(
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color.fromARGB(183, 119, 77, 175),
-                            ),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color.fromARGB(183, 119, 77, 175),
-                            ),
-                          ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Email',
-                          hintStyle: GoogleFonts.montserrat(),
-                          labelStyle: TextStyle(color: Colors.grey.shade700),
-                          label: Text(
-                            'Email',
-                            style: GoogleFonts.montserrat(),
+                        decoration: textFieldDecoration(
+                          text: 'Email',
+                          icon: const Icon(
+                            Ionicons.text_outline,
+                            color: Color.fromARGB(255, 249, 193, 195),
                           ),
                         ),
                       ),
@@ -102,35 +85,14 @@ class LoginPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
                       child: TextField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color.fromARGB(183, 119, 77, 175),
-                            ),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color.fromARGB(183, 119, 77, 175),
-                            ),
-                          ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Password',
-                          hintStyle: GoogleFonts.montserrat(),
-                          labelStyle: TextStyle(color: Colors.grey.shade700),
-                          label: Text(
-                            'Password',
-                            style: GoogleFonts.montserrat(),
-                          ),
-                        ),
-                      ),
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: textFieldDecoration(
+                              text: 'Password',
+                              icon: const Icon(
+                                Ionicons.text_outline,
+                                color: Color.fromARGB(255, 249, 193, 195),
+                              ))),
                     ),
                     const SizedBox(height: 20),
                     Text(state.errorMessage),
@@ -157,16 +119,7 @@ class LoginPage extends StatelessWidget {
                           }
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        backgroundColor:
-                            const Color.fromARGB(252, 122, 51, 214),
-                        shadowColor: Colors.grey,
-                        elevation: 6.0,
-                        textStyle: GoogleFonts.montserrat(),
-                      ),
+                      style: elevatedButtonStyle(),
                       child: Text(
                         state.isCreatingAccount
                             ? 'Register new account'
@@ -183,7 +136,7 @@ class LoginPage extends StatelessWidget {
                         },
                         child: Text('Create an account',
                             style: GoogleFonts.montserrat(
-                              color: const Color.fromARGB(252, 122, 51, 214),
+                              color: textColor,
                             )),
                       ),
                     ],
@@ -194,7 +147,7 @@ class LoginPage extends StatelessWidget {
                         },
                         child: Text('Already have an account?',
                             style: GoogleFonts.montserrat(
-                              color: const Color.fromARGB(252, 122, 51, 214),
+                              color: textColor,
                             )),
                       ),
                     ],
@@ -209,7 +162,7 @@ class LoginPage extends StatelessWidget {
                       },
                       child: Text('Forgot password?',
                           style: GoogleFonts.montserrat(
-                            color: const Color.fromARGB(252, 122, 51, 214),
+                            color: textColor,
                           )),
                     ),
                   ]),
@@ -235,9 +188,9 @@ class PasswordAlertDialog extends StatelessWidget {
       child: BlocBuilder<RootCubit, RootState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+            backgroundColor: const Color.fromARGB(255, 144, 222, 212),
             appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 212, 208, 245),
+              backgroundColor: const Color.fromARGB(255, 144, 222, 212),
             ),
             body: const Center(
                 child: AlertDialog(

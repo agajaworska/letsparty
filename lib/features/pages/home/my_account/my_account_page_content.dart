@@ -179,7 +179,7 @@ class _MyAccountPageBody extends StatelessWidget {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           image: NetworkImage(
-                            userModel.photo,
+                            userModel.photo!,
                           ),
                           fit: BoxFit.cover,
                         ),

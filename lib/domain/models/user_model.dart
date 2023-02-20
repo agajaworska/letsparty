@@ -8,6 +8,6 @@ class UserModel {
 
   String id;
   String name;
-  String photo;
+  String? photo;
   String groupId;
 }

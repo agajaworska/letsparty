@@ -83,7 +83,6 @@ class CreateGroup extends StatelessWidget {
                       context
                           .read<CreateGroupCubit>()
                           .createGroup(
-                            groupId: '',
                             groupName: createGroupController.text,
                             userName: userNameController.text,
                           )

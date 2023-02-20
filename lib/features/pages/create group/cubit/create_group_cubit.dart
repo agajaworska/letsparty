@@ -13,7 +13,6 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
   Future<void> createGroup({
     required String groupName,
     required String userName,
-    required String groupId,
   }) async {
     try {
       await groupRepository.createGroup(

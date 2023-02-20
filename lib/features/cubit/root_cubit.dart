@@ -88,6 +88,7 @@ class RootCubit extends Cubit<RootState> {
         );
       }
     }
+    print(state);
   }
 
   Future<void> start() async {
